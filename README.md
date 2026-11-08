@@ -16,7 +16,7 @@
 
 ~~~powershell
 git clone https://github.com/wenrewenre-dev/medical-report-rag.git
-cd lab-report-rag
+cd medical-report-rag
 python -m venv venv
 venv\Scripts\Activate.ps1        # macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
