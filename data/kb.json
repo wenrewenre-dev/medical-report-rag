@@ -1,0 +1,7152 @@
+[
+  {
+    "id": 1,
+    "name": "血红蛋白",
+    "abbr": [
+      "Hb",
+      "HGB"
+    ],
+    "aliases": [
+      "血色素",
+      "Haemoglobin"
+    ],
+    "category": "血常规",
+    "loinc_code": "718-7",
+    "unit": "g/L",
+    "unit_conversions": [
+      {
+        "from_unit": "g/dL",
+        "to_unit": "g/L",
+        "factor": 10,
+        "note": "常见于进口试剂/海外报告，须统一换算"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 130,
+        "high": 175,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 115,
+        "high": 150,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "孕妇（中国贫血诊断阈值）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "是",
+        "altitude_note": null,
+        "low": 100,
+        "high": null,
+        "source": "WS/T 441-2013"
+      },
+      {
+        "population": "儿童（学龄前）",
+        "sex": null,
+        "age_range": {
+          "min": 6,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 115,
+        "high": 160,
+        "source": "WHO 儿童标准"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 50,
+        "critical_high": 200,
+        "action": "立即就医；重度贫血评估输血，显著升高排查真红或严重缺氧",
+        "source": "国内三甲医院危急值多机构共识",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "新生儿（足月）",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "critical_low": 95,
+        "critical_high": 223,
+        "action": "低于 95 提示重度贫血；高于 223 警惕红细胞增多-高黏滞",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 45,
+        "direction": "below",
+        "meaning": "输血决定水平",
+        "clinical_action": "临床综合评估考虑输注红细胞",
+        "source": "临床医学决定水平速查表"
+      },
+      {
+        "level": 70,
+        "direction": "below",
+        "meaning": "WHO 重度贫血界值",
+        "clinical_action": "评估输血指征与病因",
+        "source": "WHO 贫血分级"
+      },
+      {
+        "level": 230,
+        "direction": "above",
+        "meaning": "紧急放血决定水平",
+        "clinical_action": "真红/严重相对性红细胞增多需评估放血",
+        "source": "临床医学决定水平速查表"
+      }
+    ],
+    "elevated_meaning": "常见于真性红细胞增多症、严重脱水导致的血液浓缩、慢性缺氧状态（高原居住、慢阻肺、先心病）；吸烟者、长期使用雄激素者可轻度升高。",
+    "decreased_meaning": "最常见于各种类型的贫血（缺铁性、巨幼细胞性、失血性、溶血性、再生障碍性等），需结合 MCV、MCH、MCHC 判断贫血形态学类型。",
+    "related_diseases": [
+      "缺铁性贫血",
+      "巨幼细胞性贫血",
+      "慢性失血",
+      "溶血性贫血",
+      "急性失血", 
+      "再生障碍性贫血",
+      "真性红细胞增多症",
+      "慢性肾病相关性贫血"
+    ],
+    "related_indicators": [
+      "MCV",
+      "MCH",
+      "MCHC",
+      "RDW",
+      "网织红细胞",
+      "血清铁",
+      "铁蛋白",
+      "叶酸",
+      "维生素B12",
+      "EPO",
+      "JAK2 V617F"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "脱水、大面积烧伤、糖尿病酮症酸中毒",
+        "mechanism": "血浆容量减少，红细胞相对浓缩",
+        "how_to_detect": "Hct 与血浆总蛋白同步升高"
+      },
+      {
+        "direction": "elevated",
+        "factor": "止血带结扎过久、采血时用力拍打",
+        "mechanism": "局部血液浓缩",
+        "how_to_detect": "规范采血复查可纠正"
+      },
+      {
+        "direction": "elevated",
+        "factor": "长期高原居住（≥3000 m）",
+        "mechanism": "缺氧刺激 EPO，红细胞代偿增生",
+        "how_to_detect": "询问居住史，属生理性"
+      },
+      {
+        "direction": "decreased",
+        "factor": "输液同侧采血",
+        "mechanism": "输液稀释标本",
+        "how_to_detect": "核对输液侧与采血侧是否同侧"
+      },
+      {
+        "direction": "either",
+        "factor": "标本溶血或仪器识别异常",
+        "mechanism": "细胞计数偏差",
+        "how_to_detect": "观察血清是否粉红；手工计数复核"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "轻度降低 2–4 周复查血常规，加做铁代谢；MCV 升高加查叶酸、B12；MCV 正常查网织红与大便隐血",
+        "followup_tests": [
+          "血清铁",
+          "铁蛋白",
+          "总铁结合力",
+          "叶酸",
+          "维生素B12",
+          "网织红细胞",
+          "大便隐血"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；评估血型与交叉配血、凝血、溶血指标",
+        "followup_tests": [
+          "血型+交叉配血",
+          "凝血功能",
+          "LDH",
+          "结合珠蛋白",
+          "Coombs 试验"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "1–2 周复查；持续升高（男>180、女>170 g/L）查 JAK2、EPO、腹部 B 超",
+        "followup_tests": [
+          "JAK2 V617F",
+          "EPO",
+          "腹部 B 超",
+          "血气分析"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医，评估放血；查血黏度、血气、心电图",
+        "followup_tests": [
+          "血黏度",
+          "血气分析",
+          "心电图",
+          "骨髓穿刺"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "高原居民、吸烟者、运动员可生理性偏高；新生儿 2–3 月存在生理性贫血期；贫血的形态学分类需结合红细胞参数,小细胞低色素性贫血（如缺铁性贫血）时血红蛋白降低常伴MCV、MCH、MCHC同步降低；大细胞性贫血（如巨幼细胞性贫血）时MCV升高。判断贫血类型不能只看血红蛋白单项。孕妇生理性偏低。",
+    "source": "参考区间 WS/T 405-2012；危急值依据国内三甲医院多机构共识；贫血诊断阈值 WS/T 441-2013",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 2,
+    "name": "白细胞计数",
+    "abbr": [
+      "WBC",
+      "W.B.C",
+      "WBC count",
+      "Leukocyte count"
+    ],
+    "aliases": [
+      "白细胞",
+      "白血球",
+      "白血胞"
+    ],
+    "category": "血常规",
+    "loinc_code": "26464-8",
+    "unit": "×10⁹/L",
+    "unit_conversions": [
+      {
+        "from_unit": "/μL",
+        "to_unit": "×10⁹/L",
+        "factor": 0.001,
+        "note": "1 K/μL = 1 ×10⁹/L"
+      },
+      {
+        "from_unit": "K/μL",
+        "to_unit": "×10⁹/L",
+        "factor": 1,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.5,
+        "high": 9.5,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "孕妇（中晚期生理性偏高）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "是",
+        "altitude_note": null,
+        "low": 5.0,
+        "high": 15.0,
+        "source": "临床检验教科书"
+      },
+      {
+        "population": "新生儿（出生 2 周–1 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 14,
+          "max": 365,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 11,
+        "high": 12,
+        "source": "儿科血液学参考"
+      },
+      {
+        "population": "儿童（1–8 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 8,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 5,
+        "high": 12,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 2.0,
+        "critical_high": 30.0,
+        "action": "<2 提示严重免疫抑制/骨髓衰竭，伴发热立即抗感染；>30 需紧急排查白血病、严重感染",
+        "source": "国内三甲医院危急值多机构共识（成人 <2 或 >30 最为常用；部分医院为 25）",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "critical_low": 1.5,
+        "critical_high": 20.0,
+        "action": "<1.5 或 >20 需紧急儿科评估感染或血液系统疾病",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 0.5,
+        "direction": "below",
+        "meaning": "粒细胞缺乏界值（需结合 ANC）",
+        "clinical_action": "粒细胞缺乏伴发热属急症，需广谱抗生素+G-CSF",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 11.0,
+        "direction": "above",
+        "meaning": "白细胞增多界值",
+        "clinical_action": "区分感染性与非感染性，查 CRP/PCT",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 50.0,
+        "direction": "above",
+        "meaning": "类白血病反应/白血病界值",
+        "clinical_action": "需外周血涂片+骨髓穿刺",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 100.0,
+        "direction": "above",
+        "meaning": "高白细胞症（急症）",
+        "clinical_action": "警惕白细胞淤滞综合征，需紧急细胞分离或化疗",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "最常见于细菌感染（尤其化脓性）；病毒感染早期、组织损伤（心梗、创伤、烧伤）、应激、糖皮质激素使用、妊娠/分娩均可升高；显著升高（>50×10⁹/L）需警惕白血病、类白血病反应。",
+    "decreased_meaning": "常见于病毒感染（流感、EB 病毒）、再生障碍性贫血、骨髓增生异常综合征（MDS）、化疗/放疗后骨髓抑制、系统性红斑狼疮、脾功能亢进、某些药物（如甲巯咪唑、氯霉素）；<2×10⁹/L 伴发热为粒缺发热，属急症。",
+    "related_diseases": [
+      "细菌感染",
+      "脓毒症",
+      "急性白血病",
+      "再生障碍性贫血",
+      "骨髓增生异常综合征",
+      "系统性红斑狼疮",
+      "脾功能亢进"
+    ],
+    "related_indicators": [
+      "中性粒细胞绝对值(ANC)",
+      "淋巴细胞绝对值",
+      "单核细胞绝对值",
+      "CRP",
+      "降钙素原(PCT)",
+      "外周血涂片（幼稚细胞）",
+      "骨髓穿刺"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "剧烈运动、寒冷、情绪激动、餐后",
+        "mechanism": "边缘池粒细胞释放入循环",
+        "how_to_detect": "静息 30 分钟后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血时过度拍打、止血带过紧",
+        "mechanism": "局部血管内皮细胞脱落",
+        "how_to_detect": "规范采血复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "糖皮质激素、锂剂",
+        "mechanism": "促进骨髓释放并减少渗出",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "decreased",
+        "factor": "EDTA 依赖性白细胞聚集",
+        "mechanism": "EDTA 诱导白细胞凝集，仪器计数偏低",
+        "how_to_detect": "涂片可见白细胞聚集；换枸橼酸钠管复查"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "低温下红细胞聚集干扰白细胞计数通道",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "无症状轻度升高 1–2 周复查；伴发热查 CRP/PCT 与感染灶",
+        "followup_tests": [
+          "CRP",
+          "PCT",
+          "外周血涂片",
+          "血培养"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "decreased",
+        "advice": "轻度降低 1–2 周复查；伴发热立即就医；持续低查 ANC、涂片与骨髓",
+        "followup_tests": [
+          "ANC",
+          "外周血涂片",
+          "骨髓穿刺",
+          "自身抗体"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；粒缺发热需经验性广谱抗生素，必要时 G-CSF",
+        "followup_tests": [
+          "ANC",
+          "血培养",
+          "CRP",
+          "PCT",
+          "骨髓穿刺"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；查外周血涂片、骨髓穿刺，警惕白血病或严重感染",
+        "followup_tests": [
+          "外周血涂片",
+          "骨髓穿刺+免疫分型",
+          "血培养",
+          "影像学"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "孕妇妊娠中晚期可生理性升至 15×10⁹/L；新生儿出生时可达 15–20×10⁹/L；剧烈运动、餐后、午后均生理性偏高。",
+    "source": "参考区间 WS/T 405-2012；危急值参考湘雅/北大人民/和睦家等三甲院内制度",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 3,
+    "name": "血小板计数",
+    "abbr": [
+      "PLT",
+      "PLT count",
+      "Platelet",
+      "Thrombocyte count"
+    ],
+    "aliases": [
+      "血小板",
+      "PLT 计数",
+      "BPC"
+    ],
+    "category": "血常规",
+    "loinc_code": "777-3",
+    "unit": "×10⁹/L",
+    "unit_conversions": [
+      {
+        "from_unit": "K/μL",
+        "to_unit": "×10⁹/L",
+        "factor": 1,
+        "note": null
+      },
+      {
+        "from_unit": "/μL",
+        "to_unit": "×10⁹/L",
+        "factor": 0.001,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 125,
+        "high": 350,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "孕妇（生理性偏低）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "是",
+        "altitude_note": null,
+        "low": 100,
+        "high": 300,
+        "source": "临床检验教科书"
+      },
+      {
+        "population": "新生儿（0–28 天）",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 150,
+        "high": 450,
+        "source": "儿科血液学参考"
+      },
+      {
+        "population": "儿童（>1 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 150,
+        "high": 400,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人（一般人群）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "critical_low": 30,
+        "critical_high": 1000,
+        "action": "<30 自发性出血风险显著升高（颅内出血概率 0.5–1%）；>1000 需警惕骨髓增殖性疾病或反应性增多",
+        "source": "国内三甲医院多机构共识（<30 或 <50、>800 或 >1000 各有采用）",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "critical_low": 100,
+        "critical_high": 1000,
+        "action": "<100 需警惕颅内出血与感染；早产儿阈值更高",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      },
+      {
+        "population": "术前/出血患者",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 50,
+        "critical_high": 800,
+        "action": "手术或有出血倾向者 <50 需干预；>800 需评估血栓风险",
+        "source": "术前评估指南",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 20,
+        "direction": "below",
+        "meaning": "免疫性血小板减少紧急干预界值",
+        "clinical_action": "ITP 患者 <20 且伴出血需静脉丙球或激素冲击",
+        "source": "ITP 中国诊疗指南"
+      },
+      {
+        "level": 50,
+        "direction": "below",
+        "meaning": "出血风险评估界值",
+        "clinical_action": "需评估侵入性操作风险",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 450,
+        "direction": "above",
+        "meaning": "反应性/克隆性增多界值",
+        "clinical_action": "查 JAK2/CALR/MPL 排除原发性血小板增多症",
+        "source": "WHO 骨髓增殖性肿瘤分类"
+      },
+      {
+        "level": 1500,
+        "direction": "above",
+        "meaning": "极高血小板（血栓+出血风险）",
+        "clinical_action": "原发性血小板增多症高危，需评估阿司匹林/细胞减数治疗",
+        "source": "WHO 骨髓增殖性肿瘤分类"
+      }
+    ],
+    "elevated_meaning": "最常见为反应性增多（感染、缺铁性贫血、炎症、术后、脾切除后）；持续 >450 需排除原发性血小板增多症、骨髓增殖性肿瘤；>1000 时血栓与出血风险并存。",
+    "decreased_meaning": "常见于免疫性血小板减少症（ITP）、病毒感染后、DIC、肝硬化脾亢、白血病/MDS、化疗后骨髓抑制；<50 出血风险增加，<20 自发性出血风险显著。",
+    "related_diseases": [
+      "免疫性血小板减少症",
+      "DIC",
+      "肝硬化脾功能亢进",
+      "原发性血小板增多症",
+      "骨髓增殖性肿瘤",
+      "白血病",
+      "血栓性血小板减少性紫癜"
+    ],
+    "related_indicators": [
+      "MPV",
+      "PDW",
+      "凝血功能(PT/APTT/FIB)",
+      "D-二聚体",
+      "外周血涂片",
+      "JAK2/CALR/MPL 基因",
+      "骨髓穿刺"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "EDTA 依赖性血小板聚集（最常见假性减少原因）",
+        "mechanism": "EDTA 诱导血小板膜糖蛋白变构，发生聚集，仪器计数偏低",
+        "how_to_detect": "涂片镜下可见血小板成簇；换枸橼酸钠/肝素管或手工计数可纠正"
+      },
+      {
+        "direction": "decreased",
+        "factor": "采血不顺利、标本凝固",
+        "mechanism": "微凝块消耗血小板",
+        "how_to_detect": "观察标本是否有肉眼凝块"
+      },
+      {
+        "direction": "elevated",
+        "factor": "标本存放时间过长（>4 小时）",
+        "mechanism": "血小板自聚减少使计数相对升高，或溶解干扰",
+        "how_to_detect": "采血后 2 小时内完成检测"
+      },
+      {
+        "direction": "either",
+        "factor": "巨大血小板综合征",
+        "mechanism": "巨大血小板超过仪器阈值被计为红细胞/白细胞",
+        "how_to_detect": "涂片可见巨大血小板；手工计数复核"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "无症状轻度减少 1–2 周复查；持续 <100 查涂片排除假性减少，再加查凝血、自身抗体",
+        "followup_tests": [
+          "外周血涂片",
+          "凝血功能",
+          "ANA",
+          "抗磷脂抗体",
+          "骨髓穿刺"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；<30 需评估输注血小板；<20 伴出血需丙球/激素治疗",
+        "followup_tests": [
+          "凝血功能",
+          "骨髓穿刺",
+          "DIC 全套",
+          "HIV/HCV/HP"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "复查血常规；持续 >450 查 JAK2/CALR/MPL、骨髓穿刺",
+        "followup_tests": [
+          "JAK2 V617F",
+          "CALR",
+          "MPL",
+          "血清铁蛋白",
+          "骨髓穿刺"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；评估血栓与出血风险，必要时抗血小板/细胞减数治疗",
+        "followup_tests": [
+          "JAK2/CALR/MPL",
+          "骨髓穿刺",
+          "血黏度",
+          "腹部 B 超"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "EDTA 依赖性聚集是临床最常见的'假性血小板减少'原因，建议在 LLM 解读时若发现 PLT 显著减低而 MPV 升高，主动提示'复查排除假性减少'。",
+    "source": "参考区间 WS/T 405-2012；危急值参考多机构院内制度",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 4,
+    "name": "血清钾",
+    "abbr": [
+      "K",
+      "K⁺",
+      "K+",
+      "Serum K",
+      "Potassium",
+      "KALI"
+    ],
+    "aliases": [
+      "血钾",
+      "钾离子",
+      "血钾浓度"
+    ],
+    "category": "电解质",
+    "loinc_code": "2823-3",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mEq/L",
+        "to_unit": "mmol/L",
+        "factor": 1,
+        "note": "两者数值相同"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.5,
+        "high": 5.3,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.5,
+        "high": 5.5,
+        "source": "儿科电解质参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.7,
+        "high": 5.9,
+        "source": "儿科电解质参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 2.5,
+        "critical_high": 6.5,
+        "action": "<2.5 严重低钾（呼吸肌麻痹、横纹肌溶解、心律失常）；>6.5 严重高钾（心室纤颤、心搏骤停）；需立即心电监护与急诊处理",
+        "source": "国内三甲医院多机构共识（2.5/6.5 为主流；部分医院用 2.8/6.2）",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "critical_low": 2.5,
+        "critical_high": 6.5,
+        "action": "同成人处理原则，需儿科急诊评估",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 3.0,
+        "direction": "below",
+        "meaning": "低钾血症中度界值",
+        "clinical_action": "全身总钾缺约 200–400 mmol，需系统补钾",
+        "source": "默沙东诊疗手册专业版"
+      },
+      {
+        "level": 5.5,
+        "direction": "above",
+        "meaning": "高钾血症诊断界值",
+        "clinical_action": "查心电图，排除假性高钾",
+        "source": "默沙东诊疗手册专业版"
+      },
+      {
+        "level": 6.0,
+        "direction": "above",
+        "meaning": "中度高钾",
+        "clinical_action": "心电图可见 T 波高尖，需药物治疗",
+        "source": "默沙东诊疗手册专业版"
+      },
+      {
+        "level": 7.0,
+        "direction": "above",
+        "meaning": "严重高钾（致命性）",
+        "clinical_action": "立即静脉钙剂+胰岛素+葡萄糖，必要时透析",
+        "source": "默沙东诊疗手册专业版"
+      }
+    ],
+    "elevated_meaning": "常见于肾功能不全（急性/慢性）、ACEI/ARB/螺内酯等药物、代谢性酸中毒（尤其 DKA）、组织破坏（横纹肌溶解、肿瘤溶解、烧伤、溶血）、补钾过量；但临床最常见的'高钾'其实是假性高钾（溶血、止血带过久、血小板增多）。",
+    "decreased_meaning": "常见于呕吐/腹泻/胃肠减压、利尿剂（袢利尿剂、噻嗪类）、摄入不足、DKA（总体缺钾但血钾可因胰岛素治疗前偏高）、醛固酮增多症、肾小管酸中毒（I 型与 II 型）、镁缺乏。",
+    "related_diseases": [
+      "急慢性肾功能不全",
+      "糖尿病酮症酸中毒",
+      "横纹肌溶解",
+      "原发性醛固酮增多症",
+      "肾小管酸中毒",
+      "周期性麻痹"
+    ],
+    "related_indicators": [
+      "钠",
+      "氯",
+      "碳酸氢根",
+      "血气分析",
+      "肌酐",
+      "尿素氮",
+      "心电图(T 波/QRS)",
+      "镁",
+      "血糖",
+      "肌酸激酶(CK)"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "标本溶血（最常见假性高钾原因）",
+        "mechanism": "红细胞内钾释放至血清/血浆",
+        "how_to_detect": "观察血清是否粉红/红色；报告单'溶血'提示；复查规范采血"
+      },
+      {
+        "direction": "elevated",
+        "factor": "止血带过紧过久、过度握拳",
+        "mechanism": "局部缺氧致细胞内钾外流",
+        "how_to_detect": "规范采血复查可纠正"
+      },
+      {
+        "direction": "elevated",
+        "factor": "血小板增多（>400×10⁹/L）",
+        "mechanism": "凝血过程中血小板释放钾（血清钾高，血浆钾正常）",
+        "how_to_detect": "用血浆（肝素抗凝）而非血清复测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "白细胞极度增多（如 CML）",
+        "mechanism": "白细胞在体外释放钾",
+        "how_to_detect": "采血后立即分离血浆并检测"
+      },
+      {
+        "direction": "decreased",
+        "factor": "样本久置未及时分离（罕见）",
+        "mechanism": "白细胞在室温下摄取血钾（慢性髓性白血病患者）",
+        "how_to_detect": "采血后立即离心分离并检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "轻度低钾复查并评估饮食/药物；<3.0 需系统补钾并查心电图、镁",
+        "followup_tests": [
+          "血镁",
+          "血气分析",
+          "24 小时尿钾",
+          "心电图",
+          "肾功能"
+        ],
+        "recheck_interval": "数天"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；评估呼吸肌无力、横纹肌溶解，心电监护下静脉补钾",
+        "followup_tests": [
+          "心电图",
+          "肌酸激酶(CK)",
+          "血气分析",
+          "肌酐",
+          "尿肌红蛋白"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "首先排除假性高钾（溶血、止血带过紧、血小板增多）再复查；>5.5 查心电图",
+        "followup_tests": [
+          "心电图",
+          "肾功能",
+          "血气分析",
+          "血糖"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；心电监护，静脉钙剂稳定心肌，胰岛素+葡萄糖转移钾，必要时透析",
+        "followup_tests": [
+          "心电图",
+          "血气分析",
+          "肾功能",
+          "血糖",
+          "复查血钾（排除假性）"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "钾是细胞内主阳离子，血清钾轻微变化即有显著临床表现；解读时必须先评估是否假性异常（溶血、采血因素），再判断临床意义。",
+    "source": "默沙东诊疗手册专业版 https://www.msdmanuals.cn/professional/nephrology/electrolyte-disorders/hyperkalemia；参考区间 WS/T 404.2-2012",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 5,
+    "name": "血清钠",
+    "abbr": [
+      "Na",
+      "Na⁺",
+      "Na+",
+      "Serum Na",
+      "Sodium",
+      "NA"
+    ],
+    "aliases": [
+      "血钠",
+      "钠离子",
+      "血钠浓度"
+    ],
+    "category": "电解质",
+    "loinc_code": "2951-2",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mEq/L",
+        "to_unit": "mmol/L",
+        "factor": 1,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 137,
+        "high": 147,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 135,
+        "high": 145,
+        "source": "儿科电解质参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 134,
+        "high": 146,
+        "source": "儿科电解质参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 120,
+        "critical_high": 160,
+        "action": "<120 严重低钠（脑水肿、抽搐、昏迷）；>160 严重高钠（脑脱水、颅内出血）；均需立即急诊处理",
+        "source": "国内三甲医院多机构共识（120/160 为统一主流）",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "critical_low": 120,
+        "critical_high": 160,
+        "action": "同成人，儿童脑对钠变化更敏感",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 130,
+        "direction": "below",
+        "meaning": "低钠血症中度界值",
+        "clinical_action": "出现明显症状（恶心、头痛、嗜睡）",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 125,
+        "direction": "below",
+        "meaning": "严重低钠",
+        "clinical_action": "需住院评估，缓慢纠正（防渗透性脱髓鞘）",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 150,
+        "direction": "above",
+        "meaning": "高钠血症中度界值",
+        "clinical_action": "口渴、烦躁，需评估水摄入与丢失",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 155,
+        "direction": "above",
+        "meaning": "严重高钠",
+        "clinical_action": "意识障碍、肌张力增高，需急诊补液",
+        "source": "默沙东诊疗手册"
+      }
+    ],
+    "elevated_meaning": "常见于水摄入不足（昏迷、认知障碍、老年）、水丢失过多（尿崩症、大量出汗、发热、腹泻）、钠摄入过多（高张盐水、海水误吸）、原发性醛固酮增多症、库欣综合征；婴儿对高钠特别敏感。",
+    "decreased_meaning": "常见于抗利尿激素分泌异常综合征（SIADH，肺癌、CNS 疾病）、心力衰竭、肝硬化腹水、肾病综合征（稀释性低钠）、利尿剂（噻嗪类）、肾上腺皮质功能不全、大量饮水、呕吐腹泻；纠正速度过快可致渗透性脱髓鞘综合征。",
+    "related_diseases": [
+      "SIADH",
+      "尿崩症",
+      "心力衰竭",
+      "肝硬化",
+      "肾上腺皮质功能不全",
+      "原发性醛固酮增多症",
+      "脑水肿"
+    ],
+    "related_indicators": [
+      "血清渗透压",
+      "尿渗透压",
+      "尿钠",
+      "血钾",
+      "血氯",
+      "碳酸氢根",
+      "肌酐",
+      "血糖",
+      "血脂（排除假性低钠）",
+      "血总蛋白"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "高血糖（渗透性稀释）",
+        "mechanism": "血糖每升高 5.6 mmol/L，血钠稀释性下降约 1.6 mmol/L",
+        "how_to_detect": "同步查血糖，用校正公式还原'真实血钠'"
+      },
+      {
+        "direction": "decreased",
+        "factor": "高脂血症（乳糜血）或高蛋白血症（M 蛋白）",
+        "mechanism": "脂质/蛋白占据血浆体积，单位血浆中 Na 相对减少（假性低钠）",
+        "how_to_detect": "观察血浆是否乳糜；用直接离子选择电极法复测"
+      },
+      {
+        "direction": "decreased",
+        "factor": "大量饮水后立即采血",
+        "mechanism": "急性水负荷稀释",
+        "how_to_detect": "询问采血前饮水史"
+      },
+      {
+        "direction": "elevated",
+        "factor": "脱水、腹泻、大量出汗后未补水",
+        "mechanism": "失水多于失钠",
+        "how_to_detect": "同步查看 Hct 与尿素氮是否升高"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "轻度低钠评估饮水与用药；<130 或有症状需查渗透压、尿钠、尿渗透压确定病因",
+        "followup_tests": [
+          "血清与尿渗透压",
+          "尿钠",
+          "甲状腺功能",
+          "皮质醇",
+          "血糖"
+        ],
+        "recheck_interval": "数天–1 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；缓慢纠正（<8–10 mmol/L/24h）防渗透性脱髓鞘；抽搐/昏迷可用高张盐水",
+        "followup_tests": [
+          "血清与尿渗透压",
+          "尿钠",
+          "头颅 CT",
+          "皮质醇",
+          "甲状腺功能"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "复查并评估饮水能力、尿崩症可能",
+        "followup_tests": [
+          "血清与尿渗透压",
+          "尿比重",
+          "AVP（血管加压素）"
+        ],
+        "recheck_interval": "数天"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；缓慢补液降钠，防脑水肿反弹",
+        "followup_tests": [
+          "血清与尿渗透压",
+          "尿比重",
+          "头颅 CT",
+          "肾功能"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "解读低钠必须先排除'假性低钠'（高血糖、高脂、高蛋白），并计算校正血钠；纠正速度过快可致致命性脱髓鞘。",
+    "source": "默沙东诊疗手册；参考区间 WS/T 404.2-2012",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 6,
+    "name": "空腹血糖",
+    "abbr": [
+      "GLU",
+      "FPG",
+      "FBG",
+      "Fasting glucose",
+      "Glu",
+      "BS"
+    ],
+    "aliases": [
+      "空腹血糖",
+      "空腹血糖浓度",
+      "血糖",
+      "空腹血浆葡萄糖"
+    ],
+    "category": "糖代谢",
+    "loinc_code": "1558-6",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.0555,
+        "note": "海外报告常用 mg/dL，1 mmol/L ≈ 18 mg/dL"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.9,
+        "high": 6.1,
+        "source": "中国 2 型糖尿病防治指南"
+      },
+      {
+        "population": "孕妇（24–28 周筛查）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "是",
+        "altitude_note": null,
+        "low": 3.3,
+        "high": 5.1,
+        "source": "中国 GDM 诊断标准"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 2.2,
+        "critical_high": 22.2,
+        "action": "<2.2 严重低血糖（意识障碍、抽搐、昏迷）；>22.2 提示 DKA 或高渗高血糖状态（HHS）；均需急诊",
+        "source": "国内三甲医院多机构共识（2.2/22.2 为最广泛采用）",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 3.0,
+        "direction": "below",
+        "meaning": "低血糖诊断界值",
+        "clinical_action": "出现交感兴奋或中枢神经症状",
+        "source": "中国低血糖指南"
+      },
+      {
+        "level": 6.1,
+        "direction": "above",
+        "meaning": "空腹血糖受损界值",
+        "clinical_action": "需行 OGTT 排查糖尿病前期",
+        "source": "中国 2 型糖尿病防治指南"
+      },
+      {
+        "level": 7.0,
+        "direction": "above",
+        "meaning": "糖尿病诊断界值（空腹）",
+        "clinical_action": "需复查或 OGTT/HbA1c 确诊",
+        "source": "中国 2 型糖尿病防治指南"
+      },
+      {
+        "level": 16.7,
+        "direction": "above",
+        "meaning": "DKA 风险界值",
+        "clinical_action": "需查血酮/尿酮与血气",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 33.3,
+        "direction": "above",
+        "meaning": "HHS 高危界值",
+        "clinical_action": "立即急诊，补液+胰岛素治疗",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "常见于糖尿病/糖尿病前期、应激性高血糖（感染、创伤、心梗、手术）、库欣综合征、甲亢、嗜铬细胞瘤、胰腺炎、药物（糖皮质激素、噻嗪类利尿剂、抗精神病药）；单次轻度升高需结合 HbA1c 或 OGTT 确诊。",
+    "decreased_meaning": "常见于降糖药/胰岛素过量（糖尿病患者最常见）、进食不足、肝功能不全、肾上腺皮质功能不全、胰岛素瘤、餐后反应性低血糖、酒精摄入（抑制糖异生）。",
+    "related_diseases": [
+      "糖尿病",
+      "糖尿病前期",
+      "胰岛素瘤",
+      "库欣综合征",
+      "嗜铬细胞瘤",
+      "肝硬化",
+      "肾上腺皮质功能不全"
+    ],
+    "related_indicators": [
+      "HbA1c",
+      "OGTT",
+      "胰岛素/C 肽释放试验",
+      "血酮体",
+      "乳酸",
+      "血气分析",
+      "皮质醇",
+      "甲状腺功能"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "空腹时间不足（<8 小时）",
+        "mechanism": "进食后血糖未恢复空腹水平",
+        "how_to_detect": "询问空腹时长，规范 8–12 小时空腹复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前剧烈运动或情绪激动",
+        "mechanism": "应激激素升高致血糖升高",
+        "how_to_detect": "静息 30 分钟后复测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "静滴葡萄糖输液同侧采血",
+        "mechanism": "标本被葡萄糖污染",
+        "how_to_detect": "核对输液侧与采血侧"
+      },
+      {
+        "direction": "decreased",
+        "factor": "空腹时间过长（>16 小时）",
+        "mechanism": "饥饿应激导致血糖下降、胆红素升高",
+        "how_to_detect": "询问空腹时长；规范 8–12 小时空腹复查"
+      },
+      {
+        "direction": "decreased",
+        "factor": "维生素C 干扰（氧化酶法）",
+        "mechanism": "VC 还原反应使血糖结果偏低",
+        "how_to_detect": "询问大剂量 VC 补充史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "无症状轻度低血糖排除禁食过长；有症状立即补糖；反复低血糖查胰岛素/C 肽、皮质醇",
+        "followup_tests": [
+          "胰岛素",
+          "C 肽",
+          "皮质醇",
+          "胰岛素抗体"
+        ],
+        "recheck_interval": "数天–1 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即就医；静脉推注 50% 葡萄糖，必要时持续静滴并查找病因",
+        "followup_tests": [
+          "胰岛素",
+          "C 肽",
+          "皮质醇",
+          "肝功能",
+          "血气分析"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "轻度升高 2–4 周复查空腹血糖+HbA1c；确诊需 OGTT 或 HbA1c",
+        "followup_tests": [
+          "HbA1c",
+          "OGTT",
+          "尿常规（尿糖、尿酮）",
+          "血脂",
+          "肾功能"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；评估 DKA（查血酮、血气、电解质）或 HHS（查血渗透压）",
+        "followup_tests": [
+          "血酮体",
+          "血气分析",
+          "电解质",
+          "血渗透压",
+          "肾功能",
+          "心电图"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "空腹定义为 8–12 小时无任何热量摄入；采血时间最好为上午 7–9 点；睡前血糖与晨间空腹血糖受'黎明现象'与'Somogyi 现象'影响，需注意区分。",
+    "source": "中国 2 型糖尿病防治指南（2020）；危急值参考多机构院内制度",
+    "source_id": "CDS-2020",
+    "source_version": "2020",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 7,
+    "name": "丙氨酸氨基转移酶",
+    "abbr": [
+      "ALT",
+      "SGPT",
+      "ALT/GPT",
+      "Alanine aminotransferase"
+    ],
+    "aliases": [
+      "谷丙转氨酶",
+      "丙氨酸转氨酶",
+      "GPT",
+      "谷丙"
+    ],
+    "category": "肝功能",
+    "loinc_code": "1742-6",
+    "unit": "U/L",
+    "unit_conversions": [
+      {
+        "from_unit": "μkat/L",
+        "to_unit": "U/L",
+        "factor": 60,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 9,
+        "high": 50,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 7,
+        "high": 40,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "儿童（1–12 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 8,
+        "high": 35,
+        "source": "儿科肝功能参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 1000,
+        "action": ">1000 U/L 提示急性肝细胞大量坏死（急性病毒性肝炎、药物性肝损伤、缺血性肝炎、Wilson 病急性发作）；需立即肝病科评估",
+        "source": "部分三甲医院院内制度；ALT 多数机构不设危急值上限，仅以医学决定水平提示",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 60,
+        "direction": "above",
+        "meaning": "需排查病理性肝损伤",
+        "clinical_action": "排除饮酒、疲劳、药物等生理因素后复查",
+        "source": "科普中国/临床参考"
+      },
+      {
+        "level": 80,
+        "direction": "above",
+        "meaning": "有明确诊断价值",
+        "clinical_action": "需查肝炎病毒、肝脏影像学",
+        "source": "科普中国/临床参考"
+      },
+      {
+        "level": 120,
+        "direction": "above",
+        "meaning": "超过正常上限 3 倍，提示活动性肝损伤",
+        "clinical_action": "立即查肝炎全套、B 超；需临床干预",
+        "source": "央广网/临床参考"
+      },
+      {
+        "level": 400,
+        "direction": "above",
+        "meaning": "急性肝损伤高度提示",
+        "clinical_action": "查肝炎病毒 IgM、药物史、Wilson 病、自身免疫性肝病",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "常见于病毒性肝炎（乙肝、丙肝）、非酒精性脂肪性肝病（NAFLD，目前体检人群最常见原因）、酒精性肝病、药物性肝损伤（中药、抗生素、抗结核药、对乙酰氨基酚）、自身免疫性肝炎；心肌梗死、骨骼肌损伤、甲状腺疾病亦可轻度升高。",
+    "decreased_meaning": "临床意义小；见于维生素 B6 缺乏（ALT 辅酶）、严重肝功能衰竭终末期（合成功能丧失）、慢性透析患者。",
+    "related_diseases": [
+      "病毒性肝炎",
+      "非酒精性脂肪性肝病",
+      "酒精性肝病",
+      "药物性肝损伤",
+      "自身免疫性肝炎",
+      "肝硬化",
+      "肝癌",
+      "Wilson 病"
+    ],
+    "related_indicators": [
+      "AST",
+      "AST/ALT 比值",
+      "GGT",
+      "ALP",
+      "总胆红素",
+      "直接胆红素",
+      "白蛋白",
+      "凝血功能(PT/INR)",
+      "肝炎病毒标志物",
+      "肝脏 B 超/FibroScan"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前 24–72 小时饮酒",
+        "mechanism": "酒精直接损伤肝细胞膜，使转氨酶释放入血",
+        "how_to_detect": "询问饮酒史；严格禁酒 72 小时后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前 1–2 天剧烈运动",
+        "mechanism": "肌肉 ALT 释放（运动后 ALT 可升高 30–50%）",
+        "how_to_detect": "静息数日后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "熬夜、过度劳累、情绪紧张",
+        "mechanism": "肝细胞膜通透性增加",
+        "how_to_detect": "休息规律后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "服用肝毒性药物（中药、抗结核、抗生素等）",
+        "mechanism": "药物性肝损伤",
+        "how_to_detect": "详细追问用药史"
+      },
+      {
+        "direction": "elevated",
+        "factor": "肥胖、高脂饮食",
+        "mechanism": "脂肪肝基础上的 ALT 轻中度升高",
+        "how_to_detect": "查肝脏 B 超、血脂"
+      },
+      {
+        "direction": "elevated",
+        "factor": "标本溶血",
+        "mechanism": "红细胞内 ALT 释放入血清（轻度干扰）",
+        "how_to_detect": "观察血清是否粉红"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高（<2 倍上限）严格戒酒、休息、停可疑药物 2–4 周复查；持续升高查肝炎病毒、肝脏 B 超",
+        "followup_tests": [
+          "AST",
+          "GGT",
+          "总胆红素",
+          "乙肝五项",
+          "丙肝抗体",
+          "肝脏 B 超",
+          "FibroScan"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即肝病科就诊；评估急性肝衰竭风险，查凝血、血氨、肝炎病毒 IgM",
+        "followup_tests": [
+          "凝血功能",
+          "血氨",
+          "肝炎病毒全套",
+          "血铜蓝蛋白",
+          "自身免疫性肝病抗体",
+          "肝脏 B 超/CT"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "AST/ALT 比值>2 提示酒精性肝病或肝硬化；ALT/AST 均显著升高伴胆红素升高需警惕急性肝炎；ALT 轻度升高在体检人群最常见原因为脂肪肝与饮酒。",
+    "source": "WS/T 404.1-2012；参考区间依据卫生部行业标准",
+    "source_id": "WS/T 404.1-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 8,
+    "name": "血肌酐",
+    "abbr": [
+      "Cr",
+      "CREA",
+      "SCr",
+      "Crn",
+      "Serum creatinine",
+      "sCr"
+    ],
+    "aliases": [
+      "血肌酐",
+      "血清肌酐",
+      "肌酐",
+      "肌酸酐"
+    ],
+    "category": "肾功能",
+    "loinc_code": "2160-0",
+    "unit": "μmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "μmol/L",
+        "factor": 88.4,
+        "note": "海外报告常用 mg/dL，如 1.2 mg/dL ≈ 106 μmol/L"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 57,
+        "high": 111,
+        "source": "WS/T 404.2（参考国内常用区间）"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 41,
+        "high": 81,
+        "source": "WS/T 404.2（参考国内常用区间）"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 2,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 27,
+        "high": 62,
+        "source": "儿科肾功能参考"
+      },
+      {
+        "population": "老年人（>65 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 65,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": "肌肉量减少使 Cr 基线偏低，勿单以 Cr 判断肾功能，应结合 eGFR",
+        "low": 40,
+        "high": 100,
+        "source": "老年医学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 442,
+        "action": ">442 μmol/L（5 mg/dL）提示严重肾功能不全，可能需紧急评估透析；但危急值各家不一（部分医院为 265 或 354）",
+        "source": "国内三甲医院院内制度（多数以 442 或 354 为上限）",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 133,
+        "direction": "above",
+        "meaning": "CKD 3 期界值（男）",
+        "clinical_action": "需查 eGFR、尿微量白蛋白/肌酐比",
+        "source": "KDIGO CKD 指南"
+      },
+      {
+        "level": 186,
+        "direction": "above",
+        "meaning": "肾功能中度受损界值",
+        "clinical_action": "需评估慢性肾病并发症（贫血、骨病、酸中毒）",
+        "source": "KDIGO"
+      },
+      {
+        "level": 442,
+        "direction": "above",
+        "meaning": "肾衰竭界值",
+        "clinical_action": "评估急诊透析指征（容量过载、高钾、酸中毒、尿毒症脑病）",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 707,
+        "direction": "above",
+        "meaning": "终末期肾病界值",
+        "clinical_action": "通常需维持性透析或肾移植",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "常见于慢性肾脏病（糖尿病肾病、高血压肾病、慢性肾小球肾炎、多囊肾）、急性肾损伤（ATN、肾前性氮质血症、尿路梗阻）、横纹肌溶解（肌源性 Cr 升高）、大量摄入肉类或剧烈运动后一过性升高。",
+    "decreased_meaning": "临床意义有限；常见于肌肉量减少（老年、消瘦、长期卧床、截肢）、妊娠（血容量扩张稀释）、严重肝病（合成肌酸减少）；低 Cr 不代表肾功能'更佳'，老年人低 Cr 反而可能掩盖真实肾功能不全。",
+    "related_diseases": [
+      "慢性肾脏病",
+      "糖尿病肾病",
+      "高血压肾病",
+      "急性肾损伤",
+      "横纹肌溶解",
+      "尿路梗阻",
+      "多囊肾"
+    ],
+    "related_indicators": [
+      "eGFR（估算肾小球滤过率）",
+      "尿素氮(BUN)",
+      "BUN/Cr 比值",
+      "尿微量白蛋白/肌酐比(ACR)",
+      "尿常规",
+      "肾脏 B 超",
+      "电解质",
+      "血气分析",
+      "尿酸",
+      "胱抑素 C"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前 1–2 天大量进食肉类（烤肉、牛排）",
+        "mechanism": "外源性肌酐摄入",
+        "how_to_detect": "询问近期饮食；清淡饮食 3 天后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前剧烈运动",
+        "mechanism": "肌肉代谢释放肌酐",
+        "how_to_detect": "静息 2–3 天后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "脱水、腹泻、呕吐",
+        "mechanism": "肾前性氮质血症（血容量不足）",
+        "how_to_detect": "查 BUN/Cr 比值是否>20:1；补液后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "某些药物（甲氧苄啶、西咪替丁）",
+        "mechanism": "抑制肾小管分泌肌酐，致假性升高",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "decreased",
+        "factor": "肌肉量减少（老年、消瘦）",
+        "mechanism": "内生肌酐生成减少",
+        "how_to_detect": "结合 eGFR/胱抑素 C 综合评估"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高清淡饮食、避免剧烈运动 3 天后复查；持续升高查尿常规、eGFR、肾脏 B 超",
+        "followup_tests": [
+          "eGFR",
+          "尿常规",
+          "尿 ACR",
+          "肾脏 B 超",
+          "电解质",
+          "血常规（肾性贫血）"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；评估急性肾损伤 vs 慢性肾衰，查电解质、血气、容量状态，判断透析指征",
+        "followup_tests": [
+          "电解质",
+          "血气分析",
+          "肾脏 B 超（排查梗阻）",
+          "尿常规",
+          "血常规",
+          "心电图"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "解读肌酐必须结合年龄、性别、肌肉量估算 eGFR；老年人肌酐轻度升高可能代表肾功能显著下降；急性变化比绝对值更重要（48 小时内升高>26.5 μmol/L 即符合急性肾损伤）。",
+    "source": "默沙东诊疗手册专业版 https://www.msdmanuals.cn/professional/nephrology/approach-to-the-patient-with-renal-issues/evaluation-of-the-patient-with-renal-issues；危急值参考院内制度",
+    "source_id": "KDIGO-CKD",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 9,
+    "name": "总胆固醇",
+    "abbr": [
+      "TC",
+      "CHOL",
+      "T-CHO",
+      "Total cholesterol",
+      "TC-H",
+      "Chol"
+    ],
+    "aliases": [
+      "胆固醇",
+      "总胆固醇浓度",
+      "血总胆固醇"
+    ],
+    "category": "血脂",
+    "loinc_code": "2093-3",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.0259,
+        "note": "胆固醇换算系数 1/38.67"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 5.2,
+        "low_text": null,
+        "high_text": "<5.2 为合适水平",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "population": "儿童（2–17 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 2,
+          "max": 17,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 4.4,
+        "high_text": "<4.4 为合适水平（儿童标准）",
+        "source": "儿童血脂异常防治专家共识"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "血脂为慢性风险指标，临床不设危急值；极高值>10.3 mmol/L 提示家族性高胆固醇血症（FH）需专科评估",
+        "source": "中国血脂管理指南（2023）",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 5.2,
+        "direction": "above",
+        "meaning": "边缘升高界值",
+        "clinical_action": "需饮食+运动干预，评估 ASCVD 风险",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 6.2,
+        "direction": "above",
+        "meaning": "升高界值",
+        "clinical_action": "需查 LDL-C 分型，评估是否需他汀治疗",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 7.5,
+        "direction": "above",
+        "meaning": "提示家族性高胆固醇血症可能",
+        "clinical_action": "需查 LDL 受体基因、家族史、跟腱黄色瘤",
+        "source": "中国 FH 专家共识"
+      },
+      {
+        "level": 10.3,
+        "direction": "above",
+        "meaning": "FH 高度提示",
+        "clinical_action": "纯合子型 FH 风险，需专科（脂代谢）评估",
+        "source": "中国 FH 专家共识"
+      }
+    ],
+    "elevated_meaning": "常见于高胆固醇饮食、遗传因素（家族性高胆固醇血症）、甲状腺功能减退、肾病综合征、糖尿病、胆道梗阻、药物（利尿剂、糖皮质激素）；TC 升高主要致动脉粥样硬化，是 ASCVD 的核心危险因素。",
+    "decreased_meaning": "临床意义相对小；见于营养不良、吸收不良、慢性肝病（合成减少）、甲亢、贫血、感染/肿瘤慢性消耗、严重创伤术后；极低 TC 可能提示肝功能严重受损。",
+    "related_diseases": [
+      "动脉粥样硬化性心血管疾病（ASCVD）",
+      "冠心病",
+      "脑梗死",
+      "家族性高胆固醇血症",
+      "肾病综合征",
+      "甲状腺功能减退"
+    ],
+    "related_indicators": [
+      "LDL-C",
+      "HDL-C",
+      "非 HDL-C",
+      "TG",
+      "Lp(a)",
+      "ApoA1",
+      "ApoB",
+      "载脂蛋白 E 基因型"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前未严格空腹（<12 小时）或高脂餐",
+        "mechanism": "乳糜微粒干扰，使 TC 假性升高",
+        "how_to_detect": "观察血清是否乳糜；严格空腹 12 小时复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前 3 天高胆固醇饮食",
+        "mechanism": "外源性胆固醇摄入影响",
+        "how_to_detect": "保持平常饮食 3 天后复查"
+      },
+      {
+        "direction": "either",
+        "factor": "季节变化（冬季偏高）",
+        "mechanism": "寒冷季节脂代谢变化",
+        "how_to_detect": "结合季节评估"
+      },
+      {
+        "direction": "decreased",
+        "factor": "急性疾病、手术、感染恢复期",
+        "mechanism": "胆固醇作为急性负反应物下降",
+        "how_to_detect": "恢复 4–6 周后复查"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "边缘升高（5.2–6.2）4 周内生活方式干预后复查；≥6.2 查 LDL-C 并做 10 年 ASCVD 风险评估",
+        "followup_tests": [
+          "LDL-C",
+          "HDL-C",
+          "非 HDL-C",
+          "TG",
+          "Lp(a)",
+          "血糖",
+          "血压",
+          "甲状腺功能"
+        ],
+        "recheck_interval": "4–12 周"
+      },
+      {
+        "condition": "decreased",
+        "advice": "评估营养状态、肝功能、甲功；无特异性干预",
+        "followup_tests": [
+          "白蛋白",
+          "肝功能",
+          "甲状腺功能",
+          "血常规"
+        ],
+        "recheck_interval": "4–6 周"
+      }
+    ],
+    "notes": "血脂检测要求空腹 12 小时（TG 影响更大）；ASCVD 高危/极高危人群目标值更低（LDL-C<1.8 或 <1.4），不以'参考区间'判断；急性疾病 4–6 周内血脂下降，不宜作为基线。",
+    "source": "中国血脂管理指南（2023）；默沙东诊疗手册",
+    "source_id": "CSC-2023",
+    "source_version": "2023",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 10,
+    "name": "甘油三酯",
+    "abbr": [
+      "TG",
+      "TRIG",
+      "TRI",
+      "TGs",
+      "Triglyceride"
+    ],
+    "aliases": [
+      "三酰甘油",
+      "甘油三脂",
+      "中性脂肪",
+      "TG"
+    ],
+    "category": "血脂",
+    "loinc_code": "2571-8",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.0113,
+        "note": "甘油三酯换算系数 1/88.5"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.4,
+        "high": 1.7,
+        "low_text": null,
+        "high_text": "<1.7 为合适水平",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "population": "儿童（2–17 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 2,
+          "max": 17,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.36,
+        "high": 1.5,
+        "high_text": "<1.5 为合适水平（儿童）",
+        "source": "儿童血脂异常防治专家共识"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 11.3,
+        "action": ">5.6 mmol/L 为重度升高，急性胰腺炎风险显著增加；>11.3 mmol/L 胰腺炎风险极高，需紧急降 TG",
+        "source": "中国血脂管理指南（2023）；部分医院将 >11.3 列为危急值",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 1.7,
+        "direction": "above",
+        "meaning": "边缘升高",
+        "clinical_action": "生活方式干预（限酒、减重、运动、低糖）",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 2.3,
+        "direction": "above",
+        "meaning": "升高",
+        "clinical_action": "需评估 ASCVD 风险与代谢综合征",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 5.6,
+        "direction": "above",
+        "meaning": "重度升高（胰腺炎风险增加）",
+        "clinical_action": "严格戒酒、查血糖、必要时贝特类药物",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 11.3,
+        "direction": "above",
+        "meaning": "胰腺炎高危",
+        "clinical_action": "立即降 TG 干预，查血淀粉酶/脂肪酶",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "最常见为饮食因素（高糖、高脂、酒精）；也见于代谢综合征/2 型糖尿病（胰岛素抵抗）、肥胖、甲状腺功能减退、肾病综合征、药物（糖皮质激素、β 阻滞剂、雌激素、他莫昔芬）；家族性高 TG 血症（LPL/ApoC2 基因）可达极高值。",
+    "decreased_meaning": "临床意义有限；见于营养不良、吸收不良、甲亢、肝功能严重受损、慢性消耗、先天性无 β 脂蛋白血症。",
+    "related_diseases": [
+      "高 TG 血症",
+      "急性胰腺炎",
+      "代谢综合征",
+      "2 型糖尿病",
+      "冠心病",
+      "脂肪肝",
+      "家族性高 TG 血症"
+    ],
+    "related_indicators": [
+      "HDL-C（常呈负相关）",
+      "LDL-C",
+      "血糖",
+      "HbA1c",
+      "肝功能",
+      "甲状腺功能",
+      "血淀粉酶",
+      "血脂肪酶",
+      "腹部 B 超"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "未严格空腹（<12 小时）或前一晚高脂餐",
+        "mechanism": "外源性乳糜微粒未清除，TG 可升高数倍",
+        "how_to_detect": "观察血清是否乳糜；严格空腹 12 小时复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前 24–72 小时饮酒",
+        "mechanism": "酒精抑制脂蛋白脂酶，并促进肝脏 VLDL 合成",
+        "how_to_detect": "询问饮酒史；严格禁酒 72 小时复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前 1–2 天高糖饮食",
+        "mechanism": "糖转化为 TG（肝脏 VLDL 合成增加）",
+        "how_to_detect": "询问近期饮食；清淡饮食后复查"
+      },
+      {
+        "direction": "either",
+        "factor": "妊娠（生理性升高）",
+        "mechanism": "雌激素使 TG 升高，孕晚期可达 2–3 倍",
+        "how_to_detect": "询问孕周；产后 6–8 周复查评估基线"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高（1.7–2.3）严格戒酒、低糖低脂饮食、运动 4–8 周后复查；持续升高查血糖、甲功",
+        "followup_tests": [
+          "血糖",
+          "HbA1c",
+          "甲状腺功能",
+          "肝功能",
+          "腹部 B 超"
+        ],
+        "recheck_interval": "4–8 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；>5.6 需严格戒酒并评估胰腺炎（查血淀粉酶、脂肪酶、腹部 CT）；>11.3 需紧急降 TG",
+        "followup_tests": [
+          "血淀粉酶",
+          "血脂肪酶",
+          "腹部 CT",
+          "血糖",
+          "肝功能",
+          "肾功能"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "TG 是血脂中最受饮食影响的指标，解读前必须评估空腹时长与饮食/饮酒史；TG >5.6 时胰腺炎风险显著增加，应作为紧急临床提示；乳糜血标本会干扰多项生化检测。",
+    "source": "中国血脂管理指南（2023）；默沙东诊疗手册",
+    "source_id": "CSC-2023",
+    "source_version": "2023",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 11,
+    "name": "平均红细胞体积",
+    "abbr": [
+      "MCV",
+      "Mean corpuscular volume"
+    ],
+    "aliases": [
+      "红细胞平均体积",
+      "平均红血球体积",
+      "平均红细胞容积"
+    ],
+    "category": "血常规",
+    "loinc_code": "787-2",
+    "unit": "fL",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 82,
+        "high": 100,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "儿童（1–12 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 75,
+        "high": 95,
+        "source": "儿科血液学参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 95,
+        "high": 115,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "MCV 一般不设危急值，作为贫血分型参数使用",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 80,
+        "direction": "below",
+        "meaning": "小细胞性贫血界值",
+        "clinical_action": "查铁代谢、地贫筛查、慢性病贫血相关指标",
+        "source": "血液学诊断标准"
+      },
+      {
+        "level": 100,
+        "direction": "above",
+        "meaning": "大细胞性贫血界值",
+        "clinical_action": "查叶酸、维生素 B12、甲状腺功能、肝脏功能、骨髓穿刺",
+        "source": "血液学诊断标准"
+      }
+    ],
+    "elevated_meaning": "常见于巨幼细胞性贫血（维生素 B12 或叶酸缺乏）、骨髓增生异常综合征（MDS）、肝脏疾病、甲状腺功能减退、化疗后、溶血后网织红细胞增多（网织红体积大，拉高 MCV）。",
+    "decreased_meaning": "常见于缺铁性贫血、地中海贫血、慢性病贫血、铁粒幼细胞性贫血；轻度降低而无贫血需排查隐性缺铁或轻型地贫基因携带。",
+    "related_diseases": [
+      "缺铁性贫血",
+      "地中海贫血",
+      "巨幼细胞性贫血",
+      "骨髓增生异常综合征",
+      "慢性病贫血"
+    ],
+    "related_indicators": [
+      "RBC",
+      "Hb",
+      "MCH",
+      "MCHC",
+      "RDW",
+      "血清铁",
+      "铁蛋白",
+      "叶酸",
+      "维生素B12",
+      "网织红细胞",
+      "地贫基因筛查"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "冷凝集素综合征",
+        "mechanism": "低温下红细胞聚集，仪器计数体积偏大",
+        "how_to_detect": "37℃温育后立即检测可纠正"
+      },
+      {
+        "direction": "elevated",
+        "factor": "高血糖（>33 mmol/L）标本久置",
+        "mechanism": "高渗环境使红细胞在体外吸水膨胀",
+        "how_to_detect": "采血后 2 小时内完成检测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "网织红细胞增多",
+        "mechanism": "RET 体积大于成熟 RBC，平均后拉高 MCV",
+        "how_to_detect": "同步看网织红绝对值"
+      },
+      {
+        "direction": "either",
+        "factor": "大量输血后",
+        "mechanism": "供者红细胞与受者 RBC 体积混合",
+        "how_to_detect": "询问输血史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "查铁代谢（血清铁、铁蛋白、总铁结合力）；除外缺铁后查地贫基因（南方人群优先）",
+        "followup_tests": [
+          "血清铁",
+          "铁蛋白",
+          "总铁结合力",
+          "地贫基因筛查",
+          "网织红细胞"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "elevated",
+        "advice": "查叶酸、维生素 B12、甲状腺功能、肝功能、骨髓穿刺（持续 >110 fL 时）",
+        "followup_tests": [
+          "叶酸",
+          "维生素B12",
+          "甲状腺功能",
+          "肝功能",
+          "骨髓穿刺"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "MCV 是贫血形态学分类（小细胞/正常细胞/大细胞）的核心参数，必须与 MCH、MCHC、RDW 联合判读。",
+    "source": "WS/T 405-2012《血细胞分析参考区间》；默沙东诊疗手册",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 12,
+    "name": "平均血红蛋白量",
+    "abbr": [
+      "MCH",
+      "Mean corpuscular hemoglobin"
+    ],
+    "aliases": [
+      "红细胞平均血红蛋白",
+      "平均血红蛋白含量",
+      "平均红细胞血红蛋白量",
+      "平均红细胞血红蛋白含量"
+    ],
+    "category": "血常规",
+    "loinc_code": "785-6",
+    "unit": "pg",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 27,
+        "high": 34,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "儿童（1–12 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 25,
+        "high": 32,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "MCH 一般不设危急值，作为贫血分型辅助参数",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 27,
+        "direction": "below",
+        "meaning": "低色素性贫血界值",
+        "clinical_action": "与 MCV、MCHC 联合判读，优先排查缺铁/地贫",
+        "source": "血液学诊断标准"
+      }
+    ],
+    "elevated_meaning": "常见于巨幼细胞性贫血、骨髓增生异常综合征、溶血后网织红细胞增多；与 MCV 同步升高，反映单个红细胞内血红蛋白含量增加。",
+    "decreased_meaning": "常见于缺铁性贫血、地中海贫血、慢性病贫血、铁粒幼细胞性贫血；与 MCV、MCHC 联合呈'小细胞低色素'典型改变。",
+    "related_diseases": [
+      "缺铁性贫血",
+      "地中海贫血",
+      "巨幼细胞性贫血",
+      "慢性病贫血"
+    ],
+    "related_indicators": [
+      "MCV",
+      "MCHC",
+      "RDW",
+      "血清铁",
+      "铁蛋白",
+      "叶酸",
+      "维生素B12"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "高脂血症或白细胞极度增多",
+        "mechanism": "影响 Hb 比色测定，进而影响 MCH 计算",
+        "how_to_detect": "观察血清是否乳糜"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "RBC 计数偏低使 MCH 假性升高",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "与 MCV 联合判读，先查铁代谢，再查地贫",
+        "followup_tests": [
+          "MCV",
+          "MCHC",
+          "血清铁",
+          "铁蛋白",
+          "地贫基因筛查"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "elevated",
+        "advice": "与 MCV 联合判读，查叶酸、B12",
+        "followup_tests": [
+          "MCV",
+          "叶酸",
+          "维生素B12"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "MCH 与 MCV 高度相关，临床价值主要在于'小细胞低色素'三联征（MCV↓+MCH↓+MCHC↓）的组合识别。",
+    "source": "WS/T 405-2012",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 13,
+    "name": "平均血红蛋白浓度",
+    "abbr": [
+      "MCHC",
+      "Mean corpuscular hemoglobin concentration"
+    ],
+    "aliases": [
+      "红细胞平均血红蛋白浓度",
+      "平均红细胞血红蛋白浓度"
+    ],
+    "category": "血常规",
+    "loinc_code": "786-4",
+    "unit": "g/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 316,
+        "high": 354,
+        "source": "WS/T 405-2012"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值；但 MCHC 是仪器复检'哨兵'参数，>365 g/L 必须复检排除标本质控问题",
+        "source": "血细胞分析复检规则（国际血液学复检专家组）",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 365,
+        "direction": "above",
+        "meaning": "仪器复检触发界值",
+        "clinical_action": "MCHC 超过生理上限，几乎必为干扰（脂血、溶血、冷凝集）或真性球形红细胞增多，须复检",
+        "source": "血细胞分析复检规则"
+      }
+    ],
+    "elevated_meaning": "真性升高少见，见于遗传性球形红细胞增多症（RBC 表面积/体积比下降）；大多数'升高'为假性（脂血、溶血、冷凝集、白细胞极度增多）。",
+    "decreased_meaning": "常见于缺铁性贫血、地中海贫血、慢性病贫血、铁粒幼细胞性贫血；与 MCV、MCH 联合呈'小细胞低色素'改变。",
+    "related_diseases": [
+      "遗传性球形红细胞增多症",
+      "缺铁性贫血",
+      "地中海贫血",
+      "铁粒幼细胞性贫血"
+    ],
+    "related_indicators": [
+      "MCV",
+      "MCH",
+      "RDW",
+      "网织红细胞",
+      "外周血涂片（球形红细胞）",
+      "血清铁",
+      "铁蛋白"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "高脂血症/乳糜血",
+        "mechanism": "脂质干扰 Hb 比色，使 Hb 测值偏高而 MCHC 计算偏高",
+        "how_to_detect": "观察血浆是否乳糜；用血浆置换法复测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "血管内溶血",
+        "mechanism": "游离 Hb 进入血浆，被计入 Hb 测值",
+        "how_to_detect": "观察血浆是否粉红；查 LDH、结合珠蛋白"
+      },
+      {
+        "direction": "elevated",
+        "factor": "冷凝集素综合征",
+        "mechanism": "RBC 计数偏低使 MCHC 假性升高",
+        "how_to_detect": "37℃温育后立即检测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "白细胞极度增多（>100×10⁹/L）",
+        "mechanism": "白细胞浊度干扰 Hb 比色",
+        "how_to_detect": "看 WBC 数值即可识别"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "MCHC>365 必须复检排除假性；真性升高查外周血涂片（球形红细胞）与红细胞渗透脆性试验",
+        "followup_tests": [
+          "外周血涂片",
+          "红细胞渗透脆性试验",
+          "Coombs 试验",
+          "LDH",
+          "结合珠蛋白"
+        ],
+        "recheck_interval": "立即复检"
+      },
+      {
+        "condition": "decreased",
+        "advice": "与 MCV、MCH 联合判读，查铁代谢",
+        "followup_tests": [
+          "MCV",
+          "MCH",
+          "血清铁",
+          "铁蛋白"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "MCHC 由 Hb/Hct 计算得出，是血常规最敏感的质控哨兵参数，异常升高时应先怀疑干扰而非真病。",
+    "source": "WS/T 405-2012；国际血液学复检专家组（ISLH）规则",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 14,
+    "name": "红细胞压积",
+    "abbr": [
+      "HCT",
+      "Hct",
+      "PCV",
+      "Hematocrit",
+      "EVF",
+      "Packed cell volume"
+    ],
+    "aliases": [
+      "红细胞比容",
+      "红细胞比积",
+      "血细胞比容",
+      "红细胞容积"
+    ],
+    "category": "血常规",
+    "loinc_code": "4544-3",
+    "unit": "%",
+    "unit_conversions": [
+      {
+        "from_unit": "L/L",
+        "to_unit": "%",
+        "factor": 100,
+        "note": "SI 单位 0.45 L/L = 45%"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 40,
+        "high": 50,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 35,
+        "high": 45,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 48,
+        "high": 69,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 15,
+        "critical_high": 60,
+        "action": "<15% 严重贫血需紧急评估输血；>60% 提示严重脱水或真性红细胞增多症",
+        "source": "部分三甲医院院内制度（HCT 多数不单独设危急值，与 Hb 联动）",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 25,
+        "direction": "below",
+        "meaning": "中度贫血界值",
+        "clinical_action": "结合 Hb 评估输血",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 55,
+        "direction": "above",
+        "meaning": "红细胞增多界值",
+        "clinical_action": "评估脱水、真红、慢性缺氧",
+        "source": "临床医学决定水平"
+      }
+    ],
+    "elevated_meaning": "常见于脱水（血液浓缩）、真性红细胞增多症、慢性缺氧（高原、慢阻肺、先心病）、吸烟；与 Hb 同步变化。",
+    "decreased_meaning": "见于各种类型贫血、急性失血早期（Hb 未及下降而 HCT 先降）、妊娠（血容量扩张稀释）、输液过量（稀释）；HCT 与 RBC、Hb 三者按比例同步下降。",
+    "related_diseases": [
+      "缺铁性贫血",
+      "真性红细胞增多症",
+      "慢性失血",
+      "脱水",
+      "慢性阻塞性肺疾病"
+    ],
+    "related_indicators": [
+      "RBC",
+      "Hb",
+      "MCV",
+      "MCHC",
+      "网织红细胞",
+      "血清铁",
+      "铁蛋白"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "脱水、大面积烧伤、止血带过紧",
+        "mechanism": "血浆容量减少",
+        "how_to_detect": "规范采血后复查；同步看血浆总蛋白"
+      },
+      {
+        "direction": "decreased",
+        "factor": "输液同侧采血",
+        "mechanism": "血液稀释",
+        "how_to_detect": "核对输液侧与采血侧"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "RBC 聚集导致计数偏差，HCT 同步异常",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "与 Hb 联合评估贫血；查铁代谢、网织红",
+        "followup_tests": [
+          "Hb",
+          "MCV",
+          "血清铁",
+          "铁蛋白",
+          "网织红细胞"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "elevated",
+        "advice": "先排除脱水；持续升高查 JAK2、EPO、血气",
+        "followup_tests": [
+          "JAK2 V617F",
+          "EPO",
+          "血气分析",
+          "腹部 B 超"
+        ],
+        "recheck_interval": "1–2 周"
+      }
+    ],
+    "notes": "HCT 与 Hb 之间存在经验关系：HCT(%) ≈ Hb(g/L) ÷ 3.5（即 1 单位 HCT 约对应 3.5 g/L Hb）；若比例严重失调提示仪器或标本质控问题。",
+    "source": "WS/T 405-2012",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 15,
+    "name": "红细胞分布宽度",
+    "abbr": [
+      "RDW",
+      "RDW-CV",
+      "RDW-SD",
+      "Red cell distribution width"
+    ],
+    "aliases": [
+      "红细胞分布宽度变异系数",
+      "红细胞体积分布宽度",
+      "RCDW"
+    ],
+    "category": "血常规",
+    "loinc_code": "788-0",
+    "unit": "%",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 11.5,
+        "high": 14.5,
+        "source": "仪器差异较大，建议参考本实验室区间；通用参考 11.5–14.5%"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 15.0,
+        "direction": "above",
+        "meaning": "红细胞异质性升高",
+        "clinical_action": "提示 RBC 大小不均一，需结合 MCV 判断贫血病因",
+        "source": "血液学诊断标准"
+      }
+    ],
+    "elevated_meaning": "最常见为缺铁性贫血（早期、敏感指标，可在 Hb 下降前先升高）、巨幼细胞性贫血、混合性营养性贫血、骨髓增生异常综合征、输血后；与 MCV 联合可早期识别缺铁（RDW↑+MCV 正常 = 隐性缺铁）。",
+    "decreased_meaning": "临床意义有限；见于再生障碍性贫血（RBC 均一性高）、遗传性球形红细胞增多症、某些白血病。",
+    "related_diseases": [
+      "缺铁性贫血",
+      "巨幼细胞性贫血",
+      "骨髓增生异常综合征",
+      "地中海贫血（常不升高，与缺铁鉴别点）"
+    ],
+    "related_indicators": [
+      "MCV",
+      "MCH",
+      "MCHC",
+      "血清铁",
+      "铁蛋白",
+      "叶酸",
+      "维生素B12",
+      "网织红细胞"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "网织红细胞增多",
+        "mechanism": "RET 体积大，加大 RBC 群体异质性",
+        "how_to_detect": "同步看网织红绝对值"
+      },
+      {
+        "direction": "either",
+        "factor": "输血后短期内",
+        "mechanism": "供者 RBC 与受者 RBC 体积混合",
+        "how_to_detect": "询问输血史"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "RBC 聚集影响体积分布测量",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "与 MCV 联合：RDW↑+MCV↓ 提示缺铁；RDW↑+MCV↑ 提示巨幼贫；RDW↑+MCV 正常提示早期缺铁或混合贫血",
+        "followup_tests": [
+          "血清铁",
+          "铁蛋白",
+          "叶酸",
+          "维生素B12",
+          "网织红细胞"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "RDW 在缺铁性贫血与地中海贫血的鉴别中价值突出：两者均为小细胞低色素，但缺铁 RDW 升高、地贫 RDW 多正常，是重要的无创鉴别点。",
+    "source": "WS/T 405-2012；默沙东诊疗手册",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 16,
+    "name": "尿酸",
+    "abbr": [
+      "UA",
+      "Uric acid",
+      "URIC",
+      "SUA",
+      "UricAcid"
+    ],
+    "aliases": [
+      "血清尿酸",
+      "血尿酸",
+      "尿酸测定",
+      "Uric"
+    ],
+    "category": "生化（代谢）",
+    "loinc_code": "3084-1",
+    "unit": "μmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "μmol/L",
+        "factor": 59.48,
+        "note": "海外报告常用 mg/dL"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 208,
+        "high": 428,
+        "source": "WS/T 404.3；中国高尿酸血症诊疗指南"
+      },
+      {
+        "population": "成年女性（绝经前）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": 55,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 155,
+        "high": 357,
+        "source": "WS/T 404.3；中国高尿酸血症诊疗指南"
+      },
+      {
+        "population": "绝经后女性",
+        "sex": "女",
+        "age_range": {
+          "min": 55,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 155,
+        "high": 428,
+        "source": "中国高尿酸血症诊疗指南"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 900,
+        "action": ">900 μmol/L 需警惕肿瘤溶解综合征或严重痛风，立即就医评估",
+        "source": "部分三甲医院院内制度（多数医院 UA 不设危急值）",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 420,
+        "direction": "above",
+        "meaning": "高尿酸血症诊断界值（男性）",
+        "clinical_action": "生活方式干预（限酒、低嘌呤、多饮水）",
+        "source": "中国高尿酸血症与痛风诊疗指南（2019）"
+      },
+      {
+        "level": 360,
+        "direction": "above",
+        "meaning": "高尿酸血症诊断界值（女性）",
+        "clinical_action": "同上",
+        "source": "中国高尿酸血症与痛风诊疗指南（2019）"
+      },
+      {
+        "level": 535,
+        "direction": "above",
+        "meaning": "药物治疗指征（无痛风发作）",
+        "clinical_action": "评估降尿酸药物（别嘌醇/非布司他/苯溴马隆）",
+        "source": "中国高尿酸血症与痛风诊疗指南（2019）"
+      },
+      {
+        "level": 480,
+        "direction": "above",
+        "meaning": "药物治疗指征（合并痛风/尿酸结石/肾功能不全）",
+        "clinical_action": "启动降尿酸治疗",
+        "source": "中国高尿酸血症与痛风诊疗指南（2019）"
+      },
+      {
+        "level": 300,
+        "direction": "above",
+        "meaning": "痛风患者长期目标值（有痛风石者 <300）",
+        "clinical_action": "持续降尿酸治疗",
+        "source": "中国高尿酸血症与痛风诊疗指南（2019）"
+      }
+    ],
+    "elevated_meaning": "最常见为高嘌呤饮食（海鲜、动物内脏、浓肉汤）、酒精摄入（啤酒最甚）、剧烈运动；其次为痛风、原发性高尿酸血症、慢性肾功能不全、利尿剂/小剂量阿司匹林使用、肿瘤溶解综合征、银屑病、甲状腺功能减退。",
+    "decreased_meaning": "临床意义相对小；见于恶性贫血、严重肝损伤、肾小管重吸收缺陷（Fanconi 综合征）、降尿酸药物使用（别嘌醇、非布司他、苯溴马隆）、大剂量水杨酸。",
+    "related_diseases": [
+      "痛风",
+      "高尿酸血症",
+      "慢性肾功能不全",
+      "代谢综合征",
+      "高血压",
+      "肿瘤溶解综合征"
+    ],
+    "related_indicators": [
+      "肌酐",
+      "eGFR",
+      "尿素氮",
+      "血糖",
+      "血脂",
+      "尿常规（尿酸结晶）",
+      "关节超声（痛风石）",
+      "血常规（排查血液肿瘤）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前 3 天高嘌呤饮食（海鲜、内脏、啤酒）",
+        "mechanism": "外源性嘌呤代谢产生尿酸",
+        "how_to_detect": "询问饮食史；清淡饮食 3 天后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前剧烈运动",
+        "mechanism": "ATP 降解产生嘌呤",
+        "how_to_detect": "静息 24 小时后复查"
+      },
+      {
+        "direction": "decreased",
+        "factor": "维生素 C（大剂量）",
+        "mechanism": "VC 还原反应干扰磷钨酸法测定",
+        "how_to_detect": "询问补剂使用；停用后复查"
+      },
+      {
+        "direction": "either",
+        "factor": "晨间 vs 午后采血",
+        "mechanism": "尿酸有昼夜波动，晨间偏低、午后偏高",
+        "how_to_detect": "固定采血时间对比"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高先清淡饮食、戒酒 4 周后复查；持续 >535 或有痛风发作需启动降尿酸治疗并查肾功能",
+        "followup_tests": [
+          "肌酐",
+          "eGFR",
+          "尿常规",
+          "血糖",
+          "血脂",
+          "关节超声"
+        ],
+        "recheck_interval": "4 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；排查肿瘤溶解综合征（查 LDH、电解质、肾功能）",
+        "followup_tests": [
+          "LDH",
+          "电解质",
+          "肾功能",
+          "血常规+外周血涂片"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "尿酸检测建议空腹 8 小时、采血前 3 天清淡饮食、避免剧烈运动；首次发现升高不应立即诊断痛风，痛风诊断需结合关节炎发作史与影像学。",
+    "source": "默沙东诊疗手册 https://www.msdmanuals.cn/home/kidney-and-urinary-tract-disorders/blood-tests-for-kidney-disease/uric-acid-test；中国高尿酸血症与痛风诊疗指南（2019）",
+    "source_id": "MSD-UA|CGA-2019",
+    "source_version": "2019",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 17,
+    "name": "中性粒细胞比例/绝对值",
+    "abbr": [
+      "NEUT#",
+      "NEUT%",
+      "NEU",
+      "NEUT",
+      "ANC",
+      "NC#",
+      "Granulocyte count"
+    ],
+    "aliases": [
+      "中性粒细胞绝对值",
+      "中性粒细胞百分比",
+      "嗜中性粒细胞",
+      "中性粒细胞计数",
+      "分叶核粒细胞"
+    ],
+    "category": "血常规",
+    "loinc_code": "751-8",
+    "unit": "% / ×10⁹/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人（比例）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 40,
+        "high": 75,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "成人（绝对值）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.8,
+        "high": 6.3,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "儿童（绝对值）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.5,
+        "high": 8.5,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人（绝对值）",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 0.5,
+        "critical_high": 20.0,
+        "action": "ANC<0.5×10⁹/L 为粒细胞缺乏（粒缺），伴发热属急症（粒缺发热）需立即急诊+经验性广谱抗生素；>20×10⁹/L 需紧急排查严重感染或白血病",
+        "source": "国内三甲医院多机构共识",
+        "source_type": "多机构共识"
+      },
+      {
+        "population": "儿童（绝对值）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "critical_low": 0.5,
+        "critical_high": 20.0,
+        "action": "同成人",
+        "source": "儿科危急值院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 1.5,
+        "direction": "below",
+        "meaning": "粒细胞减少界值",
+        "clinical_action": "评估病因（药物、病毒、自身免疫）",
+        "source": "血液学诊断标准"
+      },
+      {
+        "level": 1.0,
+        "direction": "below",
+        "meaning": "粒细胞重度减少",
+        "clinical_action": "严密监测，防感染",
+        "source": "血液学诊断标准"
+      },
+      {
+        "level": 0.5,
+        "direction": "below",
+        "meaning": "粒细胞缺乏（急症）",
+        "clinical_action": "立即隔离+经验性广谱抗生素+G-CSF",
+        "source": "IDSA 粒缺发热指南"
+      },
+      {
+        "level": 7.0,
+        "direction": "above",
+        "meaning": "中性粒细胞增多",
+        "clinical_action": "查 CRP/PCT/感染灶",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 30.0,
+        "direction": "above",
+        "meaning": "显著增多",
+        "clinical_action": "查外周血涂片+骨髓穿刺，警惕白血病/类白血病反应",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "最常见为细菌感染（尤其化脓性菌）；也见于组织坏死（心梗、创伤、烧伤）、应激、妊娠/分娩、剧烈运动、糖皮质激素使用、吸烟、白血病（CML、AML）与骨髓增殖性肿瘤。",
+    "decreased_meaning": "常见于病毒感染（流感、EB 病毒、肝炎）、再生障碍性贫血、骨髓增生异常综合征、化疗/放疗后骨髓抑制、系统性红斑狼疮、脾功能亢进、药物（甲巯咪唑、磺胺类、氯霉素）、叶酸/B12 缺乏；<0.5×10⁹/L 为粒缺，属急症。",
+    "related_diseases": [
+      "细菌感染",
+      "脓毒症",
+      "粒细胞缺乏症",
+      "再生障碍性贫血",
+      "骨髓增生异常综合征",
+      "系统性红斑狼疮",
+      "急性白血病"
+    ],
+    "related_indicators": [
+      "WBC",
+      "淋巴细胞比例",
+      "CRP",
+      "PCT",
+      "外周血涂片",
+      "骨髓穿刺",
+      "自身抗体"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "剧烈运动、餐后、情绪激动",
+        "mechanism": "边缘池粒细胞释放入循环",
+        "how_to_detect": "静息 30 分钟后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "糖皮质激素、锂剂",
+        "mechanism": "促进骨髓释放并抑制渗出",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "decreased",
+        "factor": "EDTA 依赖性白细胞聚集",
+        "mechanism": "EDTA 诱导白细胞凝集，仪器计数偏低",
+        "how_to_detect": "涂片可见聚集；换枸橼酸钠管复查"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "低温下白细胞聚集干扰计数",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "轻度减少 1–2 周复查；持续 <1.0 查外周血涂片、自身抗体、维生素 B12/叶酸；<0.5 立即急诊",
+        "followup_tests": [
+          "外周血涂片",
+          "骨髓穿刺",
+          "自身抗体",
+          "维生素B12",
+          "叶酸",
+          "病毒学筛查"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即急诊；粒缺伴发热属急症，需血培养+经验性广谱抗生素+G-CSF",
+        "followup_tests": [
+          "血培养",
+          "CRP",
+          "PCT",
+          "骨髓穿刺",
+          "感染灶影像学"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "结合 CRP/PCT 评估感染；持续升高查外周血涂片",
+        "followup_tests": [
+          "CRP",
+          "PCT",
+          "外周血涂片",
+          "血培养"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；排查白血病/类白血病反应/严重感染",
+        "followup_tests": [
+          "外周血涂片",
+          "骨髓穿刺+免疫分型",
+          "血培养",
+          "影像学"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "ANC（中性粒细胞绝对值）比比例更有临床意义，判断粒缺/粒减时**必须用绝对值**而非比例；比例升高而绝对值正常（如淋巴细胞绝对值降低导致的相对比例升高）不构成'粒缺'。",
+    "source": "WS/T 405-2012；默沙东诊疗手册 https://www.msdmanuals.cn/professional/hematology-and-oncology/leukopenias-and-lymphocytopenias/neutropenia",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 18,
+    "name": "淋巴细胞比例/绝对值",
+    "abbr": [
+      "LYMPH#",
+      "LYMPH%",
+      "LYM",
+      "Lymph",
+      "Lymphocyte",
+      "LC#"
+    ],
+    "aliases": [
+      "淋巴细胞绝对值",
+      "淋巴细胞百分比",
+      "淋巴细晝"
+    ],
+    "category": "血常规",
+    "loinc_code": "736-9",
+    "unit": "% / ×10⁹/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人（比例）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 20,
+        "high": 50,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "成人（绝对值）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.1,
+        "high": 3.2,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "儿童（比例，>6 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 6,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 30,
+        "high": 50,
+        "source": "儿科血液学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值；异常时结合外周血涂片（异型淋巴细胞）评估",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 1.0,
+        "direction": "below",
+        "meaning": "淋巴细胞减少",
+        "clinical_action": "查 HIV、SLE 相关抗体、T 细胞亚群",
+        "source": "血液学诊断标准"
+      },
+      {
+        "level": 5.0,
+        "direction": "above",
+        "meaning": "淋巴细胞增多",
+        "clinical_action": "查异型淋巴细胞、EBV/CMV 病毒学、骨髓穿刺（持续升高时）",
+        "source": "血液学诊断标准"
+      }
+    ],
+    "elevated_meaning": "常见于病毒感染（EBV、CMV、流感、百日咳、风疹）、传染性单核细胞增多症（异型淋巴细胞 >10%）、慢性淋巴细胞白血病（CLL）、急性传染性淋巴细胞增多症；儿童生理性偏高（6 岁前以淋巴细胞为主）。",
+    "decreased_meaning": "常见于 HIV 感染、系统性红斑狼疮、糖皮质激素/化疗药物使用、严重感染应激期、放射损伤、再生障碍性贫血、蛋白质营养不良；CD4+ T 细胞显著降低需排查 HIV。",
+    "related_diseases": [
+      "传染性单核细胞增多症",
+      "慢性淋巴细胞白血病",
+      "HIV 感染",
+      "系统性红斑狼疮",
+      "百日咳",
+      "流行性感冒"
+    ],
+    "related_indicators": [
+      "WBC",
+      "NEUT#",
+      "异型淋巴细胞（涂片）",
+      "EBV-DNA",
+      "EBV-VCA-IgM",
+      "嗜异性凝集试验",
+      "HIV 抗体",
+      "T 细胞亚群（CD4/CD8）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "异型淋巴细胞（反应性淋巴细胞）",
+        "mechanism": "体积大形态异常，部分仪器计数不准",
+        "how_to_detect": "手工涂片分类"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素综合征",
+        "mechanism": "白细胞聚集干扰分类",
+        "how_to_detect": "37℃温育后立即检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "查外周血涂片（异型淋巴细胞）+ EBV 病毒学；持续升高或绝对值>5×10⁹/L 需查免疫分型排除 CLL",
+        "followup_tests": [
+          "外周血涂片",
+          "EBV-DNA",
+          "EBV-VCA-IgM",
+          "淋巴细胞免疫分型"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "decreased",
+        "advice": "查 HIV、自身抗体、T 细胞亚群",
+        "followup_tests": [
+          "HIV 抗体",
+          "ANA",
+          "T 细胞亚群"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "淋巴细胞比例升高而绝对值正常时，多为中性粒细胞比例下降所致的相对升高；判定临床意义应以**绝对值**为主。",
+    "source": "WS/T 405-2012；默沙东诊疗手册",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 19,
+    "name": "嗜酸性粒细胞比例/绝对值",
+    "abbr": [
+      "EOS#",
+      "EOS%",
+      "EO",
+      "Eos",
+      "Eosinophil",
+      "EC#"
+    ],
+    "aliases": [
+      "嗜酸粒细胞",
+      "嗜酸性粒细晝",
+      "嗜伊红细胞",
+      "酸性粒细胞"
+    ],
+    "category": "血常规",
+    "loinc_code": "711-2",
+    "unit": "% / ×10⁹/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人（比例）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.4,
+        "high": 8.0,
+        "source": "WS/T 405-2012"
+      },
+      {
+        "population": "成人（绝对值）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.02,
+        "high": 0.52,
+        "source": "WS/T 405-2012"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值；持续 >1.5×10⁹/L 需评估嗜酸性粒细胞增多症（可能累及心、肺、皮肤）",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 0.5,
+        "direction": "above",
+        "meaning": "嗜酸性粒细胞增多（轻度）",
+        "clinical_action": "查过敏原、寄生虫、粪便虫卵",
+        "source": "血液学诊断标准"
+      },
+      {
+        "level": 1.5,
+        "direction": "above",
+        "meaning": "嗜酸性粒细胞增多症",
+        "clinical_action": "查过敏、寄生虫、自身免疫、血液肿瘤、心超评估受累",
+        "source": "ICD/WHO 嗜酸粒细胞增多症分类"
+      },
+      {
+        "level": 5.0,
+        "direction": "above",
+        "meaning": "高嗜酸性粒细胞综合征（HES）",
+        "clinical_action": "查 FIP1L1-PDGFRA 融合基因、骨髓穿刺、心脏评估",
+        "source": "WHO 髓系肿瘤分类"
+      }
+    ],
+    "elevated_meaning": "最常见为过敏性疾病（哮喘、过敏性鼻炎、荨麻疹、药物过敏）、寄生虫感染（肠道、组织寄生虫）、皮肤病（湿疹、银屑病）；其次为嗜酸性粒细胞增多症、嗜酸性粒细胞白血病、霍奇金淋巴瘤、Addison 病、Churg-Strauss 综合征。",
+    "decreased_meaning": "常见于急性感染应激期（细菌感染早期显著减少，称为'嗜酸性粒细胞减少反应'）、糖皮质激素使用、库欣综合征；多无独立临床意义，作为应激指标辅助判读。",
+    "related_diseases": [
+      "支气管哮喘",
+      "过敏性鼻炎",
+      "寄生虫感染",
+      "药物过敏",
+      "嗜酸性粒细胞增多症",
+      "嗜酸性粒细胞白血病",
+      "Addison 病"
+    ],
+    "related_indicators": [
+      "WBC",
+      "总 IgE",
+      "特异性 IgE（过敏原筛查）",
+      "粪便虫卵+寄生虫",
+      "骨髓穿刺",
+      "维生素 B12",
+      "心超（Löffler 心内膜炎）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "标本放置 >4 小时（经典检验陷阱）",
+        "mechanism": "嗜酸性粒细胞膜脆性大，体外自溶导致假性降低",
+        "how_to_detect": "采血后 2 小时内完成检测；可疑时重新采血"
+      },
+      {
+        "direction": "decreased",
+        "factor": "采血时应激（恐惧、疼痛）",
+        "mechanism": "内源性糖皮质激素短时升高",
+        "how_to_detect": "静息后复查"
+      },
+      {
+        "direction": "decreased",
+        "factor": "糖皮质激素使用（任何剂型）",
+        "mechanism": "直接抑制嗜酸性粒细胞释放",
+        "how_to_detect": "追问口服/吸入/外用激素史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高查过敏原+粪便虫卵；持续 >1.5×10⁹/L 查骨髓、心超、自身免疫、FIP1L1-PDGFRA",
+        "followup_tests": [
+          "总 IgE",
+          "过敏原特异性 IgE",
+          "粪便虫卵+寄生虫",
+          "骨髓穿刺",
+          "心超",
+          "FIP1L1-PDGFRA"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "解读 EOS 降低时务必先评估标本存放时间——这是血常规解读中最经典的假性降低陷阱之一，本字段须让 LLM 优先提示。",
+    "source": "WS/T 405-2012；默沙东诊疗手册",
+    "source_id": "WS/T 405-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 20,
+    "name": "天门冬氨酸氨基转移酶",
+    "abbr": [
+      "AST",
+      "SGOT",
+      "AST/GOT",
+      "GOT",
+      "Aspartate aminotransferase"
+    ],
+    "aliases": [
+      "谷草转氨酶",
+      "天冬氨酸氨基转移酶",
+      "谷草",
+      "GOT"
+    ],
+    "category": "肝功能",
+    "loinc_code": "1920-8",
+    "unit": "U/L",
+    "unit_conversions": [
+      {
+        "from_unit": "μkat/L",
+        "to_unit": "U/L",
+        "factor": 60,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 15,
+        "high": 40,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 13,
+        "high": 35,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "儿童（1–12 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 15,
+        "high": 35,
+        "source": "儿科肝功能参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 1000,
+        "action": ">1000 U/L 提示急性肝细胞大量坏死（急性病毒性肝炎、药物性肝损伤、缺血性肝炎、Wilson 病急性发作）；需立即肝病科评估",
+        "source": "部分三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 40,
+        "direction": "above",
+        "meaning": "超出正常上限",
+        "clinical_action": "排除饮酒、运动、药物后复查",
+        "source": "临床参考"
+      },
+      {
+        "level": 80,
+        "direction": "above",
+        "meaning": "明确异常",
+        "clinical_action": "查肝炎病毒、肝脏影像学",
+        "source": "临床参考"
+      },
+      {
+        "level": 200,
+        "direction": "above",
+        "meaning": "显著升高",
+        "clinical_action": "评估急性肝损伤（病毒性、药物性、缺血性）",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 1000,
+        "direction": "above",
+        "meaning": "急性肝坏死水平",
+        "clinical_action": "查凝血、血氨、肝炎病毒 IgM、铜蓝蛋白",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "常见于病毒性肝炎、酒精性肝病（AST/ALT 比值 >2 提示酒精性）、非酒精性脂肪性肝病、药物性肝损伤、肝硬化、心肌梗死、骨骼肌损伤（剧烈运动、横纹肌溶解）、肌注后、甲状腺功能减退。",
+    "decreased_meaning": "临床意义有限；见于维生素 B6 缺乏、严重肝病终末期（合成功能丧失）、长期透析、妊娠。",
+    "related_diseases": [
+      "病毒性肝炎",
+      "酒精性肝病",
+      "非酒精性脂肪性肝病",
+      "药物性肝损伤",
+      "肝硬化",
+      "心肌梗死",
+      "横纹肌溶解"
+    ],
+    "related_indicators": [
+      "ALT",
+      "AST/ALT 比值",
+      "GGT",
+      "ALP",
+      "总胆红素",
+      "白蛋白",
+      "凝血功能(PT/INR)",
+      "肌酸激酶(CK)",
+      "肌钙蛋白"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前 24–48 小时剧烈运动",
+        "mechanism": "骨骼肌 AST 释放",
+        "how_to_detect": "静息数日后复查；同步查 CK"
+      },
+      {
+        "direction": "elevated",
+        "factor": "肌内注射",
+        "mechanism": "肌肉局部损伤",
+        "how_to_detect": "询问近期肌注史"
+      },
+      {
+        "direction": "elevated",
+        "factor": "标本溶血",
+        "mechanism": "红细胞内 AST 含量丰富，溶血使 AST 假性升高（比 ALT 更敏感）",
+        "how_to_detect": "观察血清是否粉红；规范采血复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采血前 24–72 小时饮酒",
+        "mechanism": "酒精损伤肝细胞线粒体",
+        "how_to_detect": "禁酒 72 小时后复查"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "结合 ALT 计算 AST/ALT 比值：>2 提示酒精性肝病或肝硬化；<1 提示病毒性/脂肪性肝炎；同步查 CK 排除肌肉来源",
+        "followup_tests": [
+          "ALT",
+          "GGT",
+          "总胆红素",
+          "CK",
+          "乙肝五项",
+          "丙肝抗体",
+          "肝脏 B 超"
+        ],
+        "recheck_interval": "2–4 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即肝病科就诊；评估急性肝衰竭风险",
+        "followup_tests": [
+          "凝血功能",
+          "血氨",
+          "肝炎病毒全套",
+          "血铜蓝蛋白",
+          "自身免疫性肝病抗体"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "AST 在心肌和骨骼肌含量丰富，单独升高须先排除心/肌来源（查 CK、肌钙蛋白）；与 ALT 同步解读时 AST/ALT 比值是最有用的鉴别工具。",
+    "source": "WS/T 404.1-2012；默沙东诊疗手册",
+    "source_id": "WS/T 404.1-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 21,
+    "name": "γ-谷氨酰转肽酶",
+    "abbr": [
+      "GGT",
+      "γ-GT",
+      "GGTP",
+      "Gamma-GT",
+      "γ-谷氨酰转移酶",
+      "Gamma-glutamyl transferase"
+    ],
+    "aliases": [
+      "谷氨酰转肽酶",
+      "谷氨酰转移酶",
+      "γ-谷氨酰转肽酶",
+      "r-GT",
+      "GT"
+    ],
+    "category": "肝功能",
+    "loinc_code": "2324-2",
+    "unit": "U/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 11,
+        "high": 50,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 7,
+        "high": 32,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 12,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 5,
+        "high": 25,
+        "source": "儿科肝功能参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 50,
+        "high": 200,
+        "source": "儿科肝功能参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "GGT 一般不设危急值，作为肝胆疾病与酒精摄入的敏感标志物",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 50,
+        "direction": "above",
+        "meaning": "超出男性上限",
+        "clinical_action": "询问饮酒史、用药史，2–4 周禁酒后复查",
+        "source": "临床参考"
+      },
+      {
+        "level": 100,
+        "direction": "above",
+        "meaning": "明确异常",
+        "clinical_action": "查肝脏 B 超、ALP、胆红素，评估胆道梗阻",
+        "source": "临床参考"
+      },
+      {
+        "level": 300,
+        "direction": "above",
+        "meaning": "显著升高",
+        "clinical_action": "高度提示酒精性肝病或胆汁淤积，需影像学评估",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "对酒精性肝损伤最敏感（单次大量饮酒后即可升高，持续数天至数周）；也见于胆道梗阻（胆石、肿瘤压迫）、胆汁淤积性肝病、药物诱导（抗癫痫药如苯妥英/卡马西平、抗结核药、口服避孕药）、非酒精性脂肪性肝病、肝硬化、肝癌、糖尿病、甲亢、肥胖。",
+    "decreased_meaning": "临床意义有限；见于晚期肝硬化（肝细胞大量丢失）、甲状腺功能减退、妊娠（生理性降低）。",
+    "related_diseases": [
+      "酒精性肝病",
+      "胆道梗阻",
+      "胆汁淤积性肝病",
+      "非酒精性脂肪性肝病",
+      "药物性肝损伤",
+      "肝硬化",
+      "原发性肝癌"
+    ],
+    "related_indicators": [
+      "ALT",
+      "AST",
+      "ALP",
+      "总胆红素",
+      "直接胆红素",
+      "肝脏 B 超",
+      "AST/ALT 比值",
+      "甲胎蛋白(AFP)"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前 24–72 小时饮酒（最经典干扰）",
+        "mechanism": "酒精诱导肝微粒体酶合成 GGT",
+        "how_to_detect": "严格禁酒 3–4 周后复查可恢复正常"
+      },
+      {
+        "direction": "elevated",
+        "factor": "抗癫痫药物（苯妥英、卡马西平、丙戊酸）",
+        "mechanism": "药物诱导肝酶合成",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "elevated",
+        "factor": "肥胖",
+        "mechanism": "脂肪肝基础上 GGT 轻中度升高",
+        "how_to_detect": "查肝脏 B 超、BMI"
+      },
+      {
+        "direction": "elevated",
+        "factor": "雌激素、口服避孕药",
+        "mechanism": "胆汁淤积效应",
+        "how_to_detect": "追问用药史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "孤立性 GGT 升高（ALT/AST 正常）优先考虑酒精或药物，禁酒+停可疑药 4 周复查；与 ALP 同步升高提示胆道梗阻，需 B 超/MRCP",
+        "followup_tests": [
+          "ALT",
+          "AST",
+          "ALP",
+          "总胆红素",
+          "肝脏 B 超",
+          "肝炎病毒标志物"
+        ],
+        "recheck_interval": "4 周"
+      }
+    ],
+    "notes": "GGT 是酒精性肝损伤最敏感的血清标志物，但特异性有限——解读时必须结合饮酒史、用药史与 AST/ALT 比值；GGT 在骨骼疾病中不升高（与 ALP 不同），可用于鉴别 ALP 升高的来源。",
+    "source": "WS/T 404.1-2012；默沙东诊疗手册",
+    "source_id": "WS/T 404.1-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 22,
+    "name": "总胆红素",
+    "abbr": [
+      "TBIL",
+      "TB",
+      "T-BIL",
+      "STB",
+      "Total bilirubin",
+      "BIL-T"
+    ],
+    "aliases": [
+      "胆红素总量",
+      "血清总胆红素",
+      "总胆红质"
+    ],
+    "category": "肝功能",
+    "loinc_code": "1975-2",
+    "unit": "μmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "μmol/L",
+        "factor": 17.1,
+        "note": "海外报告常用 mg/dL"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.4,
+        "high": 17.1,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "新生儿（足月，生后 3–5 天峰值）",
+        "sex": null,
+        "age_range": {
+          "min": 3,
+          "max": 5,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 34,
+        "high": 205,
+        "source": "新生儿黄疸标准"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 342,
+        "action": ">342 μmol/L 为重度黄疸，需紧急评估病因（溶血危象、急性肝衰竭、胆道梗阻）；部分医院采用 >257",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      },
+      {
+        "population": "新生儿（足月）",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "critical_low": null,
+        "critical_high": 342,
+        "action": "按生后时辰曲线判定，超过光疗阈值需立即干预（警惕胆红素脑病）",
+        "source": "中国新生儿黄疸干预指南",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 17.1,
+        "direction": "above",
+        "meaning": "黄疸诊断界值（皮肤巩膜黄染可见）",
+        "clinical_action": "查直接/间接胆红素分型",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 34.2,
+        "direction": "above",
+        "meaning": "明显黄疸",
+        "clinical_action": "结合直接胆红素比例判断黄疸类型",
+        "source": "内科学第 9 版"
+      },
+      {
+        "level": 171,
+        "direction": "above",
+        "meaning": "重度黄疸",
+        "clinical_action": "紧急评估肝功能、溶血指标、胆道影像",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "需结合直接/间接胆红素分型：间接升高为主→溶血性黄疸（RBC 破坏）、Gilbert 综合征、新生儿生理性黄疸；直接升高为主→胆道梗阻（胆石、肿瘤、胆管炎）、胆汁淤积性肝病、Dubin-Johnson 综合征；双相升高→肝细胞性黄疸（病毒性肝炎、肝硬化、药物性肝损伤）。",
+    "decreased_meaning": "临床意义有限；见于贫血（RBC 基质减少）、长期使用某些药物（苯巴比妥诱导酶）。",
+    "related_diseases": [
+      "病毒性肝炎",
+      "胆道结石",
+      "胆道肿瘤",
+      "溶血性贫血",
+      "Gilbert 综合征",
+      "肝硬化",
+      "胆汁淤积性肝病"
+    ],
+    "related_indicators": [
+      "直接胆红素(DBIL)",
+      "间接胆红素(IBIL)",
+      "ALT",
+      "AST",
+      "GGT",
+      "ALP",
+      "网织红细胞",
+      "LDH",
+      "结合珠蛋白",
+      "Coombs 试验",
+      "肝脏 B 超"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "标本暴露于强光（未避光）",
+        "mechanism": "胆红素光敏分解（光疗原理即此）",
+        "how_to_detect": "标本应避光保存，2 小时内完成检测"
+      },
+      {
+        "direction": "decreased",
+        "factor": "空腹时间过长（>16 小时）",
+        "mechanism": "饥饿性高胆红素（Gilbert 样现象）——实际是升高，但易被误读",
+        "how_to_detect": "询问空腹时长；规范 8–12 小时空腹复查"
+      },
+      {
+        "direction": "either",
+        "factor": "标本溶血",
+        "mechanism": "干扰重氮法测定（尤其直接胆红素）",
+        "how_to_detect": "观察血清是否粉红"
+      },
+      {
+        "direction": "either",
+        "factor": "高脂血症（乳糜血）",
+        "mechanism": "浊度干扰比色",
+        "how_to_detect": "观察血浆是否乳糜"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "先看直接胆红素比例：直接<20% 考虑溶血或 Gilbert（查网织红、LDH、Coombs）；直接>50% 考虑胆道梗阻或胆汁淤积（查 GGT、ALP、B 超）；介于两者之间为肝细胞性",
+        "followup_tests": [
+          "直接胆红素",
+          "ALT",
+          "AST",
+          "GGT",
+          "ALP",
+          "网织红细胞",
+          "肝脏 B 超"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；查凝血、血氨、溶血全套、腹部 CT/MRCP",
+        "followup_tests": [
+          "凝血功能",
+          "血氨",
+          "溶血全套",
+          "腹部 CT/MRCP",
+          "甲胎蛋白"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "总胆红素本身不能定位黄疸病因，必须结合直接/间接分型与其他肝功能指标综合判读；Gilbert 综合征人群比例约 5–10%，表现为孤立性间接胆红素轻度升高、其余肝功能正常，属良性。",
+    "source": "WS/T 404.1-2012；默沙东诊疗手册 https://www.msdmanuals.cn/professional/hepatic-and-biliary-disorders/approach-to-the-patient-with-liver-disease/jaundice",
+    "source_id": "WS/T 404.1-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 23,
+    "name": "白蛋白",
+    "abbr": [
+      "ALB",
+      "Alb",
+      "Albumin",
+      "白蛋",
+      "AL"
+    ],
+    "aliases": [
+      "血清白蛋白",
+      "人血白蛋白",
+      "清蛋白"
+    ],
+    "category": "肝功能",
+    "loinc_code": "1751-7",
+    "unit": "g/L",
+    "unit_conversions": [
+      {
+        "from_unit": "g/dL",
+        "to_unit": "g/L",
+        "factor": 10,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 40,
+        "high": 55,
+        "source": "WS/T 404.1-2012"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 28,
+        "high": 44,
+        "source": "儿科参考"
+      },
+      {
+        "population": "老年人（>65 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 65,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 37,
+        "high": 50,
+        "source": "老年医学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 20,
+        "critical_high": null,
+        "action": "<20 g/L 严重低蛋白血症，易出现全身水肿、胸腹水、伤口不愈；需评估补充白蛋白或营养支持",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 35,
+        "direction": "below",
+        "meaning": "轻度低蛋白血症",
+        "clinical_action": "评估营养状态、肝功能、尿蛋白",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 30,
+        "direction": "below",
+        "meaning": "中度低蛋白血症",
+        "clinical_action": "查尿蛋白、肝功能、炎症指标；评估水肿",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 25,
+        "direction": "below",
+        "meaning": "重度低蛋白血症",
+        "clinical_action": "营养科会诊，考虑补充白蛋白；肝硬化患者此水平提示预后不良（Child-Pugh 评分项）",
+        "source": "Child-Pugh 分级"
+      }
+    ],
+    "elevated_meaning": "几乎均为假性升高，见于脱水（血液浓缩）；真性升高罕见且无独立病理意义。",
+    "decreased_meaning": "白蛋白仅由肝脏合成、半衰期约 20 天，降低提示长期异常：最常见为肝硬化（合成减少）、肾病综合征（大量尿蛋白丢失）、蛋白质丢失性肠病、严重营养不良、慢性炎症（白蛋白为急性负反应物）、烧伤（皮肤丢失）、大量胸腹水；短期下降需警惕感染/手术/创伤等应激状态。",
+    "related_diseases": [
+      "肝硬化",
+      "肾病综合征",
+      "蛋白质丢失性肠病",
+      "营养不良",
+      "慢性炎症",
+      "烧伤",
+      "大量胸腹水"
+    ],
+    "related_indicators": [
+      "总蛋白(TP)",
+      "球蛋白(GLB)",
+      "A/G 比值",
+      "前白蛋白（更敏感的营养指标）",
+      "24 小时尿蛋白",
+      "ALT/AST",
+      "CRP",
+      "凝血功能（肝脏合成）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "脱水、止血带过紧过久",
+        "mechanism": "血液浓缩",
+        "how_to_detect": "同步看 HCT、总蛋白是否同步升高"
+      },
+      {
+        "direction": "decreased",
+        "factor": "输液同侧采血",
+        "mechanism": "血液稀释",
+        "how_to_detect": "核对采血侧与输液侧"
+      },
+      {
+        "direction": "decreased",
+        "factor": "长期卧床（体位性变化）",
+        "mechanism": "卧位时血浆容量扩张，白蛋白稀释性下降 5–10%",
+        "how_to_detect": "直立位 30 分钟后复查"
+      },
+      {
+        "direction": "either",
+        "factor": "静脉输注白蛋白后立即采血",
+        "mechanism": "外源性白蛋白直接入血",
+        "how_to_detect": "询问输注史，停用后复查"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "查尿常规+24 小时尿蛋白（排除肾病综合征）、肝功能（排除合成障碍）、CRP（排除慢性炎症消耗）；<25 g/L 营养科会诊",
+        "followup_tests": [
+          "24 小时尿蛋白",
+          "肝功能",
+          "前白蛋白",
+          "CRP",
+          "凝血功能",
+          "腹部 B 超"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "白蛋白是 Child-Pugh 肝硬化分级、MELD 评分等预后系统的核心参数；低白蛋白时总钙需要校正（见血钙条目）；作为急性负反应物，急性疾病期下降不代表合成功能受损。",
+    "source": "WS/T 404.1-2012；默沙东诊疗手册",
+    "source_id": "WS/T 404.1-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 24,
+    "name": "尿素",
+    "abbr": [
+      "UREA",
+      "Urea",
+      "BUN",
+      "UN",
+      "Blood urea nitrogen",
+      "BU"
+    ],
+    "aliases": [
+      "尿素氮",
+      "血尿素",
+      "血清尿素",
+      "脲"
+    ],
+    "category": "肾功能",
+    "loinc_code": "3094-0",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL (BUN)",
+        "to_unit": "mmol/L (尿素)",
+        "factor": 0.357,
+        "note": "尿素与尿素氮概念相近但系数不同，国内多用尿素 mmol/L，海外多用 BUN mg/dL"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 2.9,
+        "high": 8.2,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.8,
+        "high": 6.4,
+        "source": "儿科肾功能参考"
+      },
+      {
+        "population": "老年人（>65 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 65,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 3.6,
+        "high": 9.5,
+        "source": "老年医学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 28.6,
+        "action": ">28.6 mmol/L（BUN >80 mg/dL）提示严重肾功能不全或高分解代谢，需立即评估透析指征",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 8.2,
+        "direction": "above",
+        "meaning": "超出上限",
+        "clinical_action": "结合肌酐计算 BUN/Cr 比值，判断肾前性/肾性/肾后性",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 14.3,
+        "direction": "above",
+        "meaning": "中度升高",
+        "clinical_action": "查 eGFR、尿常规、肾脏 B 超",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 21.4,
+        "direction": "above",
+        "meaning": "显著升高",
+        "clinical_action": "评估尿毒症症状、透析指征",
+        "source": "临床医学决定水平"
+      }
+    ],
+    "elevated_meaning": "最常见为肾前性因素（脱水、心衰、消化道出血——血液在肠道分解产生大量尿素、高蛋白饮食）；其次为肾性（慢性肾脏病、急性肾损伤）；肾后性（尿路梗阻）也可升高；高分解代谢状态（烧伤、感染、应激）亦升高。",
+    "decreased_meaning": "常见于低蛋白饮食、肝功能严重受损（尿素合成减少）、妊娠（血容量扩张）、水中毒；单独降低临床意义有限。",
+    "related_diseases": [
+      "慢性肾脏病",
+      "急性肾损伤",
+      "上消化道出血",
+      "脱水",
+      "心力衰竭",
+      "尿路梗阻",
+      "肝硬化（降低）"
+    ],
+    "related_indicators": [
+      "肌酐",
+      "eGFR",
+      "BUN/Cr 比值",
+      "胱抑素 C",
+      "尿常规",
+      "尿比重",
+      "电解质",
+      "血气分析",
+      "肾脏 B 超"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前高蛋白饮食（烤肉、大量蛋白粉）",
+        "mechanism": "蛋白质代谢产氮增加",
+        "how_to_detect": "清淡饮食 3 天后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "脱水、腹泻、呕吐",
+        "mechanism": "肾前性氮质血症",
+        "how_to_detect": "同步看 BUN/Cr 比值是否 >20:1、HCT 是否升高；补液后复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "消化道出血（血液蛋白分解）",
+        "mechanism": "肠道内血红蛋白分解产生尿素",
+        "how_to_detect": "查大便隐血；BUN/Cr 比值显著升高"
+      },
+      {
+        "direction": "decreased",
+        "factor": "标本久置或细菌污染",
+        "mechanism": "尿素酶分解尿素",
+        "how_to_detect": "标本 2 小时内完成检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "先计算 BUN/Cr 比值：>20:1 提示肾前性（脱水/消化道出血），10:1 左右提示肾性，<10:1 提示低蛋白饮食；结合尿常规与肾脏 B 超",
+        "followup_tests": [
+          "肌酐",
+          "eGFR",
+          "尿常规",
+          "肾脏 B 超",
+          "电解质",
+          "大便隐血"
+        ],
+        "recheck_interval": "1–2 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即就医；评估急诊透析指征（顽固性高钾、严重酸中毒、尿毒症脑病、容量过载）",
+        "followup_tests": [
+          "电解质",
+          "血气分析",
+          "eGFR",
+          "肾脏 B 超",
+          "心电图"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "尿素比肌酐更易受肾外因素影响（饮食、脱水、出血），单独判读价值有限；BUN/Cr 比值是鉴别肾前性与肾性氮质血症的经典工具。",
+    "source": "WS/T 404.2-2012；默沙东诊疗手册",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 25,
+    "name": "胱抑素C",
+    "abbr": [
+      "CysC",
+      "CYS-C",
+      "Cystatin C",
+      "Cys C",
+      "cystatin-c"
+    ],
+    "aliases": [
+      "胱蛋白酶抑制剂C",
+      "半胱氨酸蛋白酶抑制剂C",
+      "血清胱抑素C"
+    ],
+    "category": "肾功能",
+    "loinc_code": "42757-5",
+    "unit": "mg/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.59,
+        "high": 1.03,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童（>1 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.7,
+        "high": 1.2,
+        "source": "儿科肾功能参考"
+      },
+      {
+        "population": "老年人（>65 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 65,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.74,
+        "high": 1.35,
+        "source": "老年医学参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "一般不设危急值；显著升高（>2.0）提示明显肾功能下降",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 1.03,
+        "direction": "above",
+        "meaning": "超出上限，提示 eGFR 轻度下降",
+        "clinical_action": "计算 CysC-based eGFR，比肌酐法更敏感",
+        "source": "KDIGO CKD 指南"
+      },
+      {
+        "level": 1.3,
+        "direction": "above",
+        "meaning": "明确肾功能下降",
+        "clinical_action": "查尿 ACR、肾脏 B 超，评估 CKD 分期",
+        "source": "KDIGO CKD 指南"
+      },
+      {
+        "level": 2.0,
+        "direction": "above",
+        "meaning": "显著升高（相当于 eGFR<30）",
+        "clinical_action": "评估 CKD 并发症与透析指征",
+        "source": "KDIGO CKD 指南"
+      }
+    ],
+    "elevated_meaning": "CysC 由有核细胞恒定产生、经肾小球自由滤过并在近曲小管完全降解，不受肌肉量、性别、饮食、炎症影响，是比肌酐更敏感、更特异的 GFR 标志物。升高见于早期肾功能损伤（eGFR 45–60 时 CysC 已升高而肌酐可能仍在正常范围）、急性肾损伤早期、糖尿病肾病早期、糖皮质激素使用、甲状腺功能减退、恶性肿瘤。",
+    "decreased_meaning": "见于甲状腺功能亢进、糖皮质激素减量后；临床意义有限。",
+    "related_diseases": [
+      "慢性肾脏病",
+      "糖尿病肾病",
+      "急性肾损伤",
+      "高血压肾病",
+      "心血管疾病风险标志"
+    ],
+    "related_indicators": [
+      "肌酐",
+      "eGFR (CysC-based)",
+      "尿素",
+      "尿 ACR",
+      "尿常规",
+      "肾脏 B 超",
+      "甲状腺功能",
+      "血糖",
+      "HbA1c"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "糖皮质激素使用（任何剂型）",
+        "mechanism": "促进 CysC 生成（非肾功能因素）",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "elevated",
+        "factor": "甲状腺功能减退",
+        "mechanism": "影响 CysC 代谢",
+        "how_to_detect": "同步查甲功"
+      },
+      {
+        "direction": "decreased",
+        "factor": "甲状腺功能亢进",
+        "mechanism": "加速 CysC 代谢",
+        "how_to_detect": "同步查甲功"
+      },
+      {
+        "direction": "either",
+        "factor": "大剂量糖皮质激素或炎症状态",
+        "mechanism": "生成增加",
+        "how_to_detect": "结合 CRP、用药史综合判读"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "CysC 升高应视为真实 GFR 下降的信号（比肌酐敏感），计算 CysC-based eGFR，查尿 ACR 与肾脏 B 超，评估 CKD 分期",
+        "followup_tests": [
+          "eGFR (CysC)",
+          "尿 ACR",
+          "尿常规",
+          "肾脏 B 超",
+          "血糖",
+          "HbA1c",
+          "血压"
+        ],
+        "recheck_interval": "4–8 周"
+      }
+    ],
+    "notes": "老年人、肌肉量减少者（消瘦、截肢、长期卧床）评估肾功能应优先选 CysC，因肌酐受肌肉量影响会低估真实肾功能下降；CysC 也是心血管事件的独立风险预测因子。",
+    "source": "WS/T 404.2-2012；默沙东诊疗手册 https://www.msdmanuals.cn/professional/nephrology/approach-to-the-patient-with-renal-issues/evaluation-of-the-patient-with-renal-issues",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 26,
+    "name": "低密度脂蛋白胆固醇",
+    "abbr": [
+      "LDL-C",
+      "LDL",
+      "LDLChol",
+      "Low-density lipoprotein cholesterol",
+      "LDLchol"
+    ],
+    "aliases": [
+      "低密度脂蛋白",
+      "LDL 胆固醇",
+      "坏胆固醇"
+    ],
+    "category": "血脂",
+    "loinc_code": "13457-7",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.0259,
+        "note": "1/38.67"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 3.4,
+        "high_text": "<3.4 为合适水平",
+        "source": "中国血脂管理指南（2023）"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值；>4.9 mmol/L 提示家族性高胆固醇血症（FH）可能，需专科评估",
+        "source": "中国血脂管理指南（2023）",
+        "source_type": "行业标准"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 3.4,
+        "direction": "above",
+        "meaning": "理想水平上限",
+        "clinical_action": "生活方式干预",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 4.1,
+        "direction": "above",
+        "meaning": "升高",
+        "clinical_action": "评估 ASCVD 风险，考虑他汀",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 4.9,
+        "direction": "above",
+        "meaning": "家族性高胆固醇血症（FH）筛查界值",
+        "clinical_action": "查 FH 临床特征（跟腱黄色瘤、早发 ASCVD 家族史）、LDL 受体基因",
+        "source": "中国 FH 专家共识"
+      },
+      {
+        "level": 1.8,
+        "direction": "above",
+        "meaning": "ASCVD 高危患者目标值",
+        "clinical_action": "高危（糖尿病+ASCVD 危险因素）患者 LDL-C 应 <1.8",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 1.4,
+        "direction": "above",
+        "meaning": "ASCVD 超高危患者目标值",
+        "clinical_action": "超高危（ASCVD+多次事件/复杂病变）患者 LDL-C 应 <1.4",
+        "source": "中国血脂管理指南（2023）"
+      }
+    ],
+    "elevated_meaning": "LDL-C 是 ASCVD 最核心的致病性危险因素，升高见于遗传（家族性高胆固醇血症、FDB）、饱和脂肪/反式脂肪摄入过多、甲状腺功能减退、肾病综合征、胆汁淤积、糖尿病控制不佳、肥胖、药物（糖皮质激素、噻嗪类利尿剂、环孢素）。",
+    "decreased_meaning": "见于营养不良、慢性消耗性疾病、严重肝病（合成减少）、甲亢、急性感染/创伤（急性负反应）、他汀等降脂药物使用；LDL-C 过低（<0.6）与出血性脑卒中风险可能相关，但证据尚不一致。",
+    "related_diseases": [
+      "动脉粥样硬化性心血管疾病（ASCVD）",
+      "冠心病",
+      "缺血性脑卒中",
+      "家族性高胆固醇血症",
+      "甲状腺功能减退",
+      "肾病综合征"
+    ],
+    "related_indicators": [
+      "总胆固醇",
+      "HDL-C",
+      "非 HDL-C",
+      "TG",
+      "Lp(a)",
+      "ApoB",
+      "血糖",
+      "HbA1c",
+      "甲状腺功能",
+      "hs-CRP"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "TG 极度升高（>4.5 mmol/L）",
+        "mechanism": "Friedewald 公式（LDL=TC-HDL-TG/2.2）失效，计算法 LDL 不准确",
+        "how_to_detect": "直接法测定 LDL-C，或用 Sampson-NIH 公式"
+      },
+      {
+        "direction": "decreased",
+        "factor": "急性疾病、感染、手术 4–6 周内",
+        "mechanism": "LDL 作为急性负反应物下降",
+        "how_to_detect": "恢复 4–6 周后复查作为基线"
+      },
+      {
+        "direction": "either",
+        "factor": "妊娠中晚期",
+        "mechanism": "生理性升高 30–50%",
+        "how_to_detect": "产后 6–8 周复查"
+      },
+      {
+        "direction": "either",
+        "factor": "未严格空腹 12 小时",
+        "mechanism": "主要影响 TG，间接影响计算法 LDL",
+        "how_to_detect": "规范空腹复查"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "先做 ASCVD 风险分层（10 年风险），结合危险分层决定目标值；生活方式干预 4–12 周复查；按目标值启动/调整他汀",
+        "followup_tests": [
+          "总胆固醇",
+          "HDL-C",
+          "TG",
+          "Lp(a)",
+          "血糖",
+          "HbA1c",
+          "hs-CRP",
+          "血压",
+          "颈动脉超声"
+        ],
+        "recheck_interval": "4–12 周"
+      }
+    ],
+    "notes": "LDL-C 目标值因 ASCVD 风险分层而异，不能以统一'正常范围'判断——低危<3.4、高危<1.8、超高危<1.4，解读时必须先确定患者危险分层；他汀治疗后的百分比降幅比绝对值更能反映获益。",
+    "source": "中国血脂管理指南（2023）；默沙东诊疗手册",
+    "source_id": "CSC-2023",
+    "source_version": "2023",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 27,
+    "name": "高密度脂蛋白胆固醇",
+    "abbr": [
+      "HDL-C",
+      "HDL",
+      "HDLChol",
+      "High-density lipoprotein cholesterol",
+      "HDLchol"
+    ],
+    "aliases": [
+      "高密度脂蛋白",
+      "HDL 胆固醇",
+      "好胆固醇"
+    ],
+    "category": "血脂",
+    "loinc_code": "2085-9",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.0259,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.0,
+        "high": null,
+        "low_text": ">1.0 为合适水平",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.3,
+        "high": null,
+        "low_text": ">1.3 为合适水平",
+        "source": "中国血脂管理指南（2023）"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 1.0,
+        "direction": "below",
+        "meaning": "男性低 HDL-C",
+        "clinical_action": "ASCVD 独立危险因素，需综合干预",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 1.3,
+        "direction": "below",
+        "meaning": "女性低 HDL-C",
+        "clinical_action": "同上",
+        "source": "中国血脂管理指南（2023）"
+      },
+      {
+        "level": 2.3,
+        "direction": "above",
+        "meaning": "高 HDL-C（罕见）",
+        "clinical_action": "升高一般保护性，但极高值（>2.6）与 ASCVD 风险非线性关系，可能与 CETP 缺陷、酒精相关",
+        "source": "中国血脂管理指南（2023）"
+      }
+    ],
+    "elevated_meaning": "一般具有心血管保护作用，见于规律有氧运动、女性（雌激素效应）、少量饮酒（不推荐通过饮酒升高 HDL）、胰岛素敏感性高、CETP 缺乏症（罕见遗传）；妊娠中晚期亦生理性升高。",
+    "decreased_meaning": "是 ASCVD 独立危险因素，见于代谢综合征、2 型糖尿病（胰岛素抵抗）、肥胖、吸烟、久坐、高 TG 血症（与 HDL 常呈负相关）、男性（性激素差异）、某些药物（雄激素、β 阻滞剂、孕激素）、慢性炎症、肾病综合征。",
+    "related_diseases": [
+      "动脉粥样硬化性心血管疾病",
+      "代谢综合征",
+      "2 型糖尿病",
+      "高 TG 血症",
+      "冠心病"
+    ],
+    "related_indicators": [
+      "LDL-C",
+      "总胆固醇",
+      "TG（与 HDL 负相关）",
+      "非 HDL-C",
+      "ApoA1",
+      "腰围",
+      "血糖",
+      "HbA1c"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血前剧烈运动",
+        "mechanism": "脂蛋白脂肪酶活性短暂升高",
+        "how_to_detect": "静息 24 小时后复查"
+      },
+      {
+        "direction": "either",
+        "factor": "饮酒（少量短期升高）",
+        "mechanism": "酒精影响 HDL 代谢",
+        "how_to_detect": "禁酒 72 小时后复查"
+      },
+      {
+        "direction": "decreased",
+        "factor": "吸烟（当天采血即有影响）",
+        "mechanism": "尼古丁降低 HDL",
+        "how_to_detect": "询问吸烟史"
+      },
+      {
+        "direction": "either",
+        "factor": "急性疾病期",
+        "mechanism": "HDL 作为急性负反应物下降",
+        "how_to_detect": "恢复 4–6 周后复查"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "低 HDL-C 常与高 TG、高血糖、腹型肥胖并存（代谢综合征），干预以运动+减重+戒烟为主，无特效升 HDL 药物；重点仍是控制 LDL-C",
+        "followup_tests": [
+          "TG",
+          "血糖",
+          "HbA1c",
+          "腰围",
+          "血压",
+          "肝功能"
+        ],
+        "recheck_interval": "4–12 周"
+      }
+    ],
+    "notes": "HDL-C 是 ASCVD 风险评估的负向指标，但升高 HDL-C 本身并非治疗靶点（HDL 升高药物临床试验均未显示获益）；解读时应与 TG 联合看——低 HDL+高 TG 是胰岛素抵抗的典型血脂谱。",
+    "source": "中国血脂管理指南（2023）；默沙东诊疗手册",
+    "source_id": "CSC-2023",
+    "source_version": "2023",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 28,
+    "name": "血清氯",
+    "abbr": [
+      "Cl",
+      "Cl⁻",
+      "CL",
+      "Chloride",
+      "Serum Cl",
+      "chlor"
+    ],
+    "aliases": [
+      "血氯",
+      "氯离子",
+      "血清氯离子"
+    ],
+    "category": "电解质",
+    "loinc_code": "2075-0",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mEq/L",
+        "to_unit": "mmol/L",
+        "factor": 1,
+        "note": null
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 99,
+        "high": 110,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 98,
+        "high": 106,
+        "source": "儿科电解质参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 80,
+        "critical_high": 125,
+        "action": "<80 严重低氯（常伴代谢性碱中毒、呕吐）；>125 严重高氯（常伴代谢性酸中毒）；均需立即评估酸碱平衡",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 110,
+        "direction": "above",
+        "meaning": "高氯血症",
+        "clinical_action": "查血气分析判断酸碱失衡类型，计算阴离子间隙",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 95,
+        "direction": "below",
+        "meaning": "低氯血症",
+        "clinical_action": "查血气分析、呕吐/腹泻史、利尿剂使用",
+        "source": "临床医学决定水平"
+      }
+    ],
+    "elevated_meaning": "常见于腹泻（肠道丢失 HCO₃⁻）、大量输注生理盐水（稀释性酸中毒）、肾小管酸中毒（I 型与 II 型）、原发性甲旁亢、呼吸性碱中毒（肾代偿排 HCO₃⁻ 保留 Cl⁻）、肾上腺皮质功能亢进；高氯常与高钠同步。",
+    "decreased_meaning": "最常见为呕吐（胃酸丢失 HCl）、长期使用袢利尿剂/噻嗪类、代谢性碱中毒、低钠血症、呼吸性酸中毒（代偿）、醛固酮增多症；低氯常与低钾并存。",
+    "related_diseases": [
+      "代谢性碱中毒",
+      "代谢性酸中毒",
+      "肾小管酸中毒",
+      "呕吐相关电解质紊乱",
+      "腹泻",
+      "库欣综合征"
+    ],
+    "related_indicators": [
+      "钠",
+      "钾",
+      "碳酸氢根(HCO₃⁻)",
+      "血气分析",
+      "阴离子间隙(AG)",
+      "尿素",
+      "肌酐",
+      "血糖"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "与血钠基本同步（同源变化）",
+        "mechanism": "Cl⁻ 是细胞外液主要阴离子，跟随 Na⁺ 变化",
+        "how_to_detect": "对比 Na⁺ 与 Cl⁻ 数值，异常方向一致多为同源"
+      },
+      {
+        "direction": "either",
+        "factor": "阴离子间隙计算依赖 Cl⁻ 准确性",
+        "mechanism": "AG = Na⁺ - (Cl⁻ + HCO₃⁻)，Cl⁻ 误差会误判酸碱失衡",
+        "how_to_detect": "异常 AG 应复核 Cl⁻ 测定"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "查血气分析判断酸碱失衡；计算阴离子间隙；评估补液史（NS 过量）",
+        "followup_tests": [
+          "血气分析",
+          "钠",
+          "钾",
+          "HCO₃⁻",
+          "肾功能"
+        ],
+        "recheck_interval": "数天"
+      },
+      {
+        "condition": "decreased",
+        "advice": "查血气分析+钾；询问呕吐/腹泻/利尿剂使用史；补氯同时注意补钾",
+        "followup_tests": [
+          "血气分析",
+          "钾",
+          "钠",
+          "HCO₃⁻",
+          "24 小时尿氯"
+        ],
+        "recheck_interval": "数天"
+      }
+    ],
+    "notes": "氯很少单独异常，解读时必须与钠、钾、HCO₃⁻、血气分析联合；阴离子间隙（AG）计算依赖 Cl⁻，是代谢性酸中毒分型的核心工具。",
+    "source": "WS/T 404.2-2012；默沙东诊疗手册",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 29,
+    "name": "血清钙",
+    "abbr": [
+      "Ca",
+      "Ca²⁺",
+      "CA",
+      "Calcium",
+      "Serum Ca",
+      "TCa",
+      "T-Ca"
+    ],
+    "aliases": [
+      "血钙",
+      "钙离子",
+      "总钙",
+      "血清钙离子"
+    ],
+    "category": "电解质",
+    "loinc_code": "17861-6",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.2495,
+        "note": "海外常用 mg/dL，如 10 mg/dL ≈ 2.5 mmol/L"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 2.11,
+        "high": 2.52,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 2.2,
+        "high": 2.7,
+        "source": "儿科电解质参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 1.75,
+        "high": 2.55,
+        "source": "儿科电解质参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 1.75,
+        "critical_high": 3.25,
+        "action": "<1.75 严重低钙（手足搐搦、喉痉挛、癫痫发作、心律失常）；>3.25 严重高钙（脱水、意识障碍、肾损伤、心律失常）；均需立即急诊处理",
+        "source": "国内三甲医院院内制度（多数医院采用 1.75/3.25）",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 2.0,
+        "direction": "below",
+        "meaning": "低钙血症诊断界值",
+        "clinical_action": "必须先用白蛋白校正，再查 PTH、维生素 D、镁",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 1.9,
+        "direction": "below",
+        "meaning": "症状性低钙风险",
+        "clinical_action": "查 Chvostek/Trousseau 征、心电图（QT 间期延长）",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 2.75,
+        "direction": "above",
+        "meaning": "高钙血症诊断界值",
+        "clinical_action": "查 PTH（区分甲旁亢 vs 恶性肿瘤）、维生素 D、肾功能",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 3.0,
+        "direction": "above",
+        "meaning": "中度高钙",
+        "clinical_action": "需住院，水化+降钙治疗",
+        "source": "默沙东诊疗手册"
+      }
+    ],
+    "elevated_meaning": "最常见为原发性甲状旁腺功能亢进（门诊高钙主因）与恶性肿瘤（住院高钙主因，包括 PTHrP 相关的体液性高钙、骨转移溶骨、多发性骨髓瘤）；也见于维生素 D 中毒、结节病、甲状腺功能亢进、长期卧床（骨吸收）、噻嗪类利尿剂、乳碱综合征。",
+    "decreased_meaning": "常见于维生素 D 缺乏、慢性肾病（活性维生素 D 合成减少）、甲状旁腺功能减退、急性胰腺炎（钙皂形成）、大量输血（枸橼酸螯合）、镁缺乏（抑制 PTH 分泌）、低白蛋白血症（假性降低，需校正）。",
+    "related_diseases": [
+      "原发性甲状旁腺功能亢进",
+      "恶性肿瘤相关高钙血症",
+      "多发性骨髓瘤",
+      "维生素 D 缺乏",
+      "慢性肾脏病-骨代谢异常",
+      "甲状旁腺功能减退",
+      "急性胰腺炎"
+    ],
+    "related_indicators": [
+      "PTH（甲状旁腺激素）",
+      "25-OH 维生素 D",
+      "白蛋白（校正钙必需）",
+      "镁",
+      "磷",
+      "碱性磷酸酶",
+      "肾功能",
+      "尿钙",
+      "心电图（QT 间期）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "低白蛋白血症（最重要的假性低钙原因）",
+        "mechanism": "总钙中约 40% 与白蛋白结合，白蛋白降低使总钙测值降低，但离子钙（活性成分）正常",
+        "how_to_detect": "必须做校正：校正钙 = 实测钙 + 0.02 × (40 - 白蛋白 g/L)；或直接测离子钙"
+      },
+      {
+        "direction": "decreased",
+        "factor": "EDTA 污染标本（经典致命错误）",
+        "mechanism": "EDTA 强力螯合钙，使钙测值极低（<0.5 mmol/L）",
+        "how_to_detect": "血钙极低而患者无症状，立即怀疑 EDTA 污染，重新采血"
+      },
+      {
+        "direction": "elevated",
+        "factor": "止血带过紧过久",
+        "mechanism": "局部血液浓缩",
+        "how_to_detect": "规范采血复查"
+      },
+      {
+        "direction": "elevated",
+        "factor": "脱水",
+        "mechanism": "血液浓缩",
+        "how_to_detect": "同步看 HCT、白蛋白是否同步升高"
+      },
+      {
+        "direction": "either",
+        "factor": "大量输注枸橼酸抗凝血",
+        "mechanism": "枸橼酸螯合钙",
+        "how_to_detect": "询问输血史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "先做白蛋白校正钙；校正后仍低查 PTH、25-OH 维生素 D、镁、磷；症状性低钙（手足搐搦）需急诊静脉补钙",
+        "followup_tests": [
+          "PTH",
+          "25-OH 维生素 D",
+          "镁",
+          "磷",
+          "白蛋白",
+          "心电图",
+          "肾功能"
+        ],
+        "recheck_interval": "数天–1 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即急诊；静脉葡萄糖酸钙，查心电图（QT 间期）",
+        "followup_tests": [
+          "心电图",
+          "PTH",
+          "镁",
+          "磷",
+          "维生素 D",
+          "血气分析"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "查 PTH：PTH 升高提示甲旁亢，PTH 降低需排查恶性肿瘤（查 PTHrP、蛋白电泳、影像学）",
+        "followup_tests": [
+          "PTH",
+          "25-OH 维生素 D",
+          "磷",
+          "白蛋白",
+          "肾功能",
+          "血清蛋白电泳",
+          "肿瘤标志物",
+          "骨扫描"
+        ],
+        "recheck_interval": "1 周"
+      },
+      {
+        "condition": "critical_high",
+        "advice": "立即急诊；水化+降钙素/双膦酸盐，评估肿瘤可能性",
+        "followup_tests": [
+          "PTH",
+          "PTHrP",
+          "血清蛋白电泳",
+          "肿瘤标志物",
+          "骨扫描",
+          "肾功能",
+          "心电图"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "总钙判读前必须先做白蛋白校正——这是血钙解读最关键的步骤；血钙极低但无症状时优先怀疑 EDTA 污染；离子钙（游离钙）不受白蛋白影响，是更精确的指标但需要特殊标本处理。",
+    "source": "WS/T 404.2-2012；默沙东诊疗手册 https://www.msdmanuals.cn/professional/endocrine-and-metabolic-disorders/electrolyte-disorders/hypercalcemia",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 30,
+    "name": "血清镁",
+    "abbr": [
+      "Mg",
+      "Mg²⁺",
+      "MG",
+      "Magnesium",
+      "Serum Mg",
+      "TMg"
+    ],
+    "aliases": [
+      "血镁",
+      "镁离子",
+      "总镁"
+    ],
+    "category": "电解质",
+    "loinc_code": "2601-3",
+    "unit": "mmol/L",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mmol/L",
+        "factor": 0.4114,
+        "note": "海外常用 mg/dL；mEq/L × 0.5 = mmol/L"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.75,
+        "high": 1.02,
+        "source": "WS/T 404.2-2012"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.7,
+        "high": 0.95,
+        "source": "儿科电解质参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": 0.5,
+        "critical_high": 2.0,
+        "action": "<0.5 严重低镁（抽搐、心律失常如尖端扭转型室速）；>2.0 严重高镁（呼吸抑制、心脏传导阻滞、昏迷）；均需立即急诊",
+        "source": "国内三甲医院院内制度",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 0.7,
+        "direction": "below",
+        "meaning": "低镁血症",
+        "clinical_action": "查钾、钙（常伴低钾低钙）、评估病因（腹泻、利尿剂、PPI、酒精）",
+        "source": "默沙东诊疗手册"
+      },
+      {
+        "level": 1.1,
+        "direction": "above",
+        "meaning": "高镁血症",
+        "clinical_action": "查肾功能、询问镁剂使用（泻药、抗酸剂、硫酸镁）",
+        "source": "默沙东诊疗手册"
+      }
+    ],
+    "elevated_meaning": "最常见为肾功能不全（排泄减少）与镁剂过量（含镁泻药、抗酸剂、硫酸镁保胎/子痫治疗）；也见于溶血（RBC 内镁释放）、肾上腺皮质功能减退、甲状腺功能减退、糖尿病酮症酸中毒；临床表现为反射减弱、呼吸抑制、心脏传导阻滞。",
+    "decreased_meaning": "最常见为胃肠道丢失（长期腹泻、吸收不良、慢性泻药滥用）与肾脏丢失（袢利尿剂/噻嗪类、长期 PPI 使用、酒精、糖尿病酮症、Gitelman 综合征）；低镁常与低钾、低钙并存——**顽固性低钾不补镁则难以纠正**；临床表现为肌颤、手足搐搦、心律失常（Tdp）、癫痫。",
+    "related_diseases": [
+      "慢性腹泻",
+      "吸收不良综合征",
+      "慢性肾病",
+      "长期 PPI 使用相关低镁",
+      "酒精性镁缺乏",
+      "糖尿病酮症酸中毒",
+      "Gitelman 综合征"
+    ],
+    "related_indicators": [
+      "钾（常伴低）",
+      "钙（常伴低）",
+      "磷",
+      "PTH",
+      "肾功能",
+      "尿镁",
+      "心电图（QT、Tdp）",
+      "血气分析"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "标本溶血（经典陷阱）",
+        "mechanism": "红细胞内镁浓度约为血清的 3 倍，溶血使镁假性升高",
+        "how_to_detect": "观察血清是否粉红；规范采血复查"
+      },
+      {
+        "direction": "either",
+        "factor": "血清镁仅代表体内总镁的 1%",
+        "mechanism": "体内 99% 的镁在骨骼与细胞内，血清镁不能完全反映总体镁状态",
+        "how_to_detect": "临床怀疑镁异常而血清镁正常时，可测红细胞内镁或经验性补镁"
+      },
+      {
+        "direction": "elevated",
+        "factor": "近期使用含镁泻药/抗酸剂/灌肠剂",
+        "mechanism": "外源性镁吸收",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "decreased",
+        "factor": "长期质子泵抑制剂（PPI）使用",
+        "mechanism": "抑制肠道镁吸收",
+        "how_to_detect": "追问 PPI 用药史（奥美拉唑等）"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "decreased",
+        "advice": "查钾、钙、磷、PTH（低镁三联征）；询问 PPI、利尿剂、酒精、腹泻史；补镁同时补钾才能纠正顽固性低钾",
+        "followup_tests": [
+          "钾",
+          "钙",
+          "磷",
+          "PTH",
+          "24 小时尿镁",
+          "心电图"
+        ],
+        "recheck_interval": "数天–1 周"
+      },
+      {
+        "condition": "critical_low",
+        "advice": "立即急诊；静脉硫酸镁，心电监护（警惕尖端扭转型室速）",
+        "followup_tests": [
+          "心电图",
+          "钾",
+          "钙",
+          "PTH",
+          "肾功能"
+        ],
+        "recheck_interval": "立即"
+      },
+      {
+        "condition": "elevated",
+        "advice": "查肾功能；停用含镁药物；严重时静脉葡萄糖酸钙拮抗，必要时透析",
+        "followup_tests": [
+          "肾功能",
+          "钙",
+          "钾",
+          "心电图",
+          "血气分析"
+        ],
+        "recheck_interval": "立即"
+      }
+    ],
+    "notes": "镁是检验解读中的'隐形英雄'——低镁是顽固性低钾、难治性低钙的常见隐藏病因，遇到难纠正的电解质紊乱应主动查镁；溶血致假性升高是本项最经典陷阱。",
+    "source": "WS/T 404.2-2012；默沙东诊疗手册 https://www.msdmanuals.cn/professional/endocrine-and-metabolic-disorders/electrolyte-disorders/hypomagnesemia",
+    "source_id": "WS/T 404.2-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 31,
+    "name": "糖化血红蛋白",
+    "abbr": [
+      "HbA1c",
+      "A1C",
+      "HgbA1c",
+      "Glycated hemoglobin",
+      "GHb",
+      "糖化血红蛋白A1c"
+    ],
+    "aliases": [
+      "糖基化血红蛋白",
+      "血红蛋白A1c",
+      "HbA1c"
+    ],
+    "category": "糖代谢",
+    "loinc_code": "4548-4",
+    "unit": "%",
+    "unit_conversions": [
+      {
+        "from_unit": "mmol/mol (IFCC)",
+        "to_unit": "% (NGSP)",
+        "factor": null,
+        "note": "非线性换算：NGSP(%) ≈ 0.09148 × IFCC(mmol/mol) + 2.152；如 48 mmol/mol ≈ 6.5%"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 4.0,
+        "high": 6.0,
+        "source": "中国2型糖尿病防治指南（2020）；ADA"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 4.0,
+        "high": 6.0,
+        "source": "儿科参考"
+      },
+      {
+        "population": "孕妇",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "妊娠期",
+        "altitude_note": null,
+        "low": 4.0,
+        "high": 5.5,
+        "source": "妊娠合并糖尿病指南（妊娠期生理性降低）"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "一般不设危急值；>10% 提示血糖控制极差，需尽快评估并发症与调整方案",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 5.7,
+        "direction": "above",
+        "meaning": "糖尿病前期（5.7–6.4%）",
+        "clinical_action": "强化生活方式干预，每年复查",
+        "source": "ADA 标准"
+      },
+      {
+        "level": 6.5,
+        "direction": "above",
+        "meaning": "糖尿病诊断界值（需复查确认或结合血糖）",
+        "clinical_action": "复查确认后按糖尿病管理；须排除贫血/血红蛋白病等干扰",
+        "source": "WHO；中国2型糖尿病防治指南（2020）"
+      },
+      {
+        "level": 7.0,
+        "direction": "above",
+        "meaning": "多数糖尿病患者控制目标",
+        "clinical_action": "未达标者调整治疗方案；已达标者维持",
+        "source": "中国2型糖尿病防治指南（2020）"
+      },
+      {
+        "level": 9.0,
+        "direction": "above",
+        "meaning": "控制很差",
+        "clinical_action": "评估是否需胰岛素治疗、排查并发症（眼底、尿微量白蛋白、神经病变）",
+        "source": "中国2型糖尿病防治指南（2020）"
+      }
+    ],
+    "elevated_meaning": "反映近 8–12 周平均血糖水平：升高见于糖尿病（诊断界值 ≥6.5%）、糖尿病控制不佳、糖尿病前期；真性升高需排除缺铁性贫血（假性升高）、脾切除后。HbA1c 每升高 1%，平均血糖约升高 1.6 mmol/L。",
+    "decreased_meaning": "见于溶血性贫血（红细胞寿命缩短）、近期大量失血或输血、妊娠（生理性）、慢性肾病用促红素治疗后、血红蛋白病（HbS/HbC，方法依赖）；降低不等于低血糖，只是反映窗口内平均血糖偏低。",
+    "related_diseases": [
+      "2 型糖尿病",
+      "1 型糖尿病",
+      "糖尿病前期",
+      "妊娠期糖尿病",
+      "糖尿病并发症（视网膜病变、肾病、神经病变）"
+    ],
+    "related_indicators": [
+      "空腹血糖",
+      "OGTT",
+      "随机血糖",
+      "C 肽",
+      "胰岛素",
+      "尿微量白蛋白/肌酐比(ACR)",
+      "眼底检查",
+      "血脂"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "缺铁性贫血（最重要的假性升高原因）",
+        "mechanism": "缺铁时红细胞生化改变使糖化增加，HbA1c 可假性升高 0.5–1.5%",
+        "how_to_detect": "查血常规（MCV↓）、铁蛋白；补铁后复查会回落"
+      },
+      {
+        "direction": "decreased",
+        "factor": "溶血性贫血、近期输血、大量失血",
+        "mechanism": "红细胞寿命缩短或供者 RBC 稀释，糖化窗口期变短",
+        "how_to_detect": "查网织红、胆红素、LDH；询问输血史"
+      },
+      {
+        "direction": "either",
+        "factor": "血红蛋白变异体（HbS、HbC、HbF 升高）",
+        "mechanism": "不同检测方法（离子交换 HPLC vs 免疫法）受影响方向不同",
+        "how_to_detect": "血常规+外周血涂片；改用不受变异体影响的方法（如硼酸亲和层析）"
+      },
+      {
+        "direction": "decreased",
+        "factor": "慢性肾病使用促红细胞生成素（EPO）",
+        "mechanism": "新生红细胞增多，平均红细胞寿命缩短",
+        "how_to_detect": "询问 EPO 用药史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "≥6.5% 需复查确认或结合空腹血糖/OGTT 诊断糖尿病；已确诊者每 3 个月复查（方案调整期）或每 6 个月（稳定达标期）；同步筛查并发症",
+        "followup_tests": [
+          "空腹血糖",
+          "尿微量白蛋白/肌酐比",
+          "血脂",
+          "眼底检查",
+          "肌电图（有症状时）"
+        ],
+        "recheck_interval": "3–6 个月"
+      }
+    ],
+    "notes": "HbA1c 反映 8–12 周平均血糖（红细胞寿命约 120 天），无需空腹、不受进餐/运动/应激的短期波动影响，是血糖控制的'金标准'监测指标；估算平均血糖 eAG(mmol/L) ≈ 1.59 × HbA1c − 2.59，可帮患者直观理解。判读前必须先排除贫血、血红蛋白病等干扰——这是 HbA1c 误诊最常见的坑。",
+    "source": "中国2型糖尿病防治指南（2020）；默沙东诊疗手册",
+    "source_id": "CDS-2020",
+    "source_version": "2020",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 32,
+    "name": "C反应蛋白",
+    "abbr": [
+      "CRP",
+      "C-RP",
+      "C reactive protein",
+      "hs-CRP（超敏，另述）"
+    ],
+    "aliases": [
+      "丙种反应蛋白",
+      "C-反应蛋白"
+    ],
+    "category": "炎症",
+    "loinc_code": "1988-5",
+    "unit": "mg/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 10,
+        "source": "临床常规（各实验室略有差异）"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 10,
+        "source": "儿科参考"
+      },
+      {
+        "population": "新生儿",
+        "sex": null,
+        "age_range": {
+          "min": 0,
+          "max": 28,
+          "unit": "天"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 2,
+        "source": "新生儿参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "一般不设危急值；>100 mg/L 强烈提示严重细菌感染或全身炎症，需立即临床评估",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 10,
+        "direction": "above",
+        "meaning": "轻度炎症",
+        "clinical_action": "结合症状评估；轻度病毒感染、局灶炎症多在此范围",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 40,
+        "direction": "above",
+        "meaning": "细菌感染可能性增大（病毒感染多 <40）",
+        "clinical_action": "结合 WBC、PCT 判断是否抗感染治疗",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 100,
+        "direction": "above",
+        "meaning": "严重细菌感染或全身炎症反应",
+        "clinical_action": "积极查找感染灶，血培养，评估住院/静脉抗感染",
+        "source": "临床医学决定水平"
+      }
+    ],
+    "elevated_meaning": "急性时相反应物，升高见于：细菌感染（常 >40–100，且幅度与感染严重度相关）、病毒感染（多 <40）、组织损伤（心梗、创伤、术后）、自身免疫病活动期（RA、血管炎）、恶性肿瘤；感染刺激后 6–8 小时开始升高，24–48 小时达峰。",
+    "decreased_meaning": "无临床意义；有效治疗后 CRP 快速下降（半衰期约 19 小时），下降速度本身是治疗有效的良好指标。",
+    "related_diseases": [
+      "细菌感染",
+      "脓毒症",
+      "类风湿关节炎（活动期）",
+      "血管炎",
+      "炎症性肠病",
+      "急性心肌梗死",
+      "恶性肿瘤"
+    ],
+    "related_indicators": [
+      "WBC+中性粒细胞",
+      "降钙素原(PCT)",
+      "血沉",
+      "血培养",
+      "IL-6",
+      "病原学检测",
+      "影像学"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "口服避孕药、雌激素",
+        "mechanism": "药物性升高",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "decreased",
+        "factor": "他汀类药物、NSAIDs",
+        "mechanism": "抗炎效应",
+        "how_to_detect": "追问用药史"
+      },
+      {
+        "direction": "either",
+        "factor": "检测的是常规 CRP 还是超敏 CRP（hs-CRP）",
+        "mechanism": "两者是同一物质但检测灵敏度与用途不同，不可混读",
+        "how_to_detect": "看报告单项目名称——hs-CRP 用于心血管风险分层（<1 低危/1–3 中危/>3 高危 mg/L），不能与常规 CRP 数值互换解读"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "轻度升高结合症状观察，48–72 小时复查趋势；>40–100 查感染灶+血培养+PCT；治疗后 3–5 天复查 CRP 验证疗效（不降需换方案或查脓肿等并发症）",
+        "followup_tests": [
+          "WBC+中性粒细胞",
+          "PCT",
+          "血培养",
+          "影像学（感染灶）"
+        ],
+        "recheck_interval": "48–72 小时（急性期）/ 3–5 天（治疗中）"
+      }
+    ],
+    "notes": "CRP 是最实用的感染/炎症活动度动态监测指标：半衰期仅 19 小时，升高快、下降也快，适合观察治疗反应；与 PCT 的分工——PCT 对细菌感染/脓毒症特异性更高，CRP 更敏感但特异性低；病毒感染 CRP 多轻中度升高，显著升高（>100）基本提示细菌感染。hs-CRP 与常规 CRP 是两套报告体系，切勿混用。",
+    "source": "默沙东诊疗手册 https://www.msdmanuals.cn/professional/infectious-diseases/laboratory-diagnosis-of-infectious-disease/acute-phase-reactants；临床医学决定水平",
+    "source_id": "MSD-CRP",
+    "source_version": "2024",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 33,
+    "name": "红细胞沉降率",
+    "abbr": [
+      "ESR",
+      "ESR-1h",
+      "血沉",
+      "SR",
+      "Erythrocyte sedimentation rate",
+      "Westergren ESR"
+    ],
+    "aliases": [
+      "红细胞沉降率测定",
+      "魏氏法血沉"
+    ],
+    "category": "炎症",
+    "loinc_code": "4537-7",
+    "unit": "mm/h",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成年男性",
+        "sex": "男",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 15,
+        "source": "Westergren 法（魏氏法）临床常规"
+      },
+      {
+        "population": "成年女性",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 20,
+        "source": "Westergren 法临床常规"
+      },
+      {
+        "population": "老年人（>60 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 60,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 30,
+        "source": "年龄校正公式：男性上限≈年龄/2，女性上限≈(年龄+10)/2"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 100,
+        "action": ">100 mm/h 需系统排查：多发性骨髓瘤、感染性心内膜炎、骨髓炎、巨细胞动脉炎、结缔组织病、恶性肿瘤",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 20,
+        "direction": "above",
+        "meaning": "轻度升高",
+        "clinical_action": "非特异性；结合 CRP 与临床；老年人用年龄校正公式再判",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 50,
+        "direction": "above",
+        "meaning": "明确升高",
+        "clinical_action": "查免疫指标（RF、ANA）、血清蛋白电泳",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 100,
+        "direction": "above",
+        "meaning": "显著升高（红线）",
+        "clinical_action": "必须系统排查骨髓瘤、心内膜炎、深部感染、血管炎、肿瘤",
+        "source": "临床医学决定水平"
+      }
+    ],
+    "elevated_meaning": "非特异性炎症指标，升高见于：感染（尤其慢性/深部感染如骨髓炎、心内膜炎）、自身免疫病（RA、巨细胞动脉炎、风湿性多肌痛——后两者 ESR 是核心监测指标）、多发性骨髓瘤（缗钱状红细胞形成，ESR 常 >100）、恶性肿瘤、贫血、妊娠、肾病；CRP 反应快（1–2 天达峰），ESR 反应慢（数天至数周才达峰），两者趋势不一致时提示时间进程不同。",
+    "decreased_meaning": "见于真性红细胞增多症、镰状细胞贫血、重度白细胞增多、低纤维蛋白原血症、心衰；临床意义有限。",
+    "related_diseases": [
+      "类风湿关节炎",
+      "巨细胞动脉炎",
+      "风湿性多肌痛",
+      "多发性骨髓瘤",
+      "感染性心内膜炎",
+      "系统性红斑狼疮",
+      "结核"
+    ],
+    "related_indicators": [
+      "CRP",
+      "血清蛋白电泳（M 蛋白）",
+      "RF",
+      "ANA",
+      "血常规（贫血协同判读）",
+      "免疫固定电泳"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "贫血（最重要的混杂因素）",
+        "mechanism": "RBC 减少使沉降加速，贫血本身即可使 ESR 升高 20–30 mm/h",
+        "how_to_detect": "先看 Hb；贫血纠正后复查 ESR 才反映真实炎症水平"
+      },
+      {
+        "direction": "either",
+        "factor": "标本放置时间过长（>2 小时）或温度不当",
+        "mechanism": "红细胞形态与血浆蛋白变化影响沉降",
+        "how_to_detect": "采血后 2 小时内、室温下完成检测"
+      },
+      {
+        "direction": "decreased",
+        "factor": "极端红细胞形态异常（镰变、球形）",
+        "mechanism": "RBC 不易形成缗钱状，沉降减慢，可能掩盖真实炎症",
+        "how_to_detect": "看外周血涂片；此时用 CRP 替代判读"
+      },
+      {
+        "direction": "elevated",
+        "factor": "妊娠中晚期、月经期",
+        "mechanism": "纤维蛋白原生理性升高",
+        "how_to_detect": "询问妊娠/月经史"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "先排除贫血与年龄因素；ESR 与 CRP 联合判读（ESR 高而 CRP 正常提示骨髓瘤或慢性病，CRP 高而 ESR 正常提示急性早期感染）；>100 必须查蛋白电泳、免疫指标、感染灶",
+        "followup_tests": [
+          "CRP",
+          "血常规",
+          "血清蛋白电泳",
+          "免疫固定电泳",
+          "RF",
+          "ANA",
+          "心脏超声（疑心内膜炎）"
+        ],
+        "recheck_interval": "2–4 周"
+      }
+    ],
+    "notes": "ESR 单独判读价值低，必须与 CRP 配对使用——两者分离（一个高一个正常）本身就是诊断线索：ESR↑+CRP 正常 → 骨髓瘤/慢性炎症；CRP↑+ESR 正常 → 急性感染早期或治疗显效中；贫血会使 ESR 失真，判读前先看 Hb。",
+    "source": "默沙东诊疗手册；临床医学决定水平",
+    "source_id": "MSD-ESR",
+    "source_version": "2024",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 34,
+    "name": "血清淀粉酶",
+    "abbr": [
+      "AMY",
+      "AMS",
+      "Amylase",
+      "血AMY",
+      "α-Amylase"
+    ],
+    "aliases": [
+      "血淀粉酶",
+      "淀粉酶测定",
+      "α-淀粉酶"
+    ],
+    "category": "急症标志物",
+    "loinc_code": "1798-8",
+    "unit": "U/L",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 35,
+        "high": 135,
+        "source": "临床常规（方法学差异大，以本实验室区间为准）"
+      },
+      {
+        "population": "儿童",
+        "sex": null,
+        "age_range": {
+          "min": 1,
+          "max": 14,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 30,
+        "high": 120,
+        "source": "儿科参考"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 400,
+        "action": ">3 倍正常上限（约 >400 U/L）+ 典型腹痛符合急性胰腺炎诊断标准，需立即评估；部分医院设 >1000",
+        "source": "亚特兰大急性胰腺炎分类标准（修订版）；部分三甲院内制度",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 135,
+        "direction": "above",
+        "meaning": "超出上限",
+        "clinical_action": "结合腹痛、脂肪酶判断；轻度升高可见于腮腺/肾脏/肠道问题",
+        "source": "临床参考"
+      },
+      {
+        "level": 400,
+        "direction": "above",
+        "meaning": "3 倍上限（急性胰腺炎诊断阈值）",
+        "clinical_action": "结合腹痛+影像学按急性胰腺炎处理；同步查脂肪酶",
+        "source": "亚特兰大标准"
+      },
+      {
+        "level": 1000,
+        "direction": "above",
+        "meaning": "重度升高",
+        "clinical_action": "高度支持急性胰腺炎，评估严重度（Ranson/BISAP 评分）",
+        "source": "临床参考"
+      }
+    ],
+    "elevated_meaning": "急性胰腺炎（发病 2–12 小时升高，24 小时达峰，3–5 天恢复正常，升高幅度与病情严重度不平行）、腮腺炎/唾液腺疾病（淀粉酶有胰型 P 与唾液型 S 两种同工酶，腮腺来源为 S 型）、急性酒精中毒、消化道穿孔/肠梗阻、异位妊娠破裂、糖尿病酮症酸中毒、肾功能不全（清除减少）、巨淀粉酶血症（孤立性升高、无任何症状，经典陷阱）。",
+    "decreased_meaning": "见于慢性胰腺炎晚期（腺泡细胞破坏、分泌功能丧失）、胰腺癌、重症急性胰腺炎后期（胰腺广泛坏死）、囊性纤维化；单独降低临床意义有限。",
+    "related_diseases": [
+      "急性胰腺炎",
+      "慢性胰腺炎",
+      "腮腺炎",
+      "胆石症（胰腺炎最常见病因）",
+      "消化道穿孔",
+      "巨淀粉酶血症",
+      "肾功能不全"
+    ],
+    "related_indicators": [
+      "脂肪酶（对胰腺炎更特异）",
+      "血钙",
+      "血糖",
+      "甘油三酯（高脂血症性胰腺炎）",
+      "肝功能/胆红素（胆源性）",
+      "腹部 CT",
+      "尿淀粉酶",
+      "胰腺同工酶（P型/S型）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "巨淀粉酶血症（经典陷阱）",
+        "mechanism": "淀粉酶与免疫球蛋白形成大分子复合物，无法经肾小球滤过，血中持续升高但尿淀粉酶正常且无任何症状",
+        "how_to_detect": "血高+尿正常+无腹痛+持续数月不变 → 查巨淀粉酶（PEG 沉淀试验）；无须治疗"
+      },
+      {
+        "direction": "elevated",
+        "factor": "肾功能不全",
+        "mechanism": "淀粉酶经肾清除减少",
+        "how_to_detect": "看肌酐/eGFR；CKD 患者淀粉酶基线可升高 2–3 倍而无胰腺炎"
+      },
+      {
+        "direction": "either",
+        "factor": "唾液腺来源混入",
+        "mechanism": "总淀粉酶含 S 型（唾液）与 P 型（胰腺），腮腺炎、牙科操作使 S 型升高",
+        "how_to_detect": "查胰腺同工酶分型或直接改测脂肪酶"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "急性腹痛+淀粉酶 3 倍升高按急性胰腺炎处理（禁食、补液、查病因）；同步必查脂肪酶（更特异）与腹部 CT/B 超；无症状的孤立升高先排除巨淀粉酶血症与肾功能不全，不要盲目按胰腺炎治疗",
+        "followup_tests": [
+          "脂肪酶",
+          "血钙",
+          "甘油三酯",
+          "肝功能",
+          "腹部 CT",
+          "肾功能",
+          "尿淀粉酶"
+        ],
+        "recheck_interval": "急性期每日监测；无症状者查因后随访"
+      }
+    ],
+    "notes": "急性胰腺炎诊断（亚特兰大标准）需满足三条中两条：典型腹痛、淀粉酶或脂肪酶 >3 倍正常上限、影像学特征——单凭淀粉酶升高不能诊断；脂肪酶对胰腺炎特异性更高（唾液腺病不升高），优先看脂肪酶；淀粉酶升高幅度与胰腺炎严重程度不平行，判断严重度靠评分系统与 CT 而非酶值。",
+    "source": "亚特兰大急性胰腺炎分类标准（修订版 2012）；默沙东诊疗手册",
+    "source_id": "ATLANTA-2012",
+    "source_version": "2012",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 35,
+    "name": "心肌肌钙蛋白I",
+    "abbr": [
+      "cTnI",
+      "TnI",
+      "CTNI",
+      "hs-cTnI",
+      "Troponin I",
+      "肌钙蛋白I"
+    ],
+    "aliases": [
+      "心肌肌钙蛋白 I",
+      "超敏肌钙蛋白I",
+      "心脏肌钙蛋白I"
+    ],
+    "category": "急症标志物",
+    "loinc_code": "10839-9",
+    "unit": "ng/mL",
+    "unit_conversions": [
+      {
+        "from_unit": "μg/L",
+        "to_unit": "ng/mL",
+        "factor": 1,
+        "note": "两者数值相等"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 0.04,
+        "source": "常规 cTnI 检测 99 百分位参考上限（URL）；hs-cTnI 按性别区分（男性上限更低）且不同试剂平台差异大，以本实验室为准"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 0.5,
+        "action": ">0.5 ng/mL（约 10 倍以上 URL）提示心肌严重损伤（急性心梗、心肌炎），结合胸痛立即按 ACS 流程处理；具体阈值随试剂平台不同，以院内制度为准",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 0.04,
+        "direction": "above",
+        "meaning": "超过 99 百分位 URL（心肌损伤阈值）",
+        "clinical_action": "1–3 小时后复查观察动态变化（delta 值），结合心电图",
+        "source": "第四版心梗通用定义"
+      },
+      {
+        "level": 0.5,
+        "direction": "above",
+        "meaning": "显著升高",
+        "clinical_action": "按 ACS/心肌损伤急诊流程，连续监测心电图与肌钙蛋白",
+        "source": "第四版心梗通用定义"
+      }
+    ],
+    "elevated_meaning": "cTnI 是心肌损伤最特异的标志物（骨骼肌不表达）：急性心梗（3–4 小时升高，12–24 小时达峰，持续 7–10 天）、不稳定型心绞痛、心肌炎、心衰、肺栓塞（右室损伤）、脓毒症/休克（心肌抑制）、慢性肾病（慢性低水平升高）、心脏挫伤、心脏毒性药物（蒽环类、免疫治疗心肌炎）、主动脉夹层、卒中；升高=心肌损伤，但不都是心梗——需结合临床情境与动态变化。",
+    "decreased_meaning": "无临床意义（正常时接近检测下限）。",
+    "related_diseases": [
+      "急性心肌梗死",
+      "不稳定型心绞痛",
+      "急性心肌炎",
+      "心力衰竭",
+      "肺血栓栓塞症",
+      "脓毒症心肌损伤",
+      "慢性肾病心血管损伤"
+    ],
+    "related_indicators": [
+      "心电图（核心配套）",
+      "hs-cTnI 动态复查（0h/1h/3h）",
+      "CK-MB",
+      "BNP/NT-proBNP",
+      "心脏超声",
+      "冠脉造影/CTA",
+      "D-二聚体（疑肺栓塞）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "异嗜性抗体、类风湿因子",
+        "mechanism": "干扰免疫检测，假性升高（与临床不符的孤立升高）",
+        "how_to_detect": "数值极高但心电图正常、患者无症状时怀疑；换平台复测或稀释试验"
+      },
+      {
+        "direction": "elevated",
+        "factor": "巨肌钙蛋白",
+        "mechanism": "肌钙蛋白-自身抗体复合物，假性持续升高",
+        "how_to_detect": "动态复查无变化+临床不符时怀疑"
+      },
+      {
+        "direction": "either",
+        "factor": "标本溶血",
+        "mechanism": "部分平台溶血干扰检测",
+        "how_to_detect": "观察标本；重新采血"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "单次升高不能诊断心梗——必须动态复查（0/1/3 小时方案），delta 变化（上升或下降 ≥20%）+ 缺血症状/心电图改变才符合急性心梗；慢性肾病、心衰患者可有慢性基线升高，看变化幅度而非绝对值；立即做心电图",
+        "followup_tests": [
+          "心电图",
+          "hs-cTnI 动态复查",
+          "心脏超声",
+          "BNP/NT-proBNP",
+          "冠脉 CTA 或造影"
+        ],
+        "recheck_interval": "1–3 小时（急性）/ 3–6 小时（急诊流程）"
+      }
+    ],
+    "notes": "肌钙蛋白判读三要素：①99 百分位 URL 是心肌损伤阈值（不是正常范围上限）；②必须看动态变化（单次升高≠心梗，快速上升提示急性事件，平台/缓慢下降提示慢性损伤如心衰、肾病）；③升高只说明心肌损伤，病因要结合情境（心梗/心肌炎/肺栓塞/脓毒症/肾病各不相同）。hs-cTnI 灵敏度更高，可更早检出轻微损伤，但也带来更多'非心梗性升高'需要鉴别。",
+    "source": "第四版心肌梗死通用定义（2018）；默沙东诊疗手册",
+    "source_id": "UNIVERSAL-MI-4",
+    "source_version": "2018",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 36,
+    "name": "D-二聚体",
+    "abbr": [
+      "D-Dimer",
+      "DD",
+      "D-D",
+      "Fibrin D-dimer",
+      "D2聚体",
+      "D二聚体"
+    ],
+    "aliases": [
+      "D二聚体",
+      "D-二聚体测定",
+      "纤维蛋白D-二聚体"
+    ],
+    "category": "急症标志物",
+    "loinc_code": "55398-2",
+    "unit": "mg/L (FEU)",
+    "unit_conversions": [
+      {
+        "from_unit": "μg/mL FEU",
+        "to_unit": "mg/L FEU",
+        "factor": 1,
+        "note": null
+      },
+      {
+        "from_unit": "mg/L DDU",
+        "to_unit": "mg/L FEU",
+        "factor": 2,
+        "note": "DDU（D-dimer unit）数值约为 FEU 的一半，两者不可直接比较——判读前必须确认报告单位！"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人（<50 岁）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": 50,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": 0.5,
+        "source": "临床常规（试剂平台间差异大，以本实验室为准）"
+      },
+      {
+        "population": "老年人（>50 岁，年龄校正界值）",
+        "sex": null,
+        "age_range": {
+          "min": 50,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": null,
+        "high_text": "界值 = 年龄 × 0.01 mg/L FEU（如 70 岁为 0.70），显著减少老年人假阳性",
+        "source": "年龄校正 D-dimer 策略（ADJUST-PE 研究）"
+      },
+      {
+        "population": "孕妇（妊娠期生理性升高）",
+        "sex": "女",
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": "妊娠期",
+        "altitude_note": null,
+        "low": null,
+        "high": null,
+        "high_text": "妊娠期随孕周生理性升高（可至 3–4 倍），不能用普通界值判读",
+        "source": "妊娠期 VTE 防治指南"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "一般不设危急值；显著升高（>10 mg/L）需警惕 DIC、大面积肺栓塞",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 0.5,
+        "direction": "above",
+        "meaning": "超出界值（<50 岁常规界值）",
+        "clinical_action": "升高≠血栓！结合验前概率（Wells 评分）决定是否影像学检查",
+        "source": "临床医学决定水平"
+      },
+      {
+        "level": 10,
+        "direction": "above",
+        "meaning": "极度升高",
+        "clinical_action": "警惕 DIC、大面积肺栓塞、严重感染；查凝血全套+纤维蛋白原",
+        "source": "临床参考"
+      }
+    ],
+    "elevated_meaning": "D-二聚体是交联纤维蛋白的降解产物，升高=体内存在凝血+纤溶激活，但特异性极低：静脉血栓栓塞（DVT/PE）、DIC、手术/创伤、恶性肿瘤、感染/炎症、妊娠、高龄、心衰、房颤均可升高——**阴性排除价值高，阳性确认价值低**。",
+    "decreased_meaning": "无临床意义。",
+    "related_diseases": [
+      "深静脉血栓(DVT)",
+      "肺血栓栓塞症(PE)",
+      "DIC",
+      "恶性肿瘤",
+      "严重感染/脓毒症",
+      "主动脉夹层（筛查）"
+    ],
+    "related_indicators": [
+      "PT/INR",
+      "APTT",
+      "纤维蛋白原",
+      "凝血酶时间",
+      "Wells 评分（临床验前概率）",
+      "下肢静脉超声",
+      "CT 肺动脉造影(CTPA)"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "报告单位混淆 FEU vs DDU（最高频判读错误）",
+        "mechanism": "同一标本 FEU 数值约为 DDU 的 2 倍，拿 FEU 界值判读 DDU 报告会漏诊，反向则误诊",
+        "how_to_detect": "看报告单位标注；各实验室界值与单位配套，不要跨平台比较"
+      },
+      {
+        "direction": "elevated",
+        "factor": "类风湿因子、脂血",
+        "mechanism": "免疫检测干扰，假性升高",
+        "how_to_detect": "查 RF；乳糜标本复测"
+      },
+      {
+        "direction": "elevated",
+        "factor": "高龄、妊娠、术后",
+        "mechanism": "生理性/一过性升高",
+        "how_to_detect": "用年龄校正界值；孕妇参考妊娠特异界值"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "D-二聚体的正确用法是'排除'而非'确诊'：临床验前概率低（Wells 评分低危）+ D-二聚体阴性 → 无需影像学即可排除 VTE；阳性只说明需要进一步检查（超声/CTPA），不能直接下血栓诊断；先算 Wells 评分再决定下一步",
+        "followup_tests": [
+          "下肢静脉超声",
+          "CT 肺动脉造影(CTPA)",
+          "凝血全套",
+          "纤维蛋白原"
+        ],
+        "recheck_interval": "按临床路径立即评估"
+      }
+    ],
+    "notes": "D-二聚体是'高敏感、低特异'的典型：阴性（+低验前概率）可安全排除 DVT/PE，避免不必要的 CT；阳性则需影像学确认。三大判读前提：①确认单位是 FEU 还是 DDU；②>50 岁用年龄校正界值（年龄×0.01）；③孕妇/术后/感染/肿瘤患者本底升高，界值需调整。单看数字阳性就诊断血栓是本项最常见的 LLM 误判来源。",
+    "source": "默沙东诊疗手册；ADJUST-PE 年龄校正策略；中国肺血栓栓塞症诊治与预防指南",
+    "source_id": "MSD-DDIMER",
+    "source_version": "2024",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 37,
+    "name": "血浆凝血酶原时间/国际标准化比值",
+    "abbr": [
+      "PT",
+      "PT-INR",
+      "INR",
+      "Prothrombin time",
+      "凝血酶原时间"
+    ],
+    "aliases": [
+      "凝血酶原时间",
+      "国际标准化比值",
+      "PT测定"
+    ],
+    "category": "凝血功能",
+    "loinc_code": "5902-2",
+    "unit": "s / 比值",
+    "unit_conversions": [
+      {
+        "from_unit": "PT(s)",
+        "to_unit": "INR",
+        "factor": null,
+        "note": "非线性：INR = (患者PT/正常对照PT)^ISI，ISI 为试剂敏感指数"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人 PT",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 9.4,
+        "high": 12.5,
+        "source": "临床常规（各实验室试剂差异大，以本实验室为准）"
+      },
+      {
+        "population": "成人 INR",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 0.8,
+        "high": 1.2,
+        "source": "临床常规"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人（未抗凝）",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "未抗凝者 PT 明显延长或 INR >1.5 提示凝血功能障碍（肝病/DIC/维生素 K 缺乏），结合出血表现评估",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      },
+      {
+        "population": "成人（华法林抗凝中）",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "INR >5.0 出血风险显著增高：暂停华法林、评估出血、必要时维生素 K 拮抗",
+        "source": "华法林抗凝管理共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 2.0,
+        "direction": "above",
+        "meaning": "华法林治疗窗下限",
+        "clinical_action": "INR 2.0–3.0 为房颤/VTE/多数机械瓣的治疗目标区间",
+        "source": "华法林抗凝管理共识"
+      },
+      {
+        "level": 3.0,
+        "direction": "above",
+        "meaning": "华法林治疗窗上限（多数适应证）",
+        "clinical_action": "INR 2.0–3.0 达标；机械二尖瓣/高危者目标 2.5–3.5",
+        "source": "华法林抗凝管理共识"
+      },
+      {
+        "level": 4.5,
+        "direction": "above",
+        "meaning": "出血风险增高",
+        "clinical_action": "减量或停药，加强监测；有出血则维生素 K 拮抗",
+        "source": "华法林抗凝管理共识"
+      }
+    ],
+    "elevated_meaning": "PT 反映外源性+共同凝血通路（因子 I、II、V、VII、X），延长见于：华法林等维生素 K 拮抗剂使用（因子 VII 半衰期最短，故 PT 最早延长）、肝脏疾病（合成功能下降，PT 延长程度是肝衰严重度指标）、维生素 K 缺乏（梗阻性黄疸、吸收不良、长期抗生素、营养不良）、DIC 消耗期、遗传性因子缺乏（VII、V、X、II）、大量输血（稀释）。",
+    "decreased_meaning": "PT 缩短无独立临床意义；见于高凝状态（但 PT 不是高凝筛查指标）、急性血栓早期、口服避孕药。",
+    "related_diseases": [
+      "肝硬化",
+      "急性肝衰竭",
+      "DIC",
+      "维生素 K 缺乏症",
+      "华法林过量",
+      "梗阻性黄疸",
+      "遗传性凝血因子缺乏"
+    ],
+    "related_indicators": [
+      "APTT",
+      "纤维蛋白原",
+      "D-二聚体",
+      "血小板",
+      "肝功能（白蛋白、胆红素）",
+      "维生素 K",
+      "凝血因子活性测定",
+      "INR"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "EDTA 或肝素污染采血管（经典致命错误）",
+        "mechanism": "枸橼酸钠凝血管混入 EDTA/肝素后 PT/APTT 极度延长，数值完全不可用",
+        "how_to_detect": "数值延长到离谱程度（如 PT >60s 而患者无出血）→ 立即怀疑采血管错误，重新采血"
+      },
+      {
+        "direction": "either",
+        "factor": "直接口服抗凝药（DOAC：利伐沙班、达比加群）",
+        "mechanism": "对 PT/APTT 有不同程度影响但不可靠，不能用常规 PT/APTT 监测 DOAC",
+        "how_to_detect": "追问 DOAC 用药史；需特殊稀释试验或抗 Xa/蛇静脉酶法"
+      },
+      {
+        "direction": "either",
+        "factor": "标本放置过久或未充分离心",
+        "mechanism": "血小板活化与因子消耗影响结果",
+        "how_to_detect": "采血后 1–2 小时内完成检测"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "未抗凝者 PT/INR 延长：先排除采血污染，再查肝功能（PT 是肝脏合成功能的敏感指标）、纤维蛋白原、D-二聚体（排查 DIC）、维生素 K 状态；华法林使用者按目标窗调整剂量；孤立 PT 延长+APTT 正常提示 VII 缺乏或早期华法林效应",
+        "followup_tests": [
+          "APTT",
+          "纤维蛋白原",
+          "D-二聚体",
+          "肝功能",
+          "血小板",
+          "维生素 K"
+        ],
+        "recheck_interval": "视临床情境：华法林每 2–4 周；急性肝病每日"
+      }
+    ],
+    "notes": "两个最容易踩的坑：①INR 只对华法林监测有效——INR 经 ISI 校正的目的是跨实验室可比，未抗凝者的 PT/INR 延长应解读为肝脏合成功能或凝血因子消耗问题，而非'血液太稀'；②PT 是肝衰竭严重度评估（CTP/MELD 评分）的核心参数，慢性肝病患者的 INR 目标不是 1.0 左右，不应为'纠正'轻度延长而常规输血浆。",
+    "source": "华法林抗凝治疗的中国专家共识；默沙东诊疗手册",
+    "source_id": "WARFARIN-CN",
+    "source_version": "2018",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 38,
+    "name": "活化部分凝血活酶时间",
+    "abbr": [
+      "APTT",
+      "aPTT",
+      "PTT",
+      "APTT-Ratio",
+      "Activated partial thromboplastin time"
+    ],
+    "aliases": [
+      "活化部分凝血活酶时间测定",
+      "部分凝血活酶时间",
+      "白陶土部分凝血活酶时间"
+    ],
+    "category": "凝血功能",
+    "loinc_code": "14979-9",
+    "unit": "s",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": 25,
+        "high": 37,
+        "source": "临床常规（各实验室试剂差异大，以本实验室为准）"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人（未抗凝）",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": 70,
+        "action": "未用肝素者 APTT >70 s 提示凝血功能障碍（血友病、DIC、狼疮抗凝物、严重肝病），结合出血表现立即评估",
+        "source": "国内三甲医院院内制度",
+        "source_type": "院内制度"
+      },
+      {
+        "population": "成人（肝素抗凝中）",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "治疗目标为正常对照的 1.5–2.5 倍（约 46–70 s）；超出需调整肝素剂量",
+        "source": "肝素抗凝管理共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 46,
+        "direction": "above",
+        "meaning": "肝素治疗窗下限（1.5 倍）",
+        "clinical_action": "不足时上调肝素剂量（按 kg 体重方案）",
+        "source": "肝素抗凝管理共识"
+      },
+      {
+        "level": 70,
+        "direction": "above",
+        "meaning": "肝素治疗窗上限（2.5 倍）/未抗凝者显著延长",
+        "clinical_action": "抗凝者减量；未抗凝者查因（混合试验+因子检测）",
+        "source": "肝素抗凝管理共识"
+      }
+    ],
+    "elevated_meaning": "APTT 反映内源性+共同凝血通路（除 VII、XIII 外所有因子），延长见于：肝素/低分子肝素使用（LMWH 对 APTT 影响小）、血友病 A/B（VIII/IX 缺乏）、von Willebrand 病、DIC、严重肝病、XI/XII 缺乏（XII 缺乏不出血）、狼疮抗凝物（LA 使 APTT 延长但**增加血栓风险**——经典悖论）、血管性血友病、获得性抑制物。",
+    "decreased_meaning": "临床意义有限；见于高凝早期、采血激活。",
+    "related_diseases": [
+      "血友病 A/B",
+      "von Willebrand 病",
+      "DIC",
+      "抗磷脂综合征（狼疮抗凝物）",
+      "严重肝病",
+      "肝素治疗监测",
+      "血管性血友病"
+    ],
+    "related_indicators": [
+      "PT/INR",
+      "纤维蛋白原",
+      "血小板",
+      "D-二聚体",
+      "凝血因子 VIII/IX 活性",
+      "狼疮抗凝物(LA)",
+      "vWF 抗原与活性",
+      "混合纠正试验"
+    ],
+    "interference_factors": [
+      {
+        "direction": "elevated",
+        "factor": "采血管混入肝素（经典陷阱：从留置针/肝素帽采血）",
+        "mechanism": "微量肝素即显著延长 APTT，结果不可用",
+        "how_to_detect": "APTT 极度延长+患者无出血+未用肝素 → 从外周静脉重新采血"
+      },
+      {
+        "direction": "either",
+        "factor": "标本溶血、脂血、黄疸",
+        "mechanism": "光学法检测的浊度/颜色干扰",
+        "how_to_detect": "看标本外观；改用机械法检测"
+      },
+      {
+        "direction": "either",
+        "factor": "冷凝集素或标本低温放置",
+        "mechanism": "影响检测反应",
+        "how_to_detect": "室温规范处理"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "未用肝素者孤立 APTT 延长：先做混合纠正试验——可纠正提示因子缺乏（血友病/vWD，查 VIII/IX/vWF）；不能纠正提示抑制物或狼疮抗凝物（查 LA、抗磷脂抗体谱）；注意 LA 延长 APTT 但致血栓不致出血，误判方向会出大问题",
+        "followup_tests": [
+          "混合纠正试验",
+          "凝血因子 VIII/IX 活性",
+          "vWF 抗原+活性",
+          "狼疮抗凝物",
+          "抗心磷脂抗体",
+          "抗β2糖蛋白I抗体",
+          "PT/INR",
+          "纤维蛋白原"
+        ],
+        "recheck_interval": "按临床情境：出血急症立即；LA 筛查 12 周后复查确认"
+      }
+    ],
+    "notes": "APTT 判读最经典的三个知识点：①狼疮抗凝物悖论——APTT 延长但临床表现为血栓（抗磷脂综合征），看到'APTT 延长+反复血栓'要想到 LA 而不是血友病；②混合纠正试验是延长查因的核心工具（纠正=缺因子，不纠正=有抑制物）；③孤立 APTT 延长而 PT 正常的鉴别方向：肝素污染→血友病/vWD→LA→XII/XI 缺乏（XII 缺乏永不出血）。",
+    "source": "默沙东诊疗手册；中国血友病诊治指南",
+    "source_id": "MSD-APTT",
+    "source_version": "2024",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 39,
+    "name": "尿蛋白",
+    "abbr": [
+      "PRO",
+      "UPRO",
+      "U-PRO",
+      "Urine protein",
+      "Ur Pro",
+      "24h-UTP"
+    ],
+    "aliases": [
+      "尿液蛋白质",
+      "蛋白尿",
+      "尿蛋白定性",
+      "24小时尿蛋白定量",
+      "尿微量白蛋白"
+    ],
+    "category": "尿常规",
+    "loinc_code": "20454-5",
+    "unit": "定性（– ~ 4+）",
+    "unit_conversions": [
+      {
+        "from_unit": "mg/dL",
+        "to_unit": "mg/L",
+        "factor": 10,
+        "note": "定量报告常用单位"
+      }
+    ],
+    "reference_ranges": [
+      {
+        "population": "成人（定性）",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": null,
+        "high_text": "阴性（–）至微量（±）；24h 定量 <150 mg/24h；ACR <30 mg/g",
+        "source": "KDIGO CKD 指南"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值；大量蛋白尿（定性 3+–4+ 或 24h >3.5 g）符合肾病综合征，需尽快肾内科评估",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 150,
+        "direction": "above",
+        "meaning": "24h 尿蛋白超过正常上限",
+        "clinical_action": "复查确认，查尿沉渣、肾功能",
+        "source": "KDIGO CKD 指南"
+      },
+      {
+        "level": 300,
+        "direction": "above",
+        "meaning": "ACR >300 mg/g（大量白蛋白尿，旧称大量蛋白尿）",
+        "clinical_action": "肾内科评估，糖尿病/高血压患者提示肾损伤进展",
+        "source": "KDIGO CKD 指南"
+      },
+      {
+        "level": 3500,
+        "direction": "above",
+        "meaning": "24h >3.5 g（肾病综合征阈值）",
+        "clinical_action": "肾内科住院评估，必要时肾穿刺",
+        "source": "内科学第 9 版"
+      }
+    ],
+    "elevated_meaning": "肾小球性（肾炎性：肾炎综合征、狼疮肾；肾病性：肾病综合征、糖尿病肾病、膜性肾病）、肾小管间质性（间质性肾炎、药物损伤）、溢出性（多发性骨髓瘤轻链——**试纸条测不出！**）、生理性/功能性（剧烈运动、发热、脱水、直立性蛋白尿——青少年晨起第一次尿阴性可确认）、泌尿系感染、妊娠期（先兆子痫的重要指标）。",
+    "decreased_meaning": "无临床意义。",
+    "related_diseases": [
+      "慢性肾小球肾炎",
+      "肾病综合征",
+      "糖尿病肾病",
+      "狼疮性肾炎",
+      "多发性骨髓瘤",
+      "先兆子痫",
+      "泌尿系感染"
+    ],
+    "related_indicators": [
+      "尿沉渣镜检（红细胞管型）",
+      "尿 ACR",
+      "24h 尿蛋白定量",
+      "血清白蛋白",
+      "肾功能（肌酐/eGFR）",
+      "血脂",
+      "尿本周蛋白",
+      "血/尿免疫固定电泳",
+      "血压"
+    ],
+    "interference_factors": [
+      {
+        "direction": "either",
+        "factor": "尿液浓缩/稀释程度（最常见误判原因）",
+        "mechanism": "浓缩尿（晨尿）使定性偏高、稀释尿使定性偏低，定性结果必须结合尿比重/尿色判断",
+        "how_to_detect": "看尿比重；1.010 左右的稀释尿出现 1+ 更有意义，比重 1.030 的晨尿 1+ 可能是生理性"
+      },
+      {
+        "direction": "decreased",
+        "factor": "多发性骨髓瘤轻链蛋白（经典陷阱）",
+        "mechanism": "试纸条主要检测白蛋白，对轻链/球蛋白不敏感——MM 患者试纸可阴性而实际大量蛋白尿",
+        "how_to_detect": "临床怀疑 MM（老年+贫血+骨痛+肾损伤）时加做尿本周蛋白、SAS 试验或尿免疫固定电泳"
+      },
+      {
+        "direction": "elevated",
+        "factor": "采尿前剧烈运动、发热、脱水",
+        "mechanism": "功能性/一过性蛋白尿",
+        "how_to_detect": "休息 2–3 天后复查；青少年查晨尿排除直立性"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "定性 1+ 以上应定量确认：首选尿 ACR（晨尿，简便）或 24h 尿蛋白定量；持续性蛋白尿查尿沉渣、肾功能、血清白蛋白；糖尿病/高血压患者蛋白尿提示靶器官损害需积极干预；老年+肾功能不全+贫血+骨痛者警惕 MM 轻链（试纸阴性不能排除）",
+        "followup_tests": [
+          "尿 ACR",
+          "24h 尿蛋白定量",
+          "尿沉渣镜检",
+          "肾功能",
+          "血清白蛋白",
+          "血糖/HbA1c",
+          "血压",
+          "血/尿免疫固定电泳（疑MM）"
+        ],
+        "recheck_interval": "1–2 周复查确认；确认异常后按肾病随访"
+      }
+    ],
+    "notes": "尿蛋白判读三原则：①定性受尿液浓度影响大，'±/1+'先看比重再下结论；②持续性必须定量（ACR 优先）；③试纸条只认白蛋白——骨髓瘤轻链蛋白尿试纸可阴性，临床高度怀疑时必须换方法检测。这是体检报告解读中'阴性≠没事'的代表项目。",
+    "source": "KDIGO CKD 指南；默沙东诊疗手册",
+    "source_id": "KDIGO-CKD",
+    "source_version": "2024",
+    "last_updated": "2026-10-25"
+  },
+  {
+    "id": 40,
+    "name": "尿糖",
+    "abbr": [
+      "U-GLU",
+      "UGLU",
+      "GLU-U",
+      "Urine glucose",
+      "Ur Glu"
+    ],
+    "aliases": [
+      "尿液葡萄糖",
+      "糖尿",
+      "尿糖定性"
+    ],
+    "category": "尿常规",
+    "loinc_code": "2965-2",
+    "unit": "定性（– ~ 4+）",
+    "unit_conversions": [],
+    "reference_ranges": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": {
+          "min": 18,
+          "max": null,
+          "unit": "岁"
+        },
+        "pregnancy": null,
+        "altitude_note": null,
+        "low": null,
+        "high": null,
+        "high_text": "阴性（–）",
+        "source": "临床常规"
+      }
+    ],
+    "critical_values": [
+      {
+        "population": "成人",
+        "sex": null,
+        "age_range": null,
+        "critical_low": null,
+        "critical_high": null,
+        "action": "不设危急值",
+        "source": "临床共识",
+        "source_type": "多机构共识"
+      }
+    ],
+    "decision_levels": [
+      {
+        "level": 10,
+        "direction": "above",
+        "meaning": "血糖超过肾糖阈（约 10 mmol/L）时出现尿糖",
+        "clinical_action": "查血糖/HbA1c 确认；肾糖阈个体差异大（8–10 mmol/L），老年人可升高",
+        "source": "生理学参考"
+      }
+    ],
+    "elevated_meaning": "糖尿病（血糖超过肾糖阈时出现，提示血糖显著升高，多 >10 mmol/L）、肾性糖尿（SGLT2 转运缺陷或近曲小管损伤——血糖正常而尿糖阳性，包括 Fanconi 综合征、间质性肾炎）、药物性（SGLT2 抑制剂如达格列净/恩格列净——**设计如此**，通过尿排糖降血糖，尿糖阳性是药效体现而非病情恶化）、妊娠（肾糖阈生理性降低）、甲亢、库欣综合征。",
+    "decreased_meaning": "无临床意义（正常即阴性）。",
+    "related_diseases": [
+      "糖尿病",
+      "肾性糖尿",
+      "Fanconi 综合征",
+      "妊娠期",
+      "甲状腺功能亢进",
+      "慢性间质性肾炎"
+    ],
+    "related_indicators": [
+      "空腹血糖",
+      "随机血糖",
+      "HbA1c",
+      "OGTT",
+      "尿酮体",
+      "尿比重",
+      "尿常规其他项",
+      "肾功能",
+      "用药史（SGLT2i）"
+    ],
+    "interference_factors": [
+      {
+        "direction": "decreased",
+        "factor": "大剂量维生素 C（经典陷阱）",
+        "mechanism": "葡萄糖氧化酶法中 VC 还原过氧化物，使尿糖假阴性——血糖很高而尿糖阴性时先想到这个",
+        "how_to_detect": "追问 VC/含 VC 饮品服用史；停用后复查"
+      },
+      {
+        "direction": "decreased",
+        "factor": "标本放置过久（未加防腐剂）",
+        "mechanism": "细菌分解葡萄糖",
+        "how_to_detect": "1–2 小时内送检或加防腐剂"
+      },
+      {
+        "direction": "elevated",
+        "factor": "SGLT2 抑制剂使用",
+        "mechanism": "药物抑制近曲小管葡萄糖重吸收，尿糖阳性为药物作用",
+        "how_to_detect": "追问降糖药名单；不要据此判断'血糖控制差'或新发糖尿病"
+      },
+      {
+        "direction": "either",
+        "factor": "酮体、清洁剂（过氧化氢类）污染",
+        "mechanism": "干扰氧化酶反应",
+        "how_to_detect": "规范留取中段尿"
+      }
+    ],
+    "recheck_advice": [
+      {
+        "condition": "elevated",
+        "advice": "尿糖阳性第一步是查血糖/HbA1c：血糖高 → 按糖尿病路径评估；血糖正常 → 考虑肾性糖尿或药物（SGLT2i）作用，查肾功能+追问用药史；不要单凭尿糖诊断或评估糖尿病——血糖与 HbA1c 才是标准",
+        "followup_tests": [
+          "空腹血糖",
+          "HbA1c",
+          "随机血糖",
+          "尿酮体",
+          "肾功能",
+          "尿常规复查"
+        ],
+        "recheck_interval": "1–2 周"
+      }
+    ],
+    "notes": "尿糖的临床地位已由血糖/HbA1c 取代，但因仍在常规尿检套餐中，误读频繁：①尿糖阳性≠糖尿病（肾性糖尿、妊娠、SGLT2i 药物都可阳性而血糖正常）；②尿糖阴性≠没糖尿病（血糖未超肾糖阈即可阴性，早期糖尿病完全可能漏检）；③SGLT2 抑制剂使用者尿糖 3+/4+ 属正常药效——LLM 解读时若不问用药史会把'药物起效'误报为'血糖失控'。",
+    "source": "默沙东诊疗手册；中国2型糖尿病防治指南（2020）",
+    "source_id": "MSD-UGLU",
+    "source_version": "2020",
+    "last_updated": "2026-10-25"
+  }
+]
