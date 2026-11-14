@@ -1,0 +1,14 @@
+# 构建上下文瘦身：venv 有 3-4GB，绝不能进镜像
+venv/
+__pycache__/
+*.pyc
+.git/
+.github/
+wheels/
+.pip_tmp/
+.env
+data/anonymize_audit.jsonl
+gradio/
+jieba.cache
+*.md
+!README.md

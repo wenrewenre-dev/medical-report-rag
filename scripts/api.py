@@ -196,4 +196,8 @@ def demo_page():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(api, host="127.0.0.1", port=7862, log_level="info")
+    # 默认只听本机；容器里设 API_HOST=0.0.0.0，否则端口映射进不来
+    uvicorn.run(api,
+                host=os.getenv("API_HOST", "127.0.0.1"),
+                port=int(os.getenv("API_PORT", "7862")),
+                log_level="info")

@@ -476,4 +476,9 @@ with gr.Blocks(title="检验报告智能解读") as demo:
                       outputs=[rep, ocr_status, table, interp, rep_chat, report_ctx])
 
 if __name__ == "__main__":
-    demo.launch(inbrowser=True)
+    # 默认仍是本地开发形态(127.0.0.1 + 自动开浏览器); 容器里用环境变量改成 0.0.0.0
+    demo.launch(
+        server_name=os.getenv("GRADIO_SERVER_NAME", "127.0.0.1"),
+        server_port=int(os.getenv("GRADIO_SERVER_PORT", "7860")),
+        inbrowser=os.getenv("GRADIO_INBROWSER", "1") == "1",
+    )

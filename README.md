@@ -46,7 +46,11 @@ LLM_MODEL=deepseek-chat
 
 ~~~text
 ├── README.md
-├── requirements.txt
+├── requirements.txt        # Windows 本机环境（pip freeze）
+├── requirements-docker.txt # 容器用依赖（Linux / CPU 推理，已核对轮子）
+├── Dockerfile              # python:3.12-slim + CPU 版 torch
+├── docker-compose.yml      # ui(7860) + api(7862)，模型走 named volume
+├── .dockerignore
 ├── .env.example            # 环境变量模板（不含真实密钥）
 ├── scripts/
 │   ├── app.py              # Gradio Web 界面（多轮问答/报告解读双页签）
@@ -166,6 +170,37 @@ python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
 
 > 定位：本地部署是"数据不出机器"的被动防御，脱敏是"就算发出去也不含身份信息"的主动防御。两层都做，报告里那串样本号/门诊号才不会随请求进入供应商的日志。
 
+## 🐳 Docker 容器化（⚠️ 未在本机验证）
+
+> 这套配置写好了，但**没在开发机上跑过**：本机没有管理员权限（装不了 Docker Desktop / WSL 发行版），且 Docker Hub 在当前网络不可达。文件经过静态校验（compose 语法、Dockerfile 每个 COPY 目标存在、19 个依赖逐个核对过 Linux 轮子），首次构建请留意日志。真实验证记录待补。
+
+一条命令起两个服务：
+
+~~~powershell
+copy .env.example .env        # 填 LLM_API_KEY
+docker compose up -d --build
+# 界面 http://127.0.0.1:7860   API http://127.0.0.1:7862/docs
+~~~
+
+| 服务 | 端口 | 说明 |
+|---|---|---|
+| `ui` | 7860 | Gradio 界面 |
+| `api` | 7862 | FastAPI + SSE，健康检查 `/api/health` |
+
+- **模型不进镜像**：首次启动下载到 named volume `hf-cache`（约 485MB），重建镜像、重启都复用
+- **data/ 用 bind mount**：改 `kb.json` 重启即生效，脱敏审计日志落在宿主机
+- **CPU 推理**：torch 从 `download.pytorch.org/whl/cpu` 装，避免默认索引把 CUDA 运行时塞进镜像（+2~5GB）
+- **依赖隔离**：`requirements-docker.txt` 与 Windows 本机的 `requirements.txt` 互不污染
+- **非 root + HEALTHCHECK**：容器内以 uid 1000 运行，健康检查打 `/api/health`
+
+### 网络受限时先配镜像加速
+
+Docker Hub 在部分网络不可达，可在 Docker Desktop → Settings → Docker Engine 中加入（本机实测可连通的两个）：
+
+~~~json
+{ "registry-mirrors": ["https://dockerproxy.net", "https://docker.1panel.live"] }
+~~~
+
 ## 🔌 FastAPI + SSE 后端
 
 Gradio 是演示工具，`scripts/api.py` 是生产形态的接口层：直接复用 `qa_fn` / `report_fn` / `report_chat_fn` 的生成器，只把同步 `yield` 桥接成 SSE 事件流，**一行 AI 逻辑都没重写**——当初"界面层不写 AI 逻辑"那条原则的又一次兑现。
@@ -272,4 +307,4 @@ python scripts/test_cache_v2.py
 
 ## 🛠 技术栈
 
-Gradio · sentence-transformers（中文嵌入模型）· faiss-cpu · rank-bm25 · OpenAI SDK（DeepSeek API）· python-dotenv
+Gradio · FastAPI（SSE）· sentence-transformers（中文嵌入模型）· faiss-cpu · rank-bm25 · RapidOCR · OpenAI SDK（DeepSeek API）· Docker Compose
