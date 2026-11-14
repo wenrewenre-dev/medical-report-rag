@@ -47,6 +47,13 @@ REPORT_CHAT_SYSTEM = SYSTEM_PROMPT + """补充规则（就本次报告追问）�
 """
 
 
+def log_usage(u):
+    """缓存监控: 同一管线的调用中, 命中应从第2-3次起爬坡（前1-2次miss=落盘, 属正常）"""
+    extra = u.model_extra or {}
+    hit = getattr(u, "prompt_cache_hit_tokens", 0) or extra.get("prompt_cache_hit_tokens", 0)
+    print(f"    [缓存] 命中{hit} / 总输入{u.prompt_tokens}")
+
+
 def complete(messages: list) -> str:
     """统一LLM调用口: 收完整messages数组, 多轮历史由调用方拼好"""
     resp = client.chat.completions.create(
@@ -54,12 +61,25 @@ def complete(messages: list) -> str:
         temperature=0.2,
         messages=messages,
     )
-    # 缓存监控: 同一管线的调用中, 命中应从第2-3次起爬坡（前1-2次miss=落盘, 属正常）
-    u = resp.usage
-    extra = u.model_extra or {}
-    hit = getattr(u, "prompt_cache_hit_tokens", 0) or extra.get("prompt_cache_hit_tokens", 0)
-    print(f"    [缓存] 命中{hit} / 总输入{u.prompt_tokens}")
+    log_usage(resp.usage)
     return resp.choices[0].message.content
+
+
+def complete_stream(messages: list):
+    """流式调用: 逐段 yield 文本增量。
+    usage 只在最后一个 chunk 汇总（需 stream_options）, 有就照样打印缓存命中。"""
+    stream = client.chat.completions.create(
+        model=os.getenv("LLM_MODEL"),
+        temperature=0.2,
+        messages=messages,
+        stream=True,
+        stream_options={"include_usage": True},
+    )
+    for chunk in stream:
+        if chunk.choices and chunk.choices[0].delta.content:
+            yield chunk.choices[0].delta.content
+        if getattr(chunk, "usage", None):
+            log_usage(chunk.usage)
 
 
 def chat(user_prompt: str) -> str:
@@ -293,14 +313,22 @@ def report_chat_fn(question: str, history: list, report_ctx: str):
     history.append({"role": "assistant", "content": "⏳ 正在思考..."})
     yield "", history
 
+    # 流式: 边收边刷。攒够几个字再 yield 一次, 免得每个 token 都刷一遍界面
+    buf, shown = "", 0
     try:
-        answer = complete(messages)
-    except Exception as e:                         # 网络/额度异常: 占位改成错误, 不让历史错位
-        history[-1] = {"role": "assistant", "content": f"⚠️ 调用失败: {e}"}
+        for piece in complete_stream(messages):
+            buf += piece
+            if len(buf) - shown >= 6:
+                shown = len(buf)
+                history[-1] = {"role": "assistant", "content": buf}
+                yield "", history
+    except Exception as e:                         # 网络/额度异常: 已出的内容保留, 后面补错误
+        history[-1] = {"role": "assistant",
+                       "content": (buf + "\n\n" if buf else "") + f"⚠️ 调用中断: {e}"}
         yield "", history
         return
 
-    history[-1] = {"role": "assistant", "content": answer}
+    history[-1] = {"role": "assistant", "content": buf or "（模型没有返回内容）"}
     yield "", history
 
 
