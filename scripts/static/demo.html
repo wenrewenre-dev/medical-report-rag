@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>检验报告智能解读 · SSE 演示</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Microsoft YaHei", sans-serif; margin: 0;
+         padding: 24px; background: #f6f7f9; color: #1d2129; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 1200px; margin: 0 auto; }
+  .card { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  input, textarea { width: 100%; box-sizing: border-box; padding: 8px; font: inherit;
+                    border: 1px solid #d9dce1; border-radius: 6px; }
+  textarea { min-height: 130px; resize: vertical; }
+  button { margin-top: 8px; padding: 8px 16px; border: 0; border-radius: 6px;
+           background: #165dff; color: #fff; font: inherit; cursor: pointer; }
+  button:disabled { background: #94bfff; cursor: default; }
+  .out { margin-top: 12px; white-space: pre-wrap; font-size: 14px; line-height: 1.7; min-height: 40px; }
+  .meta { font-size: 12px; color: #86909c; margin-top: 6px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="card">
+    <h2>💬 /api/qa —— 流式问答</h2>
+    <input id="q" type="text" value="最近总觉得没力气，是不是贫血">
+    <button id="btnQ">提问</button>
+    <div class="meta" id="metaQ">等待请求…</div>
+    <div class="out" id="outQ"></div>
+  </div>
+  <div class="card">
+    <h2>📋 /api/report —— 流式解读</h2>
+    <textarea id="r">检验报告单
+姓名：张三  性别：男  年龄：35
+HGB  血红蛋白   112   g/L     130-175
+K    血清钾     3.1   mmol/L  3.5-5.3</textarea>
+    <button id="btnR">解析并解读</button>
+    <div class="meta" id="metaR">等待请求…</div>
+    <div class="out" id="outR"></div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+
+// 极简 SSE 客户端：fetch + ReadableStream 手工解析 event/data 行。
+// 换成 React / 小程序 / 桌面端时，只要保留这段解析逻辑即可。
+async function sse(url, body, onEvent) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(await res.text());
+  const reader = res.body.getReader();
+  const dec = new TextDecoder();
+  let buf = '';
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buf += dec.decode(value, { stream: true });
+    let i;
+    while ((i = buf.indexOf('\n\n')) >= 0) {
+      const raw = buf.slice(0, i);
+      buf = buf.slice(i + 2);
+      let ev = 'message', data = '';
+      for (const line of raw.split('\n')) {
+        if (line.startsWith('event:')) ev = line.slice(6).trim();
+        else if (line.startsWith('data:')) data += line.slice(5).trim();
+      }
+      onEvent(ev, data ? JSON.parse(data) : {});
+    }
+  }
+}
+
+function wire(btnId, metaId, outId, url, buildBody, inputIds) {
+  $(btnId).onclick = async () => {
+    $(btnId).disabled = true;
+    $(outId).textContent = '';
+    $(metaId).textContent = '连接中…';
+    const t0 = performance.now();
+    const body = buildBody();
+    if (!body) { $(btnId).disabled = false; return; }
+    try {
+      await sse(url, body, (ev, d) => {
+        if (ev === 'start') {
+          $(metaId).textContent = `已连接（${(performance.now() - t0) | 0}ms）`;
+        } else if (ev === 'sources' || ev === 'table') {
+          $(metaId).textContent += ` · ${ev === 'sources' ? '资料' : '指标表'}已返回`;
+          $(outId).textContent += (ev === 'table' ? d.markdown + '\n\n' : '');
+        } else if (ev === 'delta') {
+          $(outId).textContent += d.text;
+        } else if (ev === 'done') {
+          const full = d.answer || d.markdown || '';
+          $(metaId).textContent += ` · 完成（${(performance.now() - t0) | 0}ms，${full.length} 字）`;
+        } else if (ev === 'error') {
+          $(outId).textContent += `\n[错误] ${d.message}`;
+        }
+      });
+    } catch (e) {
+      $(outId).textContent = '请求失败：' + e.message;
+    } finally {
+      $(btnId).disabled = false;
+    }
+  };
+}
+
+wire('btnQ', 'metaQ', 'outQ', '/api/qa',
+     () => ({ question: $('q').value.trim(), use_rewrite: true }));
+
+wire('btnR', 'metaR', 'outR', '/api/report',
+     () => ({ report_text: $('r').value.trim() }));
+</script>
+</body>
+</html>

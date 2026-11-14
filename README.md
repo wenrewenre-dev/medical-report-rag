@@ -16,6 +16,7 @@
 - **查询改写 / HyDE**：检索前让 LLM 把口语问题改写成多条检索式，多查询 RRF 融合；18 条回归集 HIT@1 从 17/18 提到 18/18
 - **报告脱敏**：解析前抹掉姓名/身份证/病历号等 PHI，LLM 只看到指标数据；年龄可配、落盘可审计
 - **LLM 裁判**：自动审核"引用是否真实、结论是否有据、数字是否编造"，18 条真实回答 + 18 条注入缺陷标定全通过
+- **FastAPI + SSE**：`/api/qa`、`/api/report` 两条流式接口，前端换成 React / 小程序 / 桌面端都不用动后端
 
 ## 🚀 快速开始
 
@@ -49,6 +50,8 @@ LLM_MODEL=deepseek-chat
 ├── .env.example            # 环境变量模板（不含真实密钥）
 ├── scripts/
 │   ├── app.py              # Gradio Web 界面（多轮问答/报告解读双页签）
+│   ├── api.py              # FastAPI + SSE 接口（复用同一套管线）
+│   ├── static/demo.html    # 原生 HTML 的 SSE 消费示例
 │   ├── ocr_report.py       # 拍照/PDF → 文本（文字层优先，扫描件走 OCR）
 │   ├── kb.py               # 检索层：FAISS + BM25 + 加权 RRF
 │   ├── query_rewrite.py    # 查询改写 / HyDE：口语问题 → 多条检索查询
@@ -162,6 +165,37 @@ python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
 验证（`python scripts/test_anonymize.py`）：把每一次 `chat()` 的 messages 抓下来，断言里面不出现任何一个 PHI 原值——包括追问轮次和问答页签的输入；同时校验审计文件里也没有原值。
 
 > 定位：本地部署是"数据不出机器"的被动防御，脱敏是"就算发出去也不含身份信息"的主动防御。两层都做，报告里那串样本号/门诊号才不会随请求进入供应商的日志。
+
+## 🔌 FastAPI + SSE 后端
+
+Gradio 是演示工具，`scripts/api.py` 是生产形态的接口层：直接复用 `qa_fn` / `report_fn` 的生成器，只把同步 `yield` 桥接成 SSE 事件流，**一行 AI 逻辑都没重写**——当初"界面层不写 AI 逻辑"那条原则的又一次兑现。
+
+~~~powershell
+python scripts/api.py     # http://127.0.0.1:7862 ，自带演示页 / 接口文档 /docs
+~~~
+
+~~~bash
+curl -N -X POST http://127.0.0.1:7862/api/qa \
+  -H "Content-Type: application/json" \
+  -d '{"question":"最近总觉得没力气，是不是贫血","use_rewrite":true}'
+~~~
+
+### 事件协议
+
+| 事件 | data | 说明 |
+|---|---|---|
+| `start` | `{question}` 或 `{chars}` | 流开始 |
+| `sources` | `{markdown}` | `/api/qa`：本轮资料 + 改写查询 |
+| `table` | `{markdown}` | `/api/report`：解析出的指标表 |
+| `delta` | `{text}` | 增量正文，前端直接 append |
+| `done` | `{answer}` 或 `{markdown}` | 完整结果，便于前端校正 |
+| `error` | `{message}` | 异常 |
+
+- **不阻塞事件循环**：同步生成器每取一帧都走 `asyncio.to_thread`，多人同时提问不会互相卡住
+- **前端随便换**：`/` 是自带的一百多行原生 HTML 演示（`fetch` + `ReadableStream` 手工解析 SSE），换 React / 小程序 / 桌面端只要保留那段解析
+- **KB 只加载一次**：API 与 Gradio 都 import 同一套 `kb` / `qa_fn` / `report_fn`
+- **实测**：`/api/qa` 一条问答产生 116 个事件，首段增量 3.4s 到达、整段 6.2s；`delta` 拼接结果与 `done.answer` 完全一致（748 字）
+- **参数校验**：空问题/空报告返回 400，缺字段返回 422（FastAPI 自动）
 
 ## ⚖️ LLM-as-a-Judge 回答评测
 
