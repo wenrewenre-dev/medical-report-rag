@@ -38,6 +38,14 @@ QA_SYSTEM = SYSTEM_PROMPT + """补充规则（多轮问答）：
 8. 免责声明由界面统一展示, 回答里不必重复输出。
 """
 
+# 报告追问专用system: 固定规则在前, 本次报告内容在后（报告一变只有后半段变）
+REPORT_CHAT_SYSTEM = SYSTEM_PROMPT + """补充规则（就本次报告追问）：
+6. 用户会针对上面这份报告连续追问, 请结合【本次报告指标】和【指标知识库资料】回答。
+7. 引用只认【指标知识库资料】里的编号, 句末标注 [资料X]。
+8. 只依据本次报告和资料回答; 报告里没有的指标、资料里没有的说法, 明确说明未覆盖, 不要编造。
+9. 免责声明由界面统一展示, 回答里不必重复输出。
+"""
+
 
 def complete(messages: list) -> str:
     """统一LLM调用口: 收完整messages数组, 多轮历史由调用方拼好"""
@@ -166,6 +174,11 @@ def clear_fn():
     return [], "", ""
 
 
+def clear_chat_fn():
+    """只清空对话记录（报告上下文保留, 还能接着问）"""
+    return []
+
+
 # ---------- 页签2: 报告解读 (第5步的路径) ----------
 def parse_table(parsed, skipped):
     rows = ["| 项目 | 结果 | 参考范围 | 判定 |", "|---|---|---|---|"]
@@ -179,10 +192,41 @@ def parse_table(parsed, skipped):
     return md
 
 
+def material_block(e, j) -> str:
+    """单条知识库资料块: 逐项解读、综合总结、追问上下文三处共用, 免得三份手抄"""
+    it = e["item"]
+    return (f"[资料{it['id']}] {it['name']}({'/'.join(it['abbr'])})\n"
+            f"本次结果: {e['value']} {it['unit']}"
+            f"({j['flag']}{j['arrow']}, 参考范围{j['lo']}-{j['hi']}, 来源{j['src']})\n"
+            f"升高意义: {it['elevated_meaning']}\n"
+            f"降低意义: {it['decreased_meaning']}\n"
+            f"相关疾病: {'、'.join(it['related_diseases'])}\n"
+            f"复检建议: {it['recheck_advice']}")
+
+
+def build_report_context(parsed, skipped) -> str:
+    """把整份报告打包成追问用的上下文（拼在 REPORT_CHAT_SYSTEM 之后）:
+    事实表 + 异常项顺序 + 每项知识库资料。报告一定, 这一段就固定, 后续追问全程复用。
+    异常顺序必须写清楚, 否则用户问"第2项异常"时模型对不上号。"""
+    abnormals = [(e, j) for e, j in parsed if j["flag"] != "正常"]
+    order = "\n".join(
+        f"{i}. {e['item']['name']}({'/'.join(e['item']['abbr'])}) "
+        f"{e['value']} {e['item']['unit']} {j['flag']}{j['arrow']}"
+        for i, (e, j) in enumerate(abnormals, 1)) or "无异常项"
+    materials = "\n\n".join(material_block(e, j) for e, j in parsed)
+    return "\n\n".join([
+        f"【本次报告指标】识别 {len(parsed)} 项, 异常 {len(abnormals)} 项\n"
+        + parse_table(parsed, skipped),
+        f"【异常项（按逐项解读的顺序）】\n{order}",
+        f"【指标知识库资料】\n{materials}",
+    ])
+
+
 def report_fn(report_text: str):
-    """生成器函数: 每完成一步就 yield 一次, 界面即时刷新"""
+    """生成器函数: 每完成一步就 yield 一次, 界面即时刷新。
+    输出 4 件: 表格 Markdown / 解读 Markdown / 追问历史 / 追问用的报告上下文"""
     if not report_text.strip():
-        yield "请先粘贴报告内容。", ""
+        yield "请先粘贴报告内容。", "", gr.update(), gr.update()
         return
 
     # ① 解析
@@ -198,12 +242,15 @@ def report_fn(report_text: str):
             skipped.append(line)
 
     if not parsed:
-        yield "未能识别任何指标。请检查格式: 每行应为「缩写 名称 数值 单位 范围」。", ""
+        yield ("未能识别任何指标。请检查格式: 每行应为「缩写 名称 数值 单位 范围」。",
+               "", gr.update(), gr.update())
         return
 
     abnormals = [(e, j) for e, j in parsed if j["flag"] != "正常"]
     table_md = parse_table(parsed, skipped)
-    yield table_md, f"✅ 识别 {len(parsed)} 项, 异常 {len(abnormals)} 项, 开始逐项解读..."
+    # 新报告=新话题: 清空上一份报告的追问记录, 并换上这份报告的上下文
+    chat_system = REPORT_CHAT_SYSTEM + "\n\n" + build_report_context(parsed, skipped)
+    yield table_md, f"✅ 识别 {len(parsed)} 项, 异常 {len(abnormals)} 项, 开始逐项解读...", [], chat_system
 
     # ② 逐项解读 (流式追加)——build_prompt 已是"固定指令在前"的缓存友好结构
     all_md = ""
@@ -212,27 +259,50 @@ def report_fn(report_text: str):
         all_md += (f"\n\n---\n\n### 📌 异常{i}: {it['name']} "
                    f"{e['value']}{it['unit']}({j['flag']}{j['arrow']})\n\n")
         all_md += chat(build_prompt(e, j)) + DISCLAIMER
-        yield table_md, all_md.strip()
+        yield table_md, all_md.strip(), gr.update(), gr.update()
 
     # ③ 综合总结 (资料必须随行——LLM每次调用都是无状态的)
     # 总结 prompt 复用 report_rag.build_summary_prompt, 消灭双份手抄
     if abnormals:
-        blocks = []
-        for e, j in abnormals:
-            it = e["item"]
-            blocks.append(
-                f"[资料{it['id']}] {it['name']}({'/'.join(it['abbr'])})\n"
-                f"本次结果: {e['value']} {it['unit']}"
-                f"({j['flag']}{j['arrow']}, 参考范围{j['lo']}-{j['hi']}, 来源{j['src']})\n"
-                f"升高意义: {it['elevated_meaning']}\n"
-                f"降低意义: {it['decreased_meaning']}\n"
-                f"相关疾病: {'、'.join(it['related_diseases'])}\n"
-                f"复检建议: {it['recheck_advice']}"
-            )
-        materials = "\n\n".join(blocks)
+        materials = "\n\n".join(material_block(e, j) for e, j in abnormals)
         summary_prompt = build_summary_prompt(materials)
         all_md += "\n\n---\n\n# 📋 报告综合总结\n\n" + chat(summary_prompt) + DISCLAIMER
-        yield table_md, all_md.strip()
+        yield table_md, all_md.strip(), gr.update(), gr.update()
+
+
+def report_chat_fn(question: str, history: list, report_ctx: str):
+    """报告追问: 历史/裁剪规则与问答页签一致, 只是 system 换成本次报告上下文。
+    返回（清空输入框, 追加后的历史）"""
+    history = list(history or [])
+    question = (question or "").strip()
+    if not question:
+        yield "", history
+        return
+    if not report_ctx:
+        history.append({"role": "user", "content": question})
+        history.append({"role": "assistant",
+                        "content": "请先在上方粘贴报告并点「解析并解读」, 我才能就结果回答。"})
+        yield "", history
+        return
+
+    messages = [{"role": "system", "content": report_ctx}]
+    messages += trim_history(history)              # 历史消息: 问题/回答原文
+    messages.append({"role": "user", "content": question})
+
+    history.append({"role": "user", "content": question})
+    history.append({"role": "assistant", "content": "⏳ 正在思考..."})
+    yield "", history
+
+    try:
+        answer = complete(messages)
+    except Exception as e:                         # 网络/额度异常: 占位改成错误, 不让历史错位
+        history[-1] = {"role": "assistant", "content": f"⚠️ 调用失败: {e}"}
+        yield "", history
+        return
+
+    history[-1] = {"role": "assistant", "content": answer}
+    yield "", history
+
 
 
 with gr.Blocks(title="检验报告智能解读") as demo:
@@ -261,7 +331,26 @@ with gr.Blocks(title="检验报告智能解读") as demo:
         btn2 = gr.Button("解析并解读", variant="primary")
         table = gr.Markdown()
         interp = gr.Markdown()
-        btn2.click(report_fn, inputs=rep, outputs=[table, interp])
+        gr.Markdown("---\n### 💬 就这份报告追问\n解析完成后可在这里连续追问, 例如「第2项异常具体该怎么办?」「这些指标要不要紧?」")
+        report_ctx = gr.State("")
+        rep_chat = gr.Chatbot(
+            label="追问记录",
+            type="messages",
+            height=340,
+            show_copy_button=True,
+            placeholder="先点上面的「解析并解读」, 再在这里追问",
+        )
+        with gr.Row():
+            rep_q = gr.Textbox(label="你的问题", placeholder="例如: 第2项异常具体该怎么办?",
+                               lines=2, scale=7, show_label=False)
+            with gr.Column(scale=1, min_width=110):
+                btn3 = gr.Button("追问", variant="primary")
+                btn_rep_clear = gr.Button("🆕 新对话", size="sm")
+        gr.Markdown("⚠️ AI 生成内容不构成医疗建议, 不能替代专业医生判断。")
+        btn2.click(report_fn, inputs=rep, outputs=[table, interp, rep_chat, report_ctx])
+        btn3.click(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
+        rep_q.submit(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
+        btn_rep_clear.click(clear_chat_fn, outputs=[rep_chat])
 
 if __name__ == "__main__":
     demo.launch(inbrowser=True)
