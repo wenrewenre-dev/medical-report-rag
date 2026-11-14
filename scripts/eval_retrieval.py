@@ -1,5 +1,14 @@
 # scripts/eval_retrieval.py —— 检索回归测试集
 # 铁律：kb.json每新增一个项目，这里同步加一条测试（数据与测试成对维护）
+#
+# 用法：
+#   python scripts/eval_retrieval.py                      # 三路检索基线（vector/bm25/hybrid）
+#   python scripts/eval_retrieval.py --limit 5            # 只跑前5条，快速冒烟
+#   python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
+#                                                         # 查询改写/HyDE 对比（每题多花1-2次LLM调用）
+import argparse
+
+import query_rewrite
 from kb import KB
 
 # (查询, 期望Top1的id, 考察点)
@@ -28,21 +37,75 @@ CASES = [
 # ("平均血红蛋白浓度偏低什么意思", 13, "扩库新增·解析修复配套"),
 # ("糖化血红蛋白8.5%严重吗", 26, "扩库新增"),
 
-def evaluate(kb, mode):
-    ok, fails = 0, []
-    for q, expect, note in CASES:
-        top = kb.search(q, k=1, mode=mode)[0]
-        if top["id"] == expect:
-            ok += 1
+KS = (1, 3, 5, 10)
+
+
+def evaluate(kb, mode="hybrid", queries_fn=None, limit=0):
+    """返回 (各@k命中数, MRR, Top1未命中的用例)。
+    queries_fn: 问题 → 查询列表（改写策略）；None 表示只用原问题。"""
+    cases = CASES[:limit] if limit else CASES
+    hits = {k: 0 for k in KS}
+    rr, fails = 0.0, []
+    for q, expect, note in cases:
+        queries = queries_fn(q) if queries_fn else [q]
+        if len(queries) > 1:
+            ranked = kb.search_many(queries, k=max(KS), mode=mode)
         else:
-            fails.append((q, expect, top["id"], top["name"], note))
-    return ok, fails
+            ranked = kb.search(q, k=max(KS), mode=mode)
+        ids = [r["id"] for r in ranked]
+        for k in KS:
+            if expect in ids[:k]:
+                hits[k] += 1
+        if expect in ids:
+            rr += 1.0 / (ids.index(expect) + 1)
+        if expect not in ids[:1]:
+            fails.append((q, expect, ids[0] if ids else None,
+                          ranked[0]["name"] if ranked else "", note))
+    return hits, rr / len(cases), fails
+
+
+def print_row(label, hits, mrr, n):
+    cells = "  ".join(f"HIT@{k}={hits[k]:>2d}/{n}" for k in KS)
+    print(f"{label:<18} {cells}   MRR={mrr:.3f}")
+
+
+def main():
+    ap = argparse.ArgumentParser(description="检索质量评测")
+    ap.add_argument("--strategies", default="",
+                    help="逗号分隔: off,rewrite,hyde,both（给了就做改写对比）")
+    ap.add_argument("--mode", default="hybrid", choices=["vector", "bm25", "hybrid"],
+                    help="对比改写时用哪条检索路径，默认 hybrid")
+    ap.add_argument("--limit", type=int, default=0, help="只跑前 N 条，快速冒烟")
+    args = ap.parse_args()
+
+    kb = KB()
+    n = args.limit or len(CASES)
+    print(f"\n回归测试集：{len(CASES)} 条" + (f"（本次只跑前 {n} 条）" if args.limit else ""))
+    print("=" * 86)
+
+    if not args.strategies:
+        for mode in ("vector", "bm25", "hybrid"):
+            hits, mrr, fails = evaluate(kb, mode=mode, limit=args.limit)
+            print_row(mode, hits, mrr, n)
+            for q, expect, got, name, note in fails:
+                print(f"    ✗ {q}（{note}）期望[资料{expect}]，实际Top1[资料{got}]{name}")
+        print("\n加 --strategies off,rewrite,hyde,both 可对比查询改写/HyDE（每题会多花1-2次LLM调用）")
+        return
+
+    client = query_rewrite.make_client()
+    strategies = [s.strip() for s in args.strategies.split(",") if s.strip()]
+    print(f"检索路径: {args.mode}（每题用 LLM 生成改写，首次运行较慢）\n")
+    for strategy in strategies:
+        if strategy == "off":
+            fn = None
+        else:
+            fn = lambda q, s=strategy: query_rewrite.build_queries(q, client, s)
+        hits, mrr, fails = evaluate(kb, mode=args.mode, queries_fn=fn, limit=args.limit)
+        print_row(f"{args.mode}+{strategy}", hits, mrr, n)
+        for q, expect, got, name, note in fails:
+            print(f"    ✗ {q}（{note}）期望[资料{expect}]，实际Top1[资料{got}]{name}")
+        print()
+
 
 if __name__ == "__main__":
-    kb = KB()
-    print(f"\n回归测试集：{len(CASES)} 条\n" + "=" * 55)
-    for mode in ["vector", "bm25", "hybrid"]:
-        ok, fails = evaluate(kb, mode)
-        print(f"\n【{mode}】正确率 {ok}/{len(CASES)}")
-        for q, expect, got, name, note in fails:
-            print(f"  ✗ {q}（{note}）期望[资料{expect}]，实际命中[资料{got}]{name}")
+    main()

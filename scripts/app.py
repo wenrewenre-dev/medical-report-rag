@@ -20,6 +20,7 @@ from kb import KB
 from parse_report import load_lookup, parse_line, judge, find_item, SAMPLE_REPORT, NUM
 from report_rag import build_prompt, build_summary_prompt, SYSTEM_PROMPT, DISCLAIMER  # 直接复用, 一行不重写
 import ocr_report as ocr  # OCR 入口: 照片/PDF → 文本（依赖延迟导入, 没装也不影响纯文本用法）
+import query_rewrite  # 查询改写/HyDE: 检索前把口语问题变成检索友好的查询
 
 load_dotenv()
 
@@ -32,6 +33,9 @@ client = OpenAI(api_key=os.getenv("LLM_API_KEY"), base_url=os.getenv("LLM_BASE_U
 MAX_TURNS = 6                 # prompt里最多带最近6轮（6问6答）, 更早的丢弃
 MAX_HISTORY_CHARS = 6000      # 字符预算兜底: 单条回答很长时, 少带几轮
 CHUNK_CHARS = 6               # 流式刷新粒度: 每攒够6个字刷一次界面, 免得每个token都刷
+# 实测结论(18条回归集, hybrid路径): rewrite 17/18→18/18, MRR 0.972→1.000;
+# HyDE 在 hybrid 上没收益(纯语义路径才涨), 两者叠加会互相稀释 —— 所以默认只用 rewrite
+REWRITE_STRATEGY = "rewrite"
 
 # 问答专用system: 逐字节固定。同一会话里它永远是第0条, 前缀缓存才有公共前缀可认
 QA_SYSTEM = SYSTEM_PROMPT + """补充规则（多轮问答）：
@@ -147,31 +151,38 @@ def find_anchor(history: list) -> str:
     return first
 
 
-def retrieve(question: str, anchor: str, k: int = 3):
-    """追问检索: 本轮问题认不出主体词时, 把话题锚点拼进检索query。
-    "那需要复查什么?"/"能吃什么?" 单独检索只会召回无关条目;
-    而问题自带主体词（"血糖多少算高?"）时只按本轮检索, 避免被旧话题带偏。"""
+def retrieve(question: str, anchor: str, strategy: str = "off", k: int = 3):
+    """检索入口: 先融合话题锚点(追问), 再按需做查询改写, 最后多查询 RRF 融合。
+    返回（命中结果, 实际用于检索的查询列表）——查询列表要给界面展示改写内容。"""
     if anchor and not has_subject(question):
-        query = f"{anchor} {question}"
-        print(f"    [追问] 融合话题锚点检索: {query}")
-        return kb.search(query, k=k)
-    return kb.search(question, k=k)
+        question = f"{anchor} {question}"
+        print(f"    [追问] 融合话题锚点: {question}")
+
+    queries = query_rewrite.build_queries(question, client, strategy)
+    if len(queries) > 1:
+        print(f"    [改写] {strategy} → {len(queries)} 条查询: " + " | ".join(queries[1:]))
+        return kb.search_many(queries, k=k), queries
+    return kb.search(queries[0], k=k), queries
 
 
 def format_context(results) -> str:
     return "\n\n".join(f"[资料{r['id']}] {r['name']}\n{r['text']}" for r in results)
 
 
-def format_sources(results) -> str:
+def format_sources(results, queries=None) -> str:
     if not results:
         return ""
     src = "\n\n".join(f"**资料{r['id']}** | {r['name']}" for r in results)
-    return f"### 🔍 本轮检索命中的资料\n\n{src}"
+    md = f"### 🔍 本轮检索命中的资料\n\n{src}"
+    if queries and len(queries) > 1:      # 把改写内容摊开, 方便判断"检索不准是改写背锅还是检索背锅"
+        variants = "\n".join(f"- {q}" for q in queries[1:])
+        md += f"\n\n**🔀 查询改写**（{len(queries) - 1} 条, 与原问题一起做 RRF 融合）\n\n{variants}"
+    return md
 
 
-def qa_fn(question: str, history: list):
-    """多轮问答（生成器）: 先推"问题+占位"让界面立刻响应, 再推最终答案。
-    返回（清空输入框, 追加后的历史, 本轮命中的资料）"""
+def qa_fn(question: str, history: list, use_rewrite: bool = False):
+    """多轮问答（生成器）: 先推"问题+占位", 再推检索结果, 最后流式推答案。
+    返回（清空输入框, 追加后的历史, 本轮资料+改写查询）"""
     history = list(history or [])
     question = (question or "").strip()
     if not question:
@@ -180,20 +191,30 @@ def qa_fn(question: str, history: list):
 
     # 话题锚点: 从历史里找最近一条带主体词的提问, 追问时拿它融合检索
     anchor = find_anchor(history)
-    results = retrieve(question, anchor)
+
+    # 先把问题推给界面: 开了查询改写要多一次LLM调用, 不能让用户盯着空白等
+    history.append({"role": "user", "content": question})
+    history.append({"role": "assistant", "content": "⏳ 正在检索并思考..."})
+    yield "", history, gr.update()
+
+    try:
+        results, queries = retrieve(question, anchor,
+                                    REWRITE_STRATEGY if use_rewrite else "off")
+    except Exception as e:                         # 检索挂了也要说人话, 不能停在占位
+        history[-1] = {"role": "assistant", "content": f"⚠️ 检索失败: {e}"}
+        yield "", history, gr.update()
+        return
 
     # 本轮user消息只放变化内容（资料+问题）: 固定指令已经在QA_SYSTEM里, 不必每轮重复
     user_content = (f"【知识库资料】\n{format_context(results)}\n\n"
                     f"【用户问题】{question}")
 
-    # 先拼messages再改history: 否则本轮问题会以"历史"身份重复发给模型
+    # 历史取本轮之前的部分: 本轮问题已经以 user_content 的形式带上资料了
     messages = [{"role": "system", "content": QA_SYSTEM}]
-    messages += trim_history(history)              # 历史消息: 问题/回答原文, 不带当时的资料块
+    messages += trim_history(history[:-2])         # 历史消息: 问题/回答原文, 不带当时的资料块
     messages.append({"role": "user", "content": user_content})
 
-    history.append({"role": "user", "content": question})
-    history.append({"role": "assistant", "content": "⏳ 正在检索并思考..."})
-    yield "", history, format_sources(results)     # 资料面板先出来, 不用等模型
+    yield "", history, format_sources(results, queries)   # 资料和改写先出来, 不用等模型
 
     # 这里不追加DISCLAIMER: 历史里每轮都重复会污染后续轮次的上下文, 免责声明在界面底部常驻
     for text in stream_answer(messages):
@@ -380,9 +401,13 @@ with gr.Blocks(title="检验报告智能解读") as demo:
                 btn1 = gr.Button("提问", variant="primary")
                 btn_clear = gr.Button("🆕 新对话", size="sm")
         src = gr.Markdown()
+        rewrite_cb = gr.Checkbox(
+            value=True, label="查询改写（检索增强）", min_width=300,
+            info="多一次 LLM 调用，约 +2 秒；18 条回归集 HIT@1 从 17/18 升到 18/18",
+        )
         gr.Markdown("⚠️ AI 生成内容不构成医疗建议, 不能替代专业医生判断。")
-        btn1.click(qa_fn, inputs=[q, chatbot], outputs=[q, chatbot, src])
-        q.submit(qa_fn, inputs=[q, chatbot], outputs=[q, chatbot, src])
+        btn1.click(qa_fn, inputs=[q, chatbot, rewrite_cb], outputs=[q, chatbot, src])
+        q.submit(qa_fn, inputs=[q, chatbot, rewrite_cb], outputs=[q, chatbot, src])
         btn_clear.click(clear_fn, outputs=[chatbot, q, src])
     with gr.Tab("📋 报告解读"):
         with gr.Accordion("📷 拍照 / PDF 识别（OCR）", open=False):

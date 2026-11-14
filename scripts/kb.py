@@ -12,6 +12,8 @@ from sentence_transformers import SentenceTransformer
 MODEL_NAME = "BAAI/bge-small-zh-v1.5"
 QUERY_PREFIX = "为这个句子生成表示以用于检索相关文章："
 RRF_K = 60  # RRF平滑常数，业界标准值
+CANDIDATES = 30  # 融合前的候选池深度：固定值, 不能让 k 影响排序——
+                 # 否则 k=3 和 k=10 会因池深不同得到不同名次, 评测和应用对不上
 W_VECTOR = 1.0 # 语义路权重：数据变强后，语义检索是主力
 W_BM25 = 0.5   # 关键词路权重：降权保留其救场能力（缩写查询），抑制其短文档噪声
 
@@ -57,11 +59,34 @@ class KB:
         if mode == "bm25":
             return [self._make(p, s) for p, s in self._bm25(query, k)]
         # hybrid：两路各取较多候选，按"排名倒数求和"融合
-        n = max(k * 3, 10)
+        n = CANDIDATES
         rrf = {}
         for rank, (p, _) in enumerate(self._vector(query, n)):
             rrf[p] = rrf.get(p, 0.0) + W_VECTOR * 1.0 / (RRF_K + rank + 1)
         for rank, (p, _) in enumerate(self._bm25(query, n)):
             rrf[p] = rrf.get(p, 0.0) + W_BM25 * 1.0 / (RRF_K + rank + 1)
+        ranked = sorted(rrf.items(), key=lambda x: -x[1])[:k]
+        return [self._make(p, s) for p, s in ranked]
+
+    def search_many(self, queries, k: int = 3, mode: str = "hybrid", weights=None):
+        """多查询融合（查询改写/HyDE 用）：每个变体各检索一次，仍用同一套加权 RRF 合并。
+        权重默认 [1.0, 0.6, 0.6...]：改写是为了补召回，不该盖过原问题本来的判断。"""
+        queries = [q.strip() for q in queries if q and q.strip()]
+        if not queries:
+            return []
+        if len(queries) == 1:                      # 没改写就和普通检索完全一致
+            return self.search(queries[0], k=k, mode=mode)
+        if weights is None:
+            weights = [1.0] + [0.6] * (len(queries) - 1)
+
+        n = CANDIDATES
+        rrf = {}
+        for query, w in zip(queries, weights):
+            if mode in ("hybrid", "vector"):
+                for rank, (p, _) in enumerate(self._vector(query, n)):
+                    rrf[p] = rrf.get(p, 0.0) + w * W_VECTOR * 1.0 / (RRF_K + rank + 1)
+            if mode in ("hybrid", "bm25"):
+                for rank, (p, _) in enumerate(self._bm25(query, n)):
+                    rrf[p] = rrf.get(p, 0.0) + w * W_BM25 * 1.0 / (RRF_K + rank + 1)
         ranked = sorted(rrf.items(), key=lambda x: -x[1])[:k]
         return [self._make(p, s) for p, s in ranked]
