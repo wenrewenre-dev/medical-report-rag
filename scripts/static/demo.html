@@ -11,10 +11,14 @@
   h2 { font-size: 15px; margin: 0 0 10px; }
   input, textarea { width: 100%; box-sizing: border-box; padding: 8px; font: inherit;
                     border: 1px solid #d9dce1; border-radius: 6px; }
+  input:disabled, button:disabled { background: #f2f3f5; color: #c9cdd4; cursor: default; }
   textarea { min-height: 130px; resize: vertical; }
   button { margin-top: 8px; padding: 8px 16px; border: 0; border-radius: 6px;
            background: #165dff; color: #fff; font: inherit; cursor: pointer; }
-  button:disabled { background: #94bfff; cursor: default; }
+  button:disabled { background: #94bfff; }
+  .row { display: flex; gap: 8px; margin-top: 10px; }
+  .row input { flex: 1; }
+  .row button { margin-top: 0; white-space: nowrap; }
   .out { margin-top: 12px; white-space: pre-wrap; font-size: 14px; line-height: 1.7; min-height: 40px; }
   .meta { font-size: 12px; color: #86909c; margin-top: 6px; }
 </style>
@@ -29,18 +33,24 @@
     <div class="out" id="outQ"></div>
   </div>
   <div class="card">
-    <h2>📋 /api/report —— 流式解读</h2>
+    <h2>📋 /api/report —— 流式解读 + 追问</h2>
     <textarea id="r">检验报告单
 姓名：张三  性别：男  年龄：35
 HGB  血红蛋白   112   g/L     130-175
 K    血清钾     3.1   mmol/L  3.5-5.3</textarea>
     <button id="btnR">解析并解读</button>
+    <div class="row">
+      <input id="rq" type="text" placeholder="追问，例如：第2项异常具体该怎么办？" disabled>
+      <button id="btnRQ" disabled>追问</button>
+    </div>
     <div class="meta" id="metaR">等待请求…</div>
     <div class="out" id="outR"></div>
   </div>
 </div>
 <script>
 const $ = id => document.getElementById(id);
+let reportCtx = '';   // /api/report 的 done.context —— 追问的"票据"
+let rChat = [];       // 追问历史，全部由客户端持有
 
 // 极简 SSE 客户端：fetch + ReadableStream 手工解析 event/data 行。
 // 换成 React / 小程序 / 桌面端时，只要保留这段解析逻辑即可。
@@ -72,7 +82,7 @@ async function sse(url, body, onEvent) {
   }
 }
 
-function wire(btnId, metaId, outId, url, buildBody, inputIds) {
+function wire(btnId, metaId, outId, url, buildBody, onDone) {
   $(btnId).onclick = async () => {
     $(btnId).disabled = true;
     $(outId).textContent = '';
@@ -84,14 +94,17 @@ function wire(btnId, metaId, outId, url, buildBody, inputIds) {
       await sse(url, body, (ev, d) => {
         if (ev === 'start') {
           $(metaId).textContent = `已连接（${(performance.now() - t0) | 0}ms）`;
-        } else if (ev === 'sources' || ev === 'table') {
-          $(metaId).textContent += ` · ${ev === 'sources' ? '资料' : '指标表'}已返回`;
-          $(outId).textContent += (ev === 'table' ? d.markdown + '\n\n' : '');
+        } else if (ev === 'sources') {
+          $(metaId).textContent += ' · 资料已返回';
+        } else if (ev === 'table') {
+          $(metaId).textContent += ' · 指标表已返回';
+          $(outId).textContent += d.markdown + '\n\n';
         } else if (ev === 'delta') {
           $(outId).textContent += d.text;
         } else if (ev === 'done') {
           const full = d.answer || d.markdown || '';
           $(metaId).textContent += ` · 完成（${(performance.now() - t0) | 0}ms，${full.length} 字）`;
+          if (onDone) onDone(d);
         } else if (ev === 'error') {
           $(outId).textContent += `\n[错误] ${d.message}`;
         }
@@ -108,7 +121,42 @@ wire('btnQ', 'metaQ', 'outQ', '/api/qa',
      () => ({ question: $('q').value.trim(), use_rewrite: true }));
 
 wire('btnR', 'metaR', 'outR', '/api/report',
-     () => ({ report_text: $('r').value.trim() }));
+     () => ({ report_text: $('r').value.trim() }),
+     (d) => {
+       reportCtx = d.context || '';
+       rChat = [];
+       $('rq').disabled = !reportCtx;
+       $('btnRQ').disabled = !reportCtx;
+       $( 'metaR' ).textContent += reportCtx ? ' · 可追问' : ' · 未拿到上下文';
+     });
+
+$('btnRQ').onclick = async () => {
+  const q = $('rq').value.trim();
+  if (!q || !reportCtx) return;
+  $('btnRQ').disabled = true;
+  const t0 = performance.now();
+  $('outR').textContent += `\n\n— 追问：${q}\n`;
+  try {
+    await sse('/api/report/chat',
+              { question: q, context: reportCtx, history: rChat },
+              (ev, d) => {
+                if (ev === 'delta') {
+                  $('outR').textContent += d.text;
+                } else if (ev === 'done') {
+                  rChat.push({ role: 'user', content: q },
+                             { role: 'assistant', content: d.answer });
+                  $('metaR').textContent =
+                    `追问完成（${(performance.now() - t0) | 0}ms，${d.answer.length} 字，第 ${rChat.length / 2} 轮）`;
+                } else if (ev === 'error') {
+                  $('outR').textContent += `\n[错误] ${d.message}`;
+                }
+              });
+  } catch (e) {
+    $('outR').textContent += '\n[请求失败] ' + e.message;
+  } finally {
+    $('btnRQ').disabled = false;
+  }
+};
 </script>
 </body>
 </html>

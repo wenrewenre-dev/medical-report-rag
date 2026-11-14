@@ -168,7 +168,7 @@ python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
 
 ## 🔌 FastAPI + SSE 后端
 
-Gradio 是演示工具，`scripts/api.py` 是生产形态的接口层：直接复用 `qa_fn` / `report_fn` 的生成器，只把同步 `yield` 桥接成 SSE 事件流，**一行 AI 逻辑都没重写**——当初"界面层不写 AI 逻辑"那条原则的又一次兑现。
+Gradio 是演示工具，`scripts/api.py` 是生产形态的接口层：直接复用 `qa_fn` / `report_fn` / `report_chat_fn` 的生成器，只把同步 `yield` 桥接成 SSE 事件流，**一行 AI 逻辑都没重写**——当初"界面层不写 AI 逻辑"那条原则的又一次兑现。
 
 ~~~powershell
 python scripts/api.py     # http://127.0.0.1:7862 ，自带演示页 / 接口文档 /docs
@@ -180,6 +180,26 @@ curl -N -X POST http://127.0.0.1:7862/api/qa \
   -d '{"question":"最近总觉得没力气，是不是贫血","use_rewrite":true}'
 ~~~
 
+### 三条路由
+
+| 路由 | 用途 |
+|---|---|
+| `POST /api/qa` | 流式问答（支持 `use_rewrite` / `history`） |
+| `POST /api/report` | 报告解析 + 逐项解读，`done` 事件里附带追问用的 `context` |
+| `POST /api/report/chat` | 就本次报告追问，`context` 由客户端回传 |
+
+### 追问闭环（服务端零状态）
+
+`/api/report` 的 `done` 事件会带回 `context`（本次报告打包成的 system 上下文，两三项指标的小报告约 2.5k 字，样例大报告约 1.3 万字）。客户端保存它，追问时原样放回请求体：
+
+~~~bash
+curl -N -X POST http://127.0.0.1:7862/api/report/chat \
+  -H "Content-Type: application/json" \
+  -d '{"question":"第2项异常具体该怎么办？","context":"<上一步的 done.context>","history":[]}'
+~~~
+
+历史同样由客户端持有（`[{"role","content"}]`），服务端不存任何会话状态——多实例部署、水平扩容都不用粘性会话。
+
 ### 事件协议
 
 | 事件 | data | 说明 |
@@ -188,14 +208,14 @@ curl -N -X POST http://127.0.0.1:7862/api/qa \
 | `sources` | `{markdown}` | `/api/qa`：本轮资料 + 改写查询 |
 | `table` | `{markdown}` | `/api/report`：解析出的指标表 |
 | `delta` | `{text}` | 增量正文，前端直接 append |
-| `done` | `{answer}` 或 `{markdown}` | 完整结果，便于前端校正 |
+| `done` | `{answer}` / `{markdown, context}` | 完整结果（报告路由附带追问上下文） |
 | `error` | `{message}` | 异常 |
 
 - **不阻塞事件循环**：同步生成器每取一帧都走 `asyncio.to_thread`，多人同时提问不会互相卡住
-- **前端随便换**：`/` 是自带的一百多行原生 HTML 演示（`fetch` + `ReadableStream` 手工解析 SSE），换 React / 小程序 / 桌面端只要保留那段解析
+- **前端随便换**：`/` 是自带的一百多行原生 HTML 演示（`fetch` + `ReadableStream` 手工解析 SSE，含追问闭环），换 React / 小程序 / 桌面端只要保留那段解析
 - **KB 只加载一次**：API 与 Gradio 都 import 同一套 `kb` / `qa_fn` / `report_fn`
-- **实测**：`/api/qa` 一条问答产生 116 个事件，首段增量 3.4s 到达、整段 6.2s；`delta` 拼接结果与 `done.answer` 完全一致（748 字）
-- **参数校验**：空问题/空报告返回 400，缺字段返回 422（FastAPI 自动）
+- **实测**：`/api/qa` 一条问答 116 个事件，首段增量 3.4s、整段 6.2s；`/api/report/chat` 追问 106 个事件，首段 3.6s、整段 6.0s；两条路由的 `delta` 拼接结果都与 `done` 完全一致
+- **参数校验**：空问题/空报告/空 context 返回 400，缺字段返回 422（FastAPI 自动）
 
 ## ⚖️ LLM-as-a-Judge 回答评测
 

@@ -49,6 +49,14 @@ class ReportRequest(BaseModel):
     keep_age: bool = True
 
 
+class ReportChatRequest(BaseModel):
+    """报告追问：context 来自 /api/report 的 done 事件，原样回传即可。
+    上下文由客户端持有，服务端不存任何会话状态——这才叫前端可换。"""
+    question: str
+    context: str
+    history: list[dict] = []
+
+
 def sse(name: str, payload: dict) -> dict:
     return {"event": name, "data": json.dumps(payload, ensure_ascii=False)}
 
@@ -118,13 +126,15 @@ async def api_report(req: ReportRequest):
     async def stream():
         yield sse("start", {"chars": len(text)})
         gen = core.report_fn(text, req.keep_age)
-        prev, sent_table = "", False
+        prev, sent_table, report_ctx = "", False, ""
         try:
             while True:
                 item = await asyncio.to_thread(_next, gen)
                 if item is _SENTINEL:
                     break
-                table_md, interp_md, _, _ = item
+                table_md, interp_md, _, ctx = item
+                if isinstance(ctx, str) and ctx:          # 首帧拿到后续追问要用的上下文
+                    report_ctx = ctx
                 if not sent_table and isinstance(table_md, str) and table_md:
                     yield sse("table", {"markdown": table_md})
                     sent_table = True
@@ -135,7 +145,42 @@ async def api_report(req: ReportRequest):
                         yield sse("delta", {"text": chunk})
         except Exception as e:
             yield sse("error", {"message": f"{type(e).__name__}: {e}"})
-        yield sse("done", {"markdown": prev})
+        # context 是后续 /api/report/chat 的"票据"，约 1.3 万字；不需要追问的客户端忽略即可
+        yield sse("done", {"markdown": prev, "context": report_ctx})
+
+    return EventSourceResponse(stream())
+
+
+@api.post("/api/report/chat")
+async def api_report_chat(req: ReportChatRequest):
+    """报告追问：把 /api/report 返回的 context 原样带回来，历史也由客户端持有"""
+    question = (req.question or "").strip()
+    if not question:
+        raise HTTPException(status_code=400, detail="question 不能为空")
+    if not (req.context or "").strip():
+        raise HTTPException(status_code=400,
+                            detail="context 不能为空：先调用 /api/report，保存 done 事件里的 context")
+
+    async def stream():
+        yield sse("start", {"question": question})
+        gen = core.report_chat_fn(question, req.history or [], req.context)
+        prev = ""
+        try:
+            while True:
+                item = await asyncio.to_thread(_next, gen)
+                if item is _SENTINEL:
+                    break
+                _, history = item
+                if history and history[-1]["role"] == "assistant":
+                    cur = history[-1]["content"]
+                    if cur and "⏳" not in cur and cur != prev:
+                        chunk = _delta(prev, cur)
+                        prev = cur
+                        if chunk:
+                            yield sse("delta", {"text": chunk})
+        except Exception as e:
+            yield sse("error", {"message": f"{type(e).__name__}: {e}"})
+        yield sse("done", {"answer": prev})
 
     return EventSourceResponse(stream())
 
