@@ -19,6 +19,7 @@ from openai import OpenAI
 from kb import KB
 from parse_report import load_lookup, parse_line, judge, find_item, SAMPLE_REPORT, NUM
 from report_rag import build_prompt, build_summary_prompt, SYSTEM_PROMPT, DISCLAIMER  # 直接复用, 一行不重写
+import ocr_report as ocr  # OCR 入口: 照片/PDF → 文本（依赖延迟导入, 没装也不影响纯文本用法）
 
 load_dotenv()
 
@@ -301,6 +302,39 @@ def report_fn(report_text: str):
         yield table_md, all_md.strip(), gr.update(), gr.update()
 
 
+def ocr_fn(image_path, pdf_path, auto_run: bool):
+    """OCR 入口: 照片/PDF → 文本 → 填进报告文本框 → 按需直接跑解读管线。
+    输出 6 件: 报告文本 / 识别状态 / 表格 / 解读 / 追问历史 / 追问上下文"""
+    keep = (gr.update(), gr.update(), gr.update(), gr.update())
+
+    source = pdf_path or image_path
+    if not source:
+        yield gr.update(), "请先上传报告照片或 PDF。", *keep
+        return
+
+    try:
+        text, note = ocr.extract(source)
+    except ocr.OcrUnavailable as e:                # 依赖没装: 给出可执行的安装提示
+        yield gr.update(), f"⚠️ {e}", *keep
+        return
+    except Exception as e:
+        yield gr.update(), f"⚠️ 识别失败: {e}", *keep
+        return
+
+    if not text.strip():
+        yield gr.update(), "⚠️ 没识别出文字。照片请拍正、避开反光；PDF 确认不是空白页。", *keep
+        return
+
+    status = f"✅ 已识别 {len(text.splitlines())} 行（{note}）"
+    if not auto_run:                              # 让用户先核对识别结果, 再决定解读
+        yield text, status + "，核对无误后点「解析并解读」。", *keep
+        return
+
+    yield text, status + "，开始解读...", *keep
+    for table_md, interp_md, chat, ctx in report_fn(text):
+        yield text, status, table_md, interp_md, chat, ctx
+
+
 def report_chat_fn(question: str, history: list, report_ctx: str):
     """报告追问: 历史/裁剪规则与问答页签一致, 只是 system 换成本次报告上下文。
     返回（清空输入框, 追加后的历史）"""
@@ -351,6 +385,21 @@ with gr.Blocks(title="检验报告智能解读") as demo:
         q.submit(qa_fn, inputs=[q, chatbot], outputs=[q, chatbot, src])
         btn_clear.click(clear_fn, outputs=[chatbot, q, src])
     with gr.Tab("📋 报告解读"):
+        with gr.Accordion("📷 拍照 / PDF 识别（OCR）", open=False):
+            with gr.Row():
+                shot = gr.Image(label="报告照片", type="filepath", height=220,
+                                sources=["upload", "webcam", "clipboard"])
+                pdf_in = gr.File(label="PDF 文件", type="filepath", height=220,
+                                 file_types=[".pdf"])
+            with gr.Row():
+                ocr_auto = gr.Checkbox(value=True, label="识别后立即解读", min_width=160)
+                ocr_btn = gr.Button("识别", variant="secondary")
+            ocr_status = gr.Markdown()
+            missing = [k for k, ok in ocr.available().items() if not ok]
+            if missing:
+                gr.Markdown("> ⚠️ 未安装: " + "、".join(missing)
+                            + "（需要 pypdf / pymupdf / rapidocr-onnxruntime，"
+                              "详情见 README「拍照 / PDF 识别」）")
         rep = gr.Textbox(label="粘贴报告文本", value=SAMPLE_REPORT, lines=14)
         btn2 = gr.Button("解析并解读", variant="primary")
         table = gr.Markdown()
@@ -375,6 +424,8 @@ with gr.Blocks(title="检验报告智能解读") as demo:
         btn3.click(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
         rep_q.submit(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
         btn_rep_clear.click(clear_chat_fn, outputs=[rep_chat])
+        ocr_btn.click(ocr_fn, inputs=[shot, pdf_in, ocr_auto],
+                      outputs=[rep, ocr_status, table, interp, rep_chat, report_ctx])
 
 if __name__ == "__main__":
     demo.launch(inbrowser=True)
