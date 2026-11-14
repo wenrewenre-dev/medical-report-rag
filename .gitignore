@@ -8,3 +8,4 @@ Thumbs.db
 *.bak
 gradio/
 jieba.cache
+data/anonymize_audit.jsonl

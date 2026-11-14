@@ -5,9 +5,11 @@
 #
 # 做法：只抹值、保留标签（"病历号：[已脱敏]"），行结构不变，
 #       下游 parse_line 照常逐行解析，judge 需要的"性别：男/女"也不受影响。
-# 不抹：性别、年龄——前者决定用哪套参考区间（功能必需），后者不参与判定但对解读有用，
-#       且都不属于直接标识符。
+# 不抹：性别——决定用哪套参考区间（功能必需）；年龄默认保留，可用 keep_age=False 一并抹掉。
+import json
+import os
 import re
+from datetime import datetime
 
 MASK = "[已脱敏]"
 
@@ -43,14 +45,23 @@ BARE = [
 ]
 
 
-def anonymize_with_report(text: str):
+# 年龄默认保留（对解读有用），keep_age=False 时按这条规则抹掉
+AGE_RULE = ("年龄", r"年龄", r"\d{1,3}\s*岁?")
+
+# 审计落盘：只记"抹了几处、抹在哪一类"，不记原值（连哈希都不存，避免可逆）
+AUDIT_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                          "data", "anonymize_audit.jsonl")
+
+
+def anonymize_with_report(text: str, keep_age: bool = True):
     """返回（脱敏后的文本, {类别: 次数}）——次数给界面展示"抹了几处"。"""
     if not text:
         return text, {}
 
+    rules = list(LABELED) if keep_age else list(LABELED) + [AGE_RULE]
     counts = {}
     out = text
-    for category, label, value in LABELED:
+    for category, label, value in rules:
         out, n = re.subn(rf"({label})\s*[:：]?\s*({value})", rf"\1：{MASK}", out)
         if n:
             counts[category] = counts.get(category, 0) + n
@@ -61,11 +72,26 @@ def anonymize_with_report(text: str):
     return out, counts
 
 
-def anonymize(text: str) -> str:
+def anonymize(text: str, keep_age: bool = True) -> str:
     """只要脱敏结果（parse_line 之前调它）"""
-    return anonymize_with_report(text)[0]
+    return anonymize_with_report(text, keep_age)[0]
 
 
 def summary(counts: dict) -> str:
     """{"姓名": 1, "病历号": 1} → "姓名×1、病历号×1" """
     return "、".join(f"{k}×{v}" if v > 1 else k for k, v in counts.items())
+
+
+def audit(kind: str, counts: dict) -> None:
+    """记一笔审计：{时间, 场景, 总数, 分类计数}。不写原值、不写文本。
+    写失败只打印告警——审计不能反过来把主流程搞挂。"""
+    if not counts:
+        return
+    record = {"ts": datetime.now().isoformat(timespec="seconds"),
+              "kind": kind, "total": sum(counts.values()), "counts": counts}
+    try:
+        os.makedirs(os.path.dirname(AUDIT_PATH), exist_ok=True)
+        with open(AUDIT_PATH, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    except OSError as e:
+        print(f"    [审计] 写入失败: {e}")

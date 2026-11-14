@@ -170,11 +170,13 @@ def format_context(results) -> str:
     return "\n\n".join(f"[资料{r['id']}] {r['name']}\n{r['text']}" for r in results)
 
 
-def format_sources(results, queries=None) -> str:
+def format_sources(results, queries=None, masked=None) -> str:
     if not results:
         return ""
     src = "\n\n".join(f"**资料{r['id']}** | {r['name']}" for r in results)
     md = f"### 🔍 本轮检索命中的资料\n\n{src}"
+    if masked:                            # 问题里贴了报告: 告诉用户哪几类被抹掉了
+        md += f"\n\n🔒 问题已脱敏：{anonymize.summary(masked)}"
     if queries and len(queries) > 1:      # 把改写内容摊开, 方便判断"检索不准是改写背锅还是检索背锅"
         variants = "\n".join(f"- {q}" for q in queries[1:])
         md += f"\n\n**🔀 查询改写**（{len(queries) - 1} 条, 与原问题一起做 RRF 融合）\n\n{variants}"
@@ -190,16 +192,22 @@ def qa_fn(question: str, history: list, use_rewrite: bool = False):
         yield "", history, gr.update()
         return
 
+    # 用户可能把整段报告贴进问题框: 界面显示原文, 送进检索和模型的是脱敏版
+    safe_question, q_masked = anonymize.anonymize_with_report(question)
+    if q_masked:
+        anonymize.audit("question", q_masked)
+        print(f"    [脱敏] 问题: {anonymize.summary(q_masked)}")
+
     # 话题锚点: 从历史里找最近一条带主体词的提问, 追问时拿它融合检索
     anchor = find_anchor(history)
 
     # 先把问题推给界面: 开了查询改写要多一次LLM调用, 不能让用户盯着空白等
-    history.append({"role": "user", "content": question})
+    history.append({"role": "user", "content": question})     # 展示原文
     history.append({"role": "assistant", "content": "⏳ 正在检索并思考..."})
     yield "", history, gr.update()
 
     try:
-        results, queries = retrieve(question, anchor,
+        results, queries = retrieve(safe_question, anchor,
                                     REWRITE_STRATEGY if use_rewrite else "off")
     except Exception as e:                         # 检索挂了也要说人话, 不能停在占位
         history[-1] = {"role": "assistant", "content": f"⚠️ 检索失败: {e}"}
@@ -208,14 +216,16 @@ def qa_fn(question: str, history: list, use_rewrite: bool = False):
 
     # 本轮user消息只放变化内容（资料+问题）: 固定指令已经在QA_SYSTEM里, 不必每轮重复
     user_content = (f"【知识库资料】\n{format_context(results)}\n\n"
-                    f"【用户问题】{question}")
+                    f"【用户问题】{safe_question}")
 
-    # 历史取本轮之前的部分: 本轮问题已经以 user_content 的形式带上资料了
+    # 历史取本轮之前的部分; 历史里存的是原文, 送进模型前统一再脱敏一遍
     messages = [{"role": "system", "content": QA_SYSTEM}]
-    messages += trim_history(history[:-2])         # 历史消息: 问题/回答原文, 不带当时的资料块
+    for m in trim_history(history[:-2]):
+        content = anonymize.anonymize(m["content"]) if m["role"] == "user" else m["content"]
+        messages.append({"role": m["role"], "content": content})
     messages.append({"role": "user", "content": user_content})
 
-    yield "", history, format_sources(results, queries)   # 资料和改写先出来, 不用等模型
+    yield "", history, format_sources(results, queries, q_masked)   # 资料和改写先出来
 
     # 这里不追加DISCLAIMER: 历史里每轮都重复会污染后续轮次的上下文, 免责声明在界面底部常驻
     for text in stream_answer(messages):
@@ -276,7 +286,7 @@ def build_report_context(parsed, skipped) -> str:
     ])
 
 
-def report_fn(report_text: str):
+def report_fn(report_text: str, keep_age: bool = True):
     """生成器函数: 每完成一步就 yield 一次, 界面即时刷新。
     输出 4 件: 表格 Markdown / 解读 Markdown / 追问历史 / 追问用的报告上下文"""
     if not report_text.strip():
@@ -284,8 +294,9 @@ def report_fn(report_text: str):
         return
 
     # ⓪ 脱敏: 姓名/身份证/病历号在解析前就抹掉——后面的表格、prompt、追问上下文都不会带上身份信息
-    report_text, masked = anonymize.anonymize_with_report(report_text)
+    report_text, masked = anonymize.anonymize_with_report(report_text, keep_age)
     if masked:
+        anonymize.audit("report", masked)          # 只记"抹了几处、哪几类", 不记原值
         print(f"    [脱敏] {anonymize.summary(masked)}")
 
     # ① 解析
@@ -331,7 +342,7 @@ def report_fn(report_text: str):
         yield table_md, all_md.strip(), gr.update(), gr.update()
 
 
-def ocr_fn(image_path, pdf_path, auto_run: bool):
+def ocr_fn(image_path, pdf_path, auto_run: bool, keep_age: bool = True):
     """OCR 入口: 照片/PDF → 文本 → 填进报告文本框 → 按需直接跑解读管线。
     输出 6 件: 报告文本 / 识别状态 / 表格 / 解读 / 追问历史 / 追问上下文"""
     keep = (gr.update(), gr.update(), gr.update(), gr.update())
@@ -360,7 +371,7 @@ def ocr_fn(image_path, pdf_path, auto_run: bool):
         return
 
     yield text, status + "，开始解读...", *keep
-    for table_md, interp_md, chat, ctx in report_fn(text):
+    for table_md, interp_md, chat, ctx in report_fn(text, keep_age):
         yield text, status, table_md, interp_md, chat, ctx
 
 
@@ -413,6 +424,7 @@ with gr.Blocks(title="检验报告智能解读") as demo:
             value=True, label="查询改写（检索增强）", min_width=300,
             info="多一次 LLM 调用，约 +2 秒；18 条回归集 HIT@1 从 17/18 升到 18/18",
         )
+        gr.Markdown("🔒 问题里若含姓名/身份证/病历号（比如直接贴了报告），发送前会自动抹掉")
         gr.Markdown("⚠️ AI 生成内容不构成医疗建议, 不能替代专业医生判断。")
         btn1.click(qa_fn, inputs=[q, chatbot, rewrite_cb], outputs=[q, chatbot, src])
         q.submit(qa_fn, inputs=[q, chatbot, rewrite_cb], outputs=[q, chatbot, src])
@@ -434,8 +446,10 @@ with gr.Blocks(title="检验报告智能解读") as demo:
                             + "（需要 pypdf / pymupdf / rapidocr-onnxruntime，"
                               "详情见 README「拍照 / PDF 识别」）")
         rep = gr.Textbox(label="粘贴报告文本", value=SAMPLE_REPORT, lines=14)
+        with gr.Row():
+            btn2 = gr.Button("解析并解读", variant="primary", scale=3)
+            keep_age = gr.Checkbox(value=True, label="脱敏时保留年龄", min_width=180)
         gr.Markdown("🔒 解析前自动抹掉姓名、身份证号、病历号等身份信息，只有指标数据进入解读与追问")
-        btn2 = gr.Button("解析并解读", variant="primary")
         table = gr.Markdown()
         interp = gr.Markdown()
         gr.Markdown("---\n### 💬 就这份报告追问\n解析完成后可在这里连续追问, 例如「第2项异常具体该怎么办?」「这些指标要不要紧?」")
@@ -454,11 +468,11 @@ with gr.Blocks(title="检验报告智能解读") as demo:
                 btn3 = gr.Button("追问", variant="primary")
                 btn_rep_clear = gr.Button("🆕 新对话", size="sm")
         gr.Markdown("⚠️ AI 生成内容不构成医疗建议, 不能替代专业医生判断。")
-        btn2.click(report_fn, inputs=rep, outputs=[table, interp, rep_chat, report_ctx])
+        btn2.click(report_fn, inputs=[rep, keep_age], outputs=[table, interp, rep_chat, report_ctx])
         btn3.click(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
         rep_q.submit(report_chat_fn, inputs=[rep_q, rep_chat, report_ctx], outputs=[rep_q, rep_chat])
         btn_rep_clear.click(clear_chat_fn, outputs=[rep_chat])
-        ocr_btn.click(ocr_fn, inputs=[shot, pdf_in, ocr_auto],
+        ocr_btn.click(ocr_fn, inputs=[shot, pdf_in, ocr_auto, keep_age],
                       outputs=[rep, ocr_status, table, interp, rep_chat, report_ctx])
 
 if __name__ == "__main__":
