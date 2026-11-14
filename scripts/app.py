@@ -21,6 +21,7 @@ from parse_report import load_lookup, parse_line, judge, find_item, SAMPLE_REPOR
 from report_rag import build_prompt, build_summary_prompt, SYSTEM_PROMPT, DISCLAIMER  # 直接复用, 一行不重写
 import ocr_report as ocr  # OCR 入口: 照片/PDF → 文本（依赖延迟导入, 没装也不影响纯文本用法）
 import query_rewrite  # 查询改写/HyDE: 检索前把口语问题变成检索友好的查询
+import anonymize  # 报告脱敏: 解析前抹掉姓名/身份证/病历号等 PHI
 
 load_dotenv()
 
@@ -282,6 +283,11 @@ def report_fn(report_text: str):
         yield "请先粘贴报告内容。", "", gr.update(), gr.update()
         return
 
+    # ⓪ 脱敏: 姓名/身份证/病历号在解析前就抹掉——后面的表格、prompt、追问上下文都不会带上身份信息
+    report_text, masked = anonymize.anonymize_with_report(report_text)
+    if masked:
+        print(f"    [脱敏] {anonymize.summary(masked)}")
+
     # ① 解析
     parsed, skipped = [], []
     for line in report_text.splitlines():
@@ -303,7 +309,9 @@ def report_fn(report_text: str):
     table_md = parse_table(parsed, skipped)
     # 新报告=新话题: 清空上一份报告的追问记录, 并换上这份报告的上下文
     chat_system = REPORT_CHAT_SYSTEM + "\n\n" + build_report_context(parsed, skipped)
-    yield table_md, f"✅ 识别 {len(parsed)} 项, 异常 {len(abnormals)} 项, 开始逐项解读...", [], chat_system
+    lock = f"🔒 已脱敏 {anonymize.summary(masked)}；" if masked else ""
+    yield (table_md, f"{lock}✅ 识别 {len(parsed)} 项, 异常 {len(abnormals)} 项, 开始逐项解读...",
+           [], chat_system)
 
     # ② 逐项解读 (流式追加)——build_prompt 已是"固定指令在前"的缓存友好结构
     all_md = ""
@@ -426,6 +434,7 @@ with gr.Blocks(title="检验报告智能解读") as demo:
                             + "（需要 pypdf / pymupdf / rapidocr-onnxruntime，"
                               "详情见 README「拍照 / PDF 识别」）")
         rep = gr.Textbox(label="粘贴报告文本", value=SAMPLE_REPORT, lines=14)
+        gr.Markdown("🔒 解析前自动抹掉姓名、身份证号、病历号等身份信息，只有指标数据进入解读与追问")
         btn2 = gr.Button("解析并解读", variant="primary")
         table = gr.Markdown()
         interp = gr.Markdown()
