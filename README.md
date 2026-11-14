@@ -30,6 +30,9 @@ copy .env.example .env           # macOS/Linux: cp .env.example .env
 python scripts/app.py            # 浏览器打开 http://127.0.0.1:7860
 ~~~
 
+> 国内装包慢的话加个镜像源：`pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
+> 不想折腾 Python 环境，也可以直接用下面的 [Docker 部署](#-docker-部署零基础版)（一条命令起服务）。
+
 > 首次运行会自动下载中文嵌入模型（约 100MB，已配置 hf-mirror.com 加速），之后离线可用。
 
 ### 环境变量
@@ -48,7 +51,7 @@ LLM_MODEL=deepseek-chat
 ├── README.md
 ├── requirements.txt        # Windows 本机环境（pip freeze）
 ├── requirements-docker.txt # 容器用依赖（Linux / CPU 推理，已核对轮子）
-├── Dockerfile              # python:3.12-slim + CPU 版 torch
+├── Dockerfile              # python:3.12-slim + CPU 版 torch（pip 走清华源）
 ├── docker-compose.yml      # ui(7860) + api(7862)，模型走 named volume
 ├── .dockerignore
 ├── .env.example            # 环境变量模板（不含真实密钥）
@@ -170,36 +173,133 @@ python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
 
 > 定位：本地部署是"数据不出机器"的被动防御，脱敏是"就算发出去也不含身份信息"的主动防御。两层都做，报告里那串样本号/门诊号才不会随请求进入供应商的日志。
 
-## 🐳 Docker 容器化（⚠️ 未在本机验证）
+## 🐳 Docker 部署（零基础版）
 
-> 这套配置写好了，但**没在开发机上跑过**：本机没有管理员权限（装不了 Docker Desktop / WSL 发行版），且 Docker Hub 在当前网络不可达。文件经过静态校验（compose 语法、Dockerfile 每个 COPY 目标存在、19 个依赖逐个核对过 Linux 轮子），首次构建请留意日志。真实验证记录待补。
+> ⚠️ 这套配置**没在开发机上构建验证过**：开发机没有管理员权限装不了 Docker，且 Docker Hub 在本网络不可达。但镜像源、依赖轮子都逐个实测过（数字见本节末尾）。首次构建请留意日志，报错发我。
 
-一条命令起两个服务：
+### 第 0 步：确认系统
+
+Windows 10（2004 以上）或 Windows 11，64 位。
+
+### 第 1 步：装 WSL2（Linux 子系统）
+
+1. `Win` 键 → 输入 `powershell` → 右键「Windows PowerShell」→ **以管理员身份运行**
+2. 粘贴并回车：
+
+   ~~~powershell
+   wsl --install
+   ~~~
+
+3. 提示重启就**重启电脑**
+4. 重启后会自动弹出 Ubuntu 窗口，设置用户名和密码（输密码时屏幕不显示，是正常的）
+
+### 第 2 步：装 Docker Desktop
+
+1. 仍然是**管理员** PowerShell：
+
+   ~~~powershell
+   winget install -e --id Docker.DockerDesktop --accept-package-agreements --accept-source-agreements
+   ~~~
+
+   （或者浏览器打开 https://www.docker.com/products/docker-desktop/ 下载 exe 双击安装）
+2. **重启电脑**
+3. 开始菜单打开 Docker Desktop，等左下角变绿（首次启动 1–2 分钟）
+
+### 第 3 步：验证装好了
 
 ~~~powershell
-copy .env.example .env        # 填 LLM_API_KEY
-docker compose up -d --build
-# 界面 http://127.0.0.1:7860   API http://127.0.0.1:7862/docs
+docker --version
+docker compose version
+docker run --rm hello-world
 ~~~
 
-| 服务 | 端口 | 说明 |
-|---|---|---|
-| `ui` | 7860 | Gradio 界面 |
-| `api` | 7862 | FastAPI + SSE，健康检查 `/api/health` |
+最后一条打印出 `Hello from Docker!` 就算成功。
 
-- **模型不进镜像**：首次启动下载到 named volume `hf-cache`（约 485MB），重建镜像、重启都复用
-- **data/ 用 bind mount**：改 `kb.json` 重启即生效，脱敏审计日志落在宿主机
-- **CPU 推理**：torch 从 `download.pytorch.org/whl/cpu` 装，避免默认索引把 CUDA 运行时塞进镜像（+2~5GB）
-- **依赖隔离**：`requirements-docker.txt` 与 Windows 本机的 `requirements.txt` 互不污染
-- **非 root + HEALTHCHECK**：容器内以 uid 1000 运行，健康检查打 `/api/health`
+### 第 4 步：配镜像加速（**必须**，否则拉不到基础镜像）
 
-### 网络受限时先配镜像加速
-
-Docker Hub 在部分网络不可达，可在 Docker Desktop → Settings → Docker Engine 中加入（本机实测可连通的两个）：
+Docker Desktop → 右上角齿轮 → **Docker Engine**，把右侧 JSON 改成：
 
 ~~~json
-{ "registry-mirrors": ["https://dockerproxy.net", "https://docker.1panel.live"] }
+{
+  "registry-mirrors": ["https://dockerproxy.net", "https://docker.1panel.live"]
+}
 ~~~
+
+点 **Apply & Restart**，等它重启完。验证：
+
+~~~powershell
+docker info | Select-String -Pattern "Registry Mirrors" -Context 0,2
+~~~
+
+能看到这两个地址就对了。
+
+### 第 5 步：启动项目
+
+~~~powershell
+cd C:\Users\wenre\report-rag
+copy .env.example .env
+notepad .env
+~~~
+
+把 `LLM_API_KEY=` 后面换成你的 DeepSeek key，保存关闭。然后：
+
+~~~powershell
+docker compose up -d --build
+~~~
+
+首次构建 10–20 分钟（torch 约 178MB + 其余依赖），**看到 `Started` 才算成功**。进度可以看：
+
+~~~powershell
+docker compose logs -f api
+~~~
+
+### 第 6 步：打开用
+
+| 入口 | 地址 |
+|---|---|
+| 界面 | http://127.0.0.1:7860 |
+| 接口文档 | http://127.0.0.1:7862/docs |
+
+### 常用命令
+
+| 想做什么 | 命令 |
+|---|---|
+| 看状态 | `docker compose ps` |
+| 看日志 | `docker compose logs -f api` |
+| 改完代码重启 | `docker compose up -d --build` |
+| 停止 | `docker compose stop` |
+| 停止并删除容器 | `docker compose down` |
+| 连模型缓存一起删 | `docker compose down -v` |
+
+### 卡住了怎么办
+
+| 现象 | 原因 / 处理 |
+|---|---|
+| `wsl --install` 报 `0x80370102` | BIOS 没开虚拟化，开机进 BIOS 打开 VT-x / AMD-V |
+| `docker run hello-world` 超时 | 第 4 步没生效，重做并确认 `docker info` 里能看到 Registry Mirrors |
+| 构建卡在 `pip install` | 换源：`docker compose build --build-arg PIP_INDEX_URL=https://mirrors.cloud.tencent.com/pypi/simple` |
+| 7860 / 7862 端口被占用 | 改 `docker-compose.yml` 里 `"7860:7860"` 冒号左边的数字 |
+| 打开 7860 是空白页 | `docker compose logs ui` 看报错，多半是 `.env` 里的 key 没填 |
+
+### 实测数据（写进配置的依据）
+
+| 项 | 数值 |
+|---|---|
+| PyPI 镜像速度 | 清华 9.65MB/s、腾讯 9.76MB/s（直连 pypi.org 在这网络只有 20KB/s） |
+| torch CPU 轮子 | 178MB，阿里镜像约 3MB/s |
+| 依赖版本 | 19 项逐个核对过 Linux/py3.12 轮子可用 |
+| 基础镜像 | `python:3.12-slim`，必须先配镜像加速才拉得到 |
+
+<details>
+<summary>技术细节（点开）</summary>
+
+- **模型不进镜像**：首次启动下载到 named volume `hf-cache`（485MB），重建镜像、重启都复用
+- **data/ 用 bind mount**：改 `kb.json` 重启即生效，脱敏审计日志落在宿主机
+- **torch 必须用 CPU 版**：PyPI 上的 Linux torch 带 CUDA，会多塞 2~5GB 的 nvidia 依赖；镜像默认从阿里 `pytorch-wheels/cpu` 取，可用 `--build-arg TORCH_INDEX_URL=...` 换源
+- **依赖隔离**：`requirements-docker.txt`（Linux/容器）与 `requirements.txt`（Windows 本机）互不污染
+- **非 root + HEALTHCHECK**：容器内以 uid 1000 运行，健康检查打 `/api/health`
+
+</details>
 
 ## 🔌 FastAPI + SSE 后端
 
