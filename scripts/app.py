@@ -30,6 +30,7 @@ client = OpenAI(api_key=os.getenv("LLM_API_KEY"), base_url=os.getenv("LLM_BASE_U
 # ---------- 多轮对话配置 ----------
 MAX_TURNS = 6                 # prompt里最多带最近6轮（6问6答）, 更早的丢弃
 MAX_HISTORY_CHARS = 6000      # 字符预算兜底: 单条回答很长时, 少带几轮
+CHUNK_CHARS = 6               # 流式刷新粒度: 每攒够6个字刷一次界面, 免得每个token都刷
 
 # 问答专用system: 逐字节固定。同一会话里它永远是第0条, 前缀缓存才有公共前缀可认
 QA_SYSTEM = SYSTEM_PROMPT + """补充规则（多轮问答）：
@@ -80,6 +81,22 @@ def complete_stream(messages: list):
             yield chunk.choices[0].delta.content
         if getattr(chunk, "usage", None):
             log_usage(chunk.usage)
+
+
+def stream_answer(messages: list):
+    """流式 + 节流: 每攒够 CHUNK_CHARS 个字 yield 一次当前全文。
+    两个页签的追问共用这段: 正常结束给全文, 出错给"已出内容+中断提示", 空流给兜底文案。"""
+    buf, shown = "", 0
+    try:
+        for piece in complete_stream(messages):
+            buf += piece
+            if len(buf) - shown >= CHUNK_CHARS:
+                shown = len(buf)
+                yield buf
+    except Exception as e:                         # 网络/额度异常: 已出的内容不丢
+        yield (buf + "\n\n" if buf else "") + f"⚠️ 调用中断: {e}"
+        return
+    yield buf or "（模型没有返回内容）"
 
 
 def chat(user_prompt: str) -> str:
@@ -175,18 +192,12 @@ def qa_fn(question: str, history: list):
 
     history.append({"role": "user", "content": question})
     history.append({"role": "assistant", "content": "⏳ 正在检索并思考..."})
-    yield "", history, ""
-
-    try:
-        answer = complete(messages)
-    except Exception as e:                         # 网络/额度异常: 占位改成错误, 不让历史错位
-        history[-1] = {"role": "assistant", "content": f"⚠️ 调用失败: {e}"}
-        yield "", history, format_sources(results)
-        return
+    yield "", history, format_sources(results)     # 资料面板先出来, 不用等模型
 
     # 这里不追加DISCLAIMER: 历史里每轮都重复会污染后续轮次的上下文, 免责声明在界面底部常驻
-    history[-1] = {"role": "assistant", "content": answer}
-    yield "", history, format_sources(results)
+    for text in stream_answer(messages):
+        history[-1] = {"role": "assistant", "content": text}
+        yield "", history, gr.update()
 
 
 def clear_fn():
@@ -313,24 +324,9 @@ def report_chat_fn(question: str, history: list, report_ctx: str):
     history.append({"role": "assistant", "content": "⏳ 正在思考..."})
     yield "", history
 
-    # 流式: 边收边刷。攒够几个字再 yield 一次, 免得每个 token 都刷一遍界面
-    buf, shown = "", 0
-    try:
-        for piece in complete_stream(messages):
-            buf += piece
-            if len(buf) - shown >= 6:
-                shown = len(buf)
-                history[-1] = {"role": "assistant", "content": buf}
-                yield "", history
-    except Exception as e:                         # 网络/额度异常: 已出的内容保留, 后面补错误
-        history[-1] = {"role": "assistant",
-                       "content": (buf + "\n\n" if buf else "") + f"⚠️ 调用中断: {e}"}
+    for text in stream_answer(messages):
+        history[-1] = {"role": "assistant", "content": text}
         yield "", history
-        return
-
-    history[-1] = {"role": "assistant", "content": buf or "（模型没有返回内容）"}
-    yield "", history
-
 
 
 with gr.Blocks(title="检验报告智能解读") as demo:
