@@ -17,9 +17,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     HF_ENDPOINT=https://hf-mirror.com \
     HF_HOME=/models/hf
 
-# 系统库：opencv/onnxruntime 运行时要 libglib/libgomp，curl 给 HEALTHCHECK 用
+# 系统库：libgl1/glib 给 opencv 用，libgomp1 给 onnxruntime，curl 给 HEALTHCHECK
 RUN apt-get update \
- && apt-get install -y --no-install-recommends libglib2.0-0 libgomp1 curl \
+ && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 libgomp1 curl \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

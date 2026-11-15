@@ -175,7 +175,7 @@ python scripts/eval_retrieval.py --strategies off,rewrite,hyde,both
 
 ## 🐳 Docker 部署（零基础版）
 
-> ⚠️ 这套配置**没在开发机上构建验证过**：开发机没有管理员权限装不了 Docker，且 Docker Hub 在本网络不可达。但镜像源、依赖轮子都逐个实测过（数字见本节末尾）。首次构建请留意日志，报错发我。
+> ✅ **已在本机完整验证**：构建成功、两个容器都 healthy、真实 SSE 接口跑通。实测数据见本节末尾。
 
 ### 第 0 步：确认系统
 
@@ -281,14 +281,26 @@ docker compose logs -f api
 | 7860 / 7862 端口被占用 | 改 `docker-compose.yml` 里 `"7860:7860"` 冒号左边的数字 |
 | 打开 7860 是空白页 | `docker compose logs ui` 看报错，多半是 `.env` 里的 key 没填 |
 
-### 实测数据（写进配置的依据）
+### 实测数据（本机构建 + 运行）
 
 | 项 | 数值 |
 |---|---|
-| PyPI 镜像速度 | 清华 9.65MB/s、腾讯 9.76MB/s（直连 pypi.org 在这网络只有 20KB/s） |
-| torch CPU 轮子 | 178MB，阿里镜像约 3MB/s |
-| 依赖版本 | 19 项逐个核对过 Linux/py3.12 轮子可用 |
-| 基础镜像 | `python:3.12-slim`，必须先配镜像加速才拉得到 |
+| 构建耗时 | **约 7 分钟**（基础镜像 96s + 系统库 63s + pip 163s + 导出 85s） |
+| 镜像大小 | **3.27 GB**（CPU 版 torch、opencv、scipy/sklearn 为主） |
+| 模型体积 | BGE 小模型 **96 MB**，首次启动下载到 `hf-cache` 卷 |
+| 启动耗时 | API 约 60–80 秒（含模型下载），之后重启秒级 |
+| 运行内存 | api ≈ 480 MB，ui ≈ 465 MB（空闲时 CPU < 1%） |
+| SSE 实测 | `/api/qa` 一次问答 **125 个事件**、787 字、7.2 秒，delta 拼接与 done 一致 |
+| PyPI 镜像速度 | 清华 7–20 MB/s（直连 pypi.org 在这网络只有 20 KB/s） |
+| torch CPU 轮子 | 178 MB，阿里镜像约 3 MB/s |
+
+<details>
+<summary>构建时踩过的两个坑（点开）</summary>
+
+1. **`rapidocr-onnxruntime 1.3.24` 写死 `numpy<2.0`**，和 `numpy==2.5.4` 冲突 → 升级到 `1.4.4`（接口没变，仍是 `(result, elapse)`）。
+2. **`rapidocr` 依赖带 GUI 的 `opencv-python`**，不是 headless 版；容器里必须装 `libgl1`，否则 `import cv2` 会报 `libGL.so.1` 找不到。
+
+</details>
 
 <details>
 <summary>技术细节（点开）</summary>
