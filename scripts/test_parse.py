@@ -113,5 +113,58 @@ check("男性 → 成年男性条目", pick_population(hgb["reference_ranges"], 
 check("女性 → 成年女性条目", pick_population(hgb["reference_ranges"], "性别：女 年龄：40")["population"] == "成年女性")
 check("未给性别 → 退回首个", pick_population(hgb["reference_ranges"], "")["population"] == "成年男性")
 
+print("\n[8] 临床决定水平（decision_levels）")
+e, j = one("HGB 血红蛋白 40 g/L 130-175", "性别：男 年龄：35")
+lv = [d["level"] for d in j["decisions"]]
+check("HGB 40 触发两档, 最严重在前", lv == [45, 70], str(lv))
+check("带临床动作", "输注红细胞" in j["decisions"][0]["action"], j["decisions"][0]["action"][:20])
+
+e, j = one("HGB 血红蛋白 60 g/L 130-175", "性别：男 年龄：35")
+check("HGB 60 只触发 70 那档", [d["level"] for d in j["decisions"]] == [70],
+      str([d["level"] for d in j["decisions"]]))
+
+e, j = one("K 血清钾 7.2 mmol/L 3.5-5.3", "性别：男 年龄：35")
+lv = [d["level"] for d in j["decisions"]]
+check("血钾 7.2 三档全触发且降序", lv == [7.0, 6.0, 5.5], str(lv))
+check("最高档带急救动作", "透析" in j["decisions"][0]["action"], j["decisions"][0]["action"][:24])
+
+e, j = one("K 血清钾 3.1 mmol/L 3.5-5.3", "性别：男 年龄：35")
+check("血钾 3.1 未达任何决定水平", j["decisions"] == [], str(j["decisions"]))
+
+e, j = one("HGB 血红蛋白 140 g/L 130-175", "性别：男 年龄：35")
+check("正常项不显示决定水平", j["decisions"] == [] and j["interference"] == [])
+
+print("\n[9] 干扰因素（interference_factors）")
+e, j = one("K 血清钾 6.8 mmol/L 3.5-5.3", "性别：男 年龄：35")
+names = [f["factor"] for f in j["interference"]]
+check("偏高时挑 elevated 方向", any("溶血" in n for n in names), str(names)[:60])
+check("带机制和识别方法", all(f["mechanism"] and f["detect"] for f in j["interference"]))
+check("最多 3 条", len(j["interference"]) <= 3, str(len(j["interference"])))
+
+e, j = one("HGB 血红蛋白 100 g/L 130-175", "性别：男 年龄：35")
+names = [f["factor"] for f in j["interference"]]
+check("偏低时挑 decreased 方向", any("输液同侧采血" in n for n in names), str(names)[:60])
+
+print("\n[10] 解读 prompt 是否带上这两块")
+from report_rag import build_prompt
+
+e, j = one("K 血清钾 7.2 mmol/L 3.5-5.3", "性别：男 年龄：35")
+p = build_prompt(e, j)
+check("prompt 含临床决定水平区块", "【临床决定水平 · 已达到】" in p and "- 7 严重高钾" in p,
+      p[p.find("【临床决定水平 · 已达到】"):][:42])
+check("prompt 含干扰因素区块", "【干扰因素 · 可能造成假性结果】" in p and "标本溶血" in p)
+
+e, j = one("HGB 血红蛋白 140 g/L 130-175", "性别：男 年龄：35")
+p = build_prompt(e, j)
+check("正常项 prompt 不带这两个区块",
+      "【临床决定水平 · 已达到】" not in p and "【干扰因素 · 可能造成假性结果】" not in p)
+
+print("\n[11] 追问上下文（material_block）也带上")
+import app
+e, j = one("K 血清钾 7.2 mmol/L 3.5-5.3", "性别：男 年龄：35")
+blk = app.material_block(e, j)
+check("上下文含决定水平", "临床决定水平" in blk and "7" in blk)
+check("上下文含假性干扰", "假性干扰" in blk)
+
 print("\n" + ("全部通过 ✅" if ok else "有失败项 ❌"))
 sys.exit(0 if ok else 1)

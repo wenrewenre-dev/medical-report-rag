@@ -22,8 +22,8 @@ SYSTEM_PROMPT = """你是检验报告解读助手，正在为用户逐项解读�
 
 # 行为指令抽成模块级常量：逐字节固定，才能进公共前缀吃缓存价
 GUIDE = """请解读这个结果，包含三部分：
-1. **结论**: 偏离正常多少、说明什么、紧急程度如何
-2. **可能原因**: 依据资料列2-3个最可能的
+1. **结论**: 偏离正常多少、说明什么、紧急程度如何；若达到【临床决定水平】，点明到了哪一档
+2. **可能原因**: 依据资料列2-3个最可能的；若【干扰因素】里有会造成假性异常的情况，提醒先排除
 3. **下一步建议**: 依据资料的复检建议—查什么、什么时候查、看什么科"""
 
 SUMMARY_GUIDE = """请基于以上资料生成报告综合总结，包含：
@@ -52,12 +52,24 @@ def build_prompt(entry, j) -> str:
     if j.get("converted"):
         conv_line = (f"（报告原文 {j['raw_value']:g} {j['report_unit']}，"
                      f"已按 ×{j['conv_factor']:g} 换算为 {it['unit']}）\n")
+    # 临床决定水平：到哪一档、该做什么（知识库 decision_levels）
+    decision_block = ""
+    if j.get("decisions"):
+        lines = "\n".join(f"- {d['level']:g} {d['meaning']}：{d['action']}"
+                          for d in j["decisions"])
+        decision_block = f"【临床决定水平 · 已达到】\n{lines}\n"
+    # 干扰因素：哪些情况会让这一项假性异常（知识库 interference_factors）
+    interference_block = ""
+    if j.get("interference"):
+        lines = "\n".join(f"- {f['factor']}（机制：{f['mechanism']}；识别：{f['detect']}）"
+                          for f in j["interference"])
+        interference_block = f"【干扰因素 · 可能造成假性结果】\n{lines}\n"
     return f"""【解读要求】
 {GUIDE}
 
 【本次结果】{it['name']}({'/'.join(it['abbr'])}) = {entry['value']} {it['unit']}
 {conv_line}参考范围 {j['lo']}-{j['hi']} (来源{j['src']}) → 判定：{j['flag']} {j['arrow']}
-{critical_line}
+{critical_line}{decision_block}{interference_block}
 【知识库资料 · 资料{it['id']}】
 参考区间：{ranges}
 升高意义：{it['elevated_meaning']}

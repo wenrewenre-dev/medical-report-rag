@@ -189,6 +189,39 @@ def pick_population(candidates, report_text: str):
     return best or cands[0]                                # 都不匹配 → 退回首条(通常是成人通用)
 
 
+def pick_decisions(item, value, flag):
+    """已达到的临床决定水平（最严重的在前，最多 3 条）。
+    direction=below 表示"低于该值即触发"，above 表示"高于该值即触发"。"""
+    if flag == "正常":
+        return []
+    crossed = []
+    for lv in item.get("decision_levels") or []:
+        level, direction = lv.get("level"), lv.get("direction")
+        if level is None:
+            continue
+        if (direction == "below" and value < level) or \
+           (direction == "above" and value > level):
+            crossed.append(lv)
+    # 偏低时 level 越小越严重；偏高时越大越严重
+    crossed.sort(key=lambda x: float(x["level"]), reverse=(flag == "偏高"))
+    return [{"level": c["level"], "meaning": c.get("meaning") or "",
+             "action": c.get("clinical_action") or "",
+             "source": c.get("source") or ""} for c in crossed[:3]]
+
+
+def pick_interference(item, flag, limit: int = 3):
+    """可能造成假性结果的干扰因素：按异常方向挑，具体方向优先于 either"""
+    if flag == "正常":
+        return []
+    want = "elevated" if flag == "偏高" else "decreased"
+    factors = item.get("interference_factors") or []
+    ordered = ([f for f in factors if f.get("direction") == want]
+               + [f for f in factors if f.get("direction") == "either"])
+    return [{"factor": f.get("factor") or "",
+             "mechanism": f.get("mechanism") or "",
+             "detect": f.get("how_to_detect") or ""} for f in ordered[:limit]]
+
+
 def parse_line(line, lookup):
     item = find_item(line, lookup)
     if item is None:
@@ -238,6 +271,9 @@ def judge(entry, report_text):
     return {"lo": lo, "hi": hi, "flag": flag, "arrow": arrow,
             "icon": icon, "critical": critical,
             "critical_action": critical_action, "critical_population": critical_pop,
+            # 临床决定水平(到哪一档该做什么) + 干扰因素(哪些情况会造成假性异常)
+            "decisions": pick_decisions(item, v, flag),
+            "interference": pick_interference(item, flag),
             "src": src,
             "converted": entry.get("converted", False),
             "raw_value": entry.get("raw_value", entry["value"]),

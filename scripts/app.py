@@ -272,6 +272,10 @@ def material_block(e, j) -> str:
         extra += (f"\n危急值: {j['critical']}"
                   f"（按「{j.get('critical_population') or '通用'}」标准）"
                   f"\n处置建议: {j.get('critical_action') or '立即就医'}")
+    for d in j.get("decisions") or []:
+        extra += f"\n临床决定水平: {d['level']:g} {d['meaning']}（{d['action']}）"
+    if j.get("interference"):
+        extra += "\n可能的假性干扰: " + "；".join(f["factor"] for f in j["interference"])
     return (f"[资料{it['id']}] {it['name']}({'/'.join(it['abbr'])})\n"
             f"本次结果: {e['value']:g} {it['unit']}"
             f"({j['flag']}{j['arrow']}, 参考范围{j['lo']}-{j['hi']}, 来源{j['src']}){extra}\n"
