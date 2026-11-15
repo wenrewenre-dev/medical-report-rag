@@ -248,8 +248,13 @@ def parse_table(parsed, skipped):
     rows = ["| 项目 | 结果 | 参考范围 | 判定 |", "|---|---|---|---|"]
     for e, j in parsed:
         it = e["item"]
-        rows.append(f"| {it['name']} | {e['value']} {it['unit']} | "
-                    f"{j['lo']}-{j['hi']} | {j['flag']}{j['arrow']} |")
+        value = f"{e['value']:g} {it['unit']}"
+        if j.get("converted"):        # 换算过的把原文也带上, 免得用户拿报告对不上
+            value += f"（原 {j['raw_value']:g} {j['report_unit']}）"
+        judge_cell = f"{j['flag']}{j['arrow']}"
+        if j.get("critical"):         # 危急值单独标出来, 别淹没在"偏高/偏低"里
+            judge_cell = f"🚨{judge_cell}"
+        rows.append(f"| {it['name']} | {value} | {j['lo']}-{j['hi']} | {judge_cell} |")
     md = "\n".join(rows)
     if skipped:
         md += "\n\n> ⚠️ 知识库未收录, 未做解读: " + "、".join(skipped)
@@ -259,9 +264,17 @@ def parse_table(parsed, skipped):
 def material_block(e, j) -> str:
     """单条知识库资料块: 逐项解读、综合总结、追问上下文三处共用, 免得三份手抄"""
     it = e["item"]
+    extra = ""
+    if j.get("converted"):
+        extra += (f"\n原始报告值: {j['raw_value']:g} {j['report_unit']}"
+                  f"（已 ×{j['conv_factor']:g} 换算为 {it['unit']}）")
+    if j.get("critical"):
+        extra += (f"\n危急值: {j['critical']}"
+                  f"（按「{j.get('critical_population') or '通用'}」标准）"
+                  f"\n处置建议: {j.get('critical_action') or '立即就医'}")
     return (f"[资料{it['id']}] {it['name']}({'/'.join(it['abbr'])})\n"
-            f"本次结果: {e['value']} {it['unit']}"
-            f"({j['flag']}{j['arrow']}, 参考范围{j['lo']}-{j['hi']}, 来源{j['src']})\n"
+            f"本次结果: {e['value']:g} {it['unit']}"
+            f"({j['flag']}{j['arrow']}, 参考范围{j['lo']}-{j['hi']}, 来源{j['src']}){extra}\n"
             f"升高意义: {it['elevated_meaning']}\n"
             f"降低意义: {it['decreased_meaning']}\n"
             f"相关疾病: {'、'.join(it['related_diseases'])}\n"
@@ -275,7 +288,8 @@ def build_report_context(parsed, skipped) -> str:
     abnormals = [(e, j) for e, j in parsed if j["flag"] != "正常"]
     order = "\n".join(
         f"{i}. {e['item']['name']}({'/'.join(e['item']['abbr'])}) "
-        f"{e['value']} {e['item']['unit']} {j['flag']}{j['arrow']}"
+        f"{e['value']:g} {e['item']['unit']} {j['flag']}{j['arrow']}"
+        + (" 🚨危急值" if j.get("critical") else "")
         for i, (e, j) in enumerate(abnormals, 1)) or "无异常项"
     materials = "\n\n".join(material_block(e, j) for e, j in parsed)
     return "\n\n".join([

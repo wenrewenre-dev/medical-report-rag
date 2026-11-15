@@ -41,12 +41,22 @@ def build_prompt(entry, j) -> str:
     ranges = "；".join(
         f"{r['population']} {r['low']}-{r['high']}" for r in it["reference_ranges"]
     )
-    critical_line = f"⚠️ 该值已达到{j['critical']}，属危急值! " if j["critical"] else ""
+    critical_line = ""
+    if j.get("critical"):
+        action = j.get("critical_action") or ""
+        pop = j.get("critical_population") or "通用"
+        critical_line = (f"⚠️ 该值已达到{j['critical']}（按「{pop}」标准），属危急值！"
+                         f"{action}\n")
+    # 单位换算要说清楚：模型看到的是换算后的值，不知道的话容易跟报告原文对不上
+    conv_line = ""
+    if j.get("converted"):
+        conv_line = (f"（报告原文 {j['raw_value']:g} {j['report_unit']}，"
+                     f"已按 ×{j['conv_factor']:g} 换算为 {it['unit']}）\n")
     return f"""【解读要求】
 {GUIDE}
 
 【本次结果】{it['name']}({'/'.join(it['abbr'])}) = {entry['value']} {it['unit']}
-参考范围 {j['lo']}-{j['hi']} (来源{j['src']}) → 判定：{j['flag']} {j['arrow']}
+{conv_line}参考范围 {j['lo']}-{j['hi']} (来源{j['src']}) → 判定：{j['flag']} {j['arrow']}
 {critical_line}
 【知识库资料 · 资料{it['id']}】
 参考区间：{ranges}
